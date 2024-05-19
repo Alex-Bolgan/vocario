@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="ReCallVocabulary.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ReCallVocabulary"
+    Shell.FlyoutBehavior="Disabled"
+    Title="ReCallVocabulary">
+
+    <Shell.FlyoutHeader>
+        <Grid HeightRequest="100" BackgroundColor="DarkSlateBlue"/>
+    </Shell.FlyoutHeader>
+
+    <FlyoutItem Title="Home">
+        <ShellContent
+    ContentTemplate="{DataTemplate local:MainPage}"
+    Route="MainPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="My Dictionary" Icon="dictionary.png">
+        <ShellContent
+            ContentTemplate="{DataTemplate local:DictionaryPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Settings" Icon="options.png">
+        <ShellContent
+            ContentTemplate="{DataTemplate local:SettingsPage}" />
+    </FlyoutItem>
+
+</Shell>
