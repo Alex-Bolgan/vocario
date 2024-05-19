@@ -1,8 +1,8 @@
 namespace ReCallVocabulary.Pages;
 
-public partial class OptionsPage : ContentPage
+public partial class SettingsPage : ContentPage
 {
-	public OptionsPage()
+	public SettingsPage()
 	{
 		InitializeComponent();
 	}

@@ -4,9 +4,9 @@ namespace ReCallVocabulary
     public partial class MainPage : ContentPage
     {
         internal DictionaryContext activeContext;
-        public MainPage(DictionaryContext _context)
+        public MainPage()
         {
-            activeContext = _context;
+            //activeContext = _context;
             InitializeComponent();
         }
         private void Recall_Clicked(object sender, EventArgs e)
@@ -26,5 +26,4 @@ namespace ReCallVocabulary
             //TODO
         }
     }
-
 }
