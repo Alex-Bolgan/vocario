@@ -5,11 +5,9 @@
         public static string GetPath(string nameDB)
         {
             string pathDBSQLite = String.Empty;
-
-            pathDBSQLite = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            pathDBSQLite = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             pathDBSQLite = Path.Combine(pathDBSQLite, nameDB);
             return pathDBSQLite;
         }
     }
-
 }
