@@ -15,6 +15,7 @@ public partial class DictionaryOptions : ContentPage
     private async void AddWordsButton_Clicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new AddPage());
+
     }
 
     private async void ShareDictionary_Clicked(object sender, EventArgs e)

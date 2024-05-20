@@ -3,14 +3,13 @@ namespace ReCallVocabulary
 {
     public partial class MainPage : ContentPage
     {
-        internal DictionaryContext _activeContext;
+        internal DictionaryContext? _activeContext;
         public MainPage()
         {
             InitializeComponent();
             
             _activeContext = App.Services.GetService<DictionaryContext>();
-            _activeContext.Database.EnsureCreated();
-            _activeContext.Dispose();
+            _activeContext?.Database.EnsureCreated();
         }
         private void Recall_Clicked(object sender, EventArgs e)
         {

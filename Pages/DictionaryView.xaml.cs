@@ -10,6 +10,6 @@ public partial class DictionaryView : ContentPage
 	{
 		InitializeComponent();
         _activeContext = App.Services.GetService<DictionaryContext>();
-        this.dictView.ItemsSource = _activeContext.Phrases.ToList();
+        dictView.ItemsSource = _activeContext?.Phrases.ToList();
     }
 }

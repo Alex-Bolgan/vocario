@@ -11,9 +11,9 @@ namespace ReCallVocabulary.Data_Access
     {
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
-        public string Term { get; set; }
-        public string Definition { get; set; }
-        public string[] Synonyms { get; set; }
+        public string? Term { get; set; }
+        public string? Definition { get; set; }
+        public string[]? Synonyms { get; set; }
         public DateOnly CreationDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     }
 }

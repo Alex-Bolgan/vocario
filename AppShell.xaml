@@ -12,17 +12,26 @@
     </Shell.FlyoutHeader>
 
     <FlyoutItem Title="Home">
-        <ShellContent
-    ContentTemplate="{DataTemplate local:MainPage}"
-    Route="MainPage" />
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage"/>
+        </Tab>
+           
     </FlyoutItem>
-    <FlyoutItem Title="My Dictionary" Icon="dictionary.png">
-        <ShellContent
-            ContentTemplate="{DataTemplate pages:DictionaryPage}" />
+    <FlyoutItem Title="My dictionary"  Route="Pages.DictionaryView">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate pages:DictionaryView}"/>
+        </Tab>
     </FlyoutItem>
-    <FlyoutItem Title="Settings" Icon="settings.png">
-        <ShellContent
-            ContentTemplate="{DataTemplate pages:SettingsPage}" />
+    <FlyoutItem Title="Dictionary options"  Route="Pages.DictionaryOptions">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate pages:DictionaryOptions}"/>
+        </Tab>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Settings"  Route="Pages.SettingsPage">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate pages:SettingsPage}"/>
+        </Tab>
     </FlyoutItem>
 
 </Shell>
