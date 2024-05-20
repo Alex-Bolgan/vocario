@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ReCallVocabulary.Pages.DictionaryOptions"
+             Title="DictionaryOptions">
+    <VerticalStackLayout>
+        <Button
+     x:Name="AddWordsButton"
+     Text="Add words" 
+     Clicked="AddWordsButton_Clicked"
+     HorizontalOptions="Fill" />
+        <Button
+     x:Name="DeleteWordsButton"
+     Text="Delete words" 
+     Clicked="DeleteWordsButton_Clicked"
+     HorizontalOptions="Fill" />
+        <Button
+     x:Name="ShareDictionary"
+     Text="Share the dictionary" 
+     Clicked="ShareDictionary_Clicked"
+     HorizontalOptions="Fill" />
+        <Button
+     x:Name="GenerateDefinitionsButton"
+     Text="Generate definitions where empty" 
+     Clicked="GenerateDefinitionsButton_Clicked"
+     HorizontalOptions="Fill" />
+        <Button
+     x:Name="ChooseDictionaryButton"
+     Text="Choose another dictionary" 
+     SemanticProperties.Hint="Choose another dictionary (or create new one)"
+     Clicked="ChooseDictionaryButton_Clicked"
+     HorizontalOptions="Fill" />
+        <Button
+     x:Name="DeleteDictionaryButton"
+     Text="Delete the dictionary" 
+     Clicked="DeleteDictionaryButton_Clicked"
+     HorizontalOptions="Fill" />
+    </VerticalStackLayout>
+</ContentPage>

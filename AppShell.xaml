@@ -20,7 +20,7 @@
         <ShellContent
             ContentTemplate="{DataTemplate pages:DictionaryPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Settings" Icon="options.png">
+    <FlyoutItem Title="Settings" Icon="settings.png">
         <ShellContent
             ContentTemplate="{DataTemplate pages:SettingsPage}" />
     </FlyoutItem>

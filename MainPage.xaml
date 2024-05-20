@@ -8,11 +8,11 @@
             Padding="30,0"
             Spacing="25">
             <Button
-     x:Name="RecallButton"
-     Text="Recall" 
-     SemanticProperties.Hint="Recall random words from all the dictionary"
-     Clicked="Recall_Clicked"
-     HorizontalOptions="Fill" />
+            x:Name="RecallButton"
+            Text="Recall" 
+               SemanticProperties.Hint="Recall random words from all the dictionary"
+            Clicked="Recall_Clicked"
+            HorizontalOptions="Fill" />
             <Button
          x:Name="RecallRecentButton"
          Text="Recall recent words" 

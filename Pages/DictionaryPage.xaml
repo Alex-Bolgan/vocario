@@ -2,5 +2,10 @@
 <TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ReCallVocabulary.Pages.DictionaryPage"
-             Title="DictionaryPage">
+             xmlns:pages="clr-namespace:ReCallVocabulary.Pages"
+             Title="My Dictionary">
+
+    <pages:DictionaryOptions Title="Options"/>
+    <pages:DictionaryView Title="Words"/>
+
 </TabbedPage>
