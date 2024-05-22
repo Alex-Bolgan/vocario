@@ -4,12 +4,11 @@ namespace ReCallVocabulary.Pages;
 
 public partial class DictionaryView : ContentPage
 {
-    private DictionaryContext? _activeContext;
+    private DictionaryContext? activeContext = App.ActiveContext;
 
     public DictionaryView()
 	{
 		InitializeComponent();
-        _activeContext = App.Services.GetService<DictionaryContext>();
-        dictView.ItemsSource = _activeContext?.Phrases.ToList();
+        dictView.ItemsSource = activeContext?.Phrases.ToList();
     }
 }

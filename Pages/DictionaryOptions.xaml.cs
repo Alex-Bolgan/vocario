@@ -4,7 +4,7 @@ namespace ReCallVocabulary.Pages;
 
 public partial class DictionaryOptions : ContentPage
 {
-    private DictionaryContext activeContext = App.Services.GetService<DictionaryContext>();
+    private DictionaryContext? activeContext = App.ActiveContext;
 
     public DictionaryOptions()
 	{
@@ -12,6 +12,7 @@ public partial class DictionaryOptions : ContentPage
 	}
     private void DeleteWordsButton_Clicked(object sender, EventArgs e)
     {
+
     }
 
     private async void AddWordsButton_Clicked(object sender, EventArgs e)
@@ -27,7 +28,7 @@ public partial class DictionaryOptions : ContentPage
 
     private void GenerateDefinitionsButton_Clicked(object sender, EventArgs e)
     {
-        
+        //TODO: secondary
     }
 
     private async void ChooseDictionaryButton_Clicked(object sender, EventArgs e)
@@ -46,6 +47,6 @@ public partial class DictionaryOptions : ContentPage
 
     private void MergeWithButton_Clicked(object sender, EventArgs e)
     {
-
+        //TODO: secondary
     }
 }

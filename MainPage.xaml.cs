@@ -3,12 +3,11 @@ namespace ReCallVocabulary
 {
     public partial class MainPage : ContentPage
     {
-        internal DictionaryContext? _activeContext;
+        private DictionaryContext? activeContext = App.ActiveContext;
         public MainPage()
         {
             InitializeComponent();
-            _activeContext = App.Services.GetService<DictionaryContext>();
-            _activeContext?.Database.EnsureCreated();
+            activeContext?.Database.EnsureCreated();
         }
         private void Recall_Clicked(object sender, EventArgs e)
         {
@@ -18,9 +17,9 @@ namespace ReCallVocabulary
         {
             //TODO
         }
-        private void Addwords_Clicked(object sender, EventArgs e)
+        private async void Addwords_Clicked(object sender, EventArgs e)
         {
-            //TODO
+            await Navigation.PushAsync(new Pages.AddWordsPage());
         }
         private void SeeDictionary_Clicked(object sender, EventArgs e)
         {
