@@ -1,4 +1,5 @@
 ﻿using ReCallVocabulary.Data_Access;
+using ReCallVocabulary.Pages;
 namespace ReCallVocabulary
 {
     public partial class MainPage : ContentPage
@@ -21,9 +22,9 @@ namespace ReCallVocabulary
         {
             await Navigation.PushAsync(new Pages.AddWordsPage());
         }
-        private void SeeDictionary_Clicked(object sender, EventArgs e)
+        private async void SeeDictionary_Clicked(object sender, EventArgs e)
         {
-            //TODO
+            await Shell.Current.GoToAsync(nameof(DictionaryView));
         }
     }
 }

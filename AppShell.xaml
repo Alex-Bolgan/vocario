@@ -17,7 +17,7 @@
         </Tab>
            
     </FlyoutItem>
-    <FlyoutItem Title="My dictionary"  Route="Pages.DictionaryView">
+    <FlyoutItem x:Name="dictionaryView" Title="My dictionary"  Route="Pages.DictionaryView">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate pages:DictionaryView}"/>
         </Tab>
