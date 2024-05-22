@@ -9,8 +9,9 @@ namespace ReCallVocabulary.Data_Access
 {
     public class Phrase
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public int Id { get; set; }
         public string? Term { get; set; }
         public string? Definition { get; set; }
         public string[]? Synonyms { get; set; }
