@@ -1,14 +1,13 @@
 using ReCallVocabulary.Data_Access;
 
 namespace ReCallVocabulary.Pages;
-using ReCallVocabulary.Data_Access;
-public partial class AddPage : ContentPage
+public partial class AddWordsPage : ContentPage
 {
     private DictionaryContext? _activeContext;
 
-    public AddPage()
-	{
-		InitializeComponent();
+    public AddWordsPage()
+    {
+        InitializeComponent();
         _activeContext = App.Services.GetService<DictionaryContext>();
 
     }
@@ -18,8 +17,12 @@ public partial class AddPage : ContentPage
     {
         _activeContext.Database.EnsureCreated();
         if (!String.IsNullOrWhiteSpace(phraseEntry.Text) && !String.IsNullOrWhiteSpace(definitionEntry.Text))
-            await _activeContext.Phrases.AddAsync(new Phrase {Term=phraseEntry.Text,
-                Definition=definitionEntry.Text,Synonyms=synonymsEntry.Text?.Split(" ") });
+            await _activeContext.Phrases.AddAsync(new Phrase
+            {
+                Term = phraseEntry.Text,
+                Definition = definitionEntry.Text,
+                Synonyms = synonymsEntry.Text?.Split(" ")
+            });
         await _activeContext.SaveChangesAsync();
     }
 }

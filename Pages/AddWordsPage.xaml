@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ReCallVocabulary.Pages.AddPage"
-             Title="Add words">
+             x:Class="ReCallVocabulary.Pages.AddWordsPage"
+             Title="AddWordsPage">
     <ContentPage.Resources>
         <Style x:Key="InvalidEntryStyle" TargetType="Entry">
             <Setter Property="TextColor" Value="Red" />
@@ -13,19 +13,18 @@
     </ContentPage.Resources>
     <VerticalStackLayout>
         <Entry x:Name="phraseEntry" 
-       Placeholder="Enter word or phrase">
+   Placeholder="Enter word or phrase">
 
         </Entry>
-
         <Entry x:Name="definitionEntry"
-            Placeholder="Enter translation or definition">
+        Placeholder="Enter translation or definition">
 
         </Entry>
         <Entry x:Name="synonymsEntry"
-            Placeholder="Enter synonyms"/>
+        Placeholder="Enter synonyms"/>
         <Button 
-            x:Name="AddButton"
-            Text="Add"
-            Clicked="AddButton_Clicked"/>
+        x:Name="AddButton"
+        Text="Add"
+        Clicked="AddButton_Clicked"/>
     </VerticalStackLayout>
 </ContentPage>

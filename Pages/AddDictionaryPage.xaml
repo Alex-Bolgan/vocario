@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ReCallVocabulary.Pages.AddDictionaryPage"
+             Title="AddDictionaryPage">
+    <VerticalStackLayout>
+        <Label Text="Enter new dictionary name (without extension and full path specification)"/>
+        <Entry x:Name="newDictionaryNameEntry" Placeholder="Enter the name of new dictionary" HorizontalOptions="Center"/>
+        <Button x:Name="addDictionaryButton" Clicked="addDictionaryButton_Clicked"/>
+    </VerticalStackLayout>
+</ContentPage>

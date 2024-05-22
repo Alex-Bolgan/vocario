@@ -7,7 +7,6 @@ namespace ReCallVocabulary
         public MainPage()
         {
             InitializeComponent();
-            
             _activeContext = App.Services.GetService<DictionaryContext>();
             _activeContext?.Database.EnsureCreated();
         }

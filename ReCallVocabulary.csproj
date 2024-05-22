@@ -64,13 +64,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Pages\AddPage.xaml.cs">
-	    <DependentUpon>AddPage.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="Pages\AddPage.xaml">
+	  <MauiXaml Update="Pages\AddDictionaryPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\AddWordsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ChooseDictionary.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\DictionaryOptions.xaml">

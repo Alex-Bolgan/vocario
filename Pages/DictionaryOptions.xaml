@@ -3,37 +3,43 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ReCallVocabulary.Pages.DictionaryOptions"
              Title="DictionaryOptions">
-    <VerticalStackLayout>
+    <VerticalStackLayout  Spacing="20">
         <Button
      x:Name="AddWordsButton"
      Text="Add words" 
      Clicked="AddWordsButton_Clicked"
-     HorizontalOptions="Fill" />
+            WidthRequest="270"/>
         <Button
      x:Name="DeleteWordsButton"
      Text="Delete words" 
      Clicked="DeleteWordsButton_Clicked"
-     HorizontalOptions="Fill" />
+            WidthRequest="270"/>
         <Button
      x:Name="ShareDictionary"
      Text="Share the dictionary" 
      Clicked="ShareDictionary_Clicked"
-     HorizontalOptions="Fill" />
+            WidthRequest="270"/>
         <Button
      x:Name="GenerateDefinitionsButton"
      Text="Generate definitions where empty" 
      Clicked="GenerateDefinitionsButton_Clicked"
-     HorizontalOptions="Fill" />
+            WidthRequest="270"/>
         <Button
      x:Name="ChooseDictionaryButton"
      Text="Choose another dictionary" 
-     SemanticProperties.Hint="Choose another dictionary (or create new one)"
+     SemanticProperties.Hint="Switch another dictionary (or create new one)"
      Clicked="ChooseDictionaryButton_Clicked"
-     HorizontalOptions="Fill" />
+            WidthRequest="270"/>
+        <Button
+     x:Name="MergeWithButton"
+     Text="Merge with..." 
+     SemanticProperties.Hint="Add words from existing dictionary and delete the last"
+     Clicked="MergeWithButton_Clicked" 
+            WidthRequest="270"/>            
         <Button
      x:Name="DeleteDictionaryButton"
      Text="Delete the dictionary" 
      Clicked="DeleteDictionaryButton_Clicked"
-     HorizontalOptions="Fill" />
+            WidthRequest="270"/>
     </VerticalStackLayout>
 </ContentPage>
