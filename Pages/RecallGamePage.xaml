@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ReCallVocabulary.Pages.RecallGamePage"
+             xmlns:pages="clr-namespace:ReCallVocabulary.Pages"
+             Title="RecallGamePage">
+    <VerticalStackLayout Padding="30,0" Spacing="25">
+        <VerticalStackLayout.GestureRecognizers>
+            <TapGestureRecognizer x:Name="tapRecognizer" 
+                              NumberOfTapsRequired="1"/> 
+        </VerticalStackLayout.GestureRecognizers>
+
+        <Label x:Name="definitionLabel"
+            Text="{Binding Definition}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="Answer:"
+            HorizontalOptions="Center" />
+        <Label x:Name="termLabel"
+            Text="{Binding Term}"
+            HorizontalOptions="Center" />
+            <Button 
+            x:Name="StopButton"
+            Text="Stop the game"
+            HorizontalOptions="Center"
+            Clicked="StopButton_Clicked"/>
+    </VerticalStackLayout>
+</ContentPage>

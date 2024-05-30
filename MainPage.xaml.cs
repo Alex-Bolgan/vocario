@@ -5,6 +5,7 @@ namespace ReCallVocabulary
     public partial class MainPage : ContentPage
     {
         private DictionaryContext? activeContext = App.ActiveContext;
+        public static bool IsOnlyRecent { get; set; } = false;
         public MainPage()
         {
             InitializeComponent();
@@ -12,11 +13,12 @@ namespace ReCallVocabulary
         }
         private void Recall_Clicked(object sender, EventArgs e)
         {
-            //TODO
+            Navigation.PushAsync(new RecallGamePage());
         }
         private void RecallRecent_Clicked(object sender, EventArgs e)
         {
-            //TODO
+            IsOnlyRecent = true;
+            Navigation.PushAsync(new RecallGamePage());
         }
         private async void Addwords_Clicked(object sender, EventArgs e)
         {

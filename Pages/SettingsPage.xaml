@@ -4,9 +4,12 @@
              x:Class="ReCallVocabulary.Pages.SettingsPage"
              Title="NewPage1">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="First threshold"/>
+        <Slider x:Name="firstThresholdSlider" ValueChanged="FirstThresholdSlider_ValueChanged"/>
+        <Label x:Name="firstThresholdLabel" Text=""/>
+        <Label Text="Second threshold"/>
+        <Switch x:Name="secondThresholdSwitch" IsToggled="False"/>
+        <Slider x:Name="secondThresholdSlider" ValueChanged="SecondThresholdSlider_ValueChanged"/>
+        <Label x:Name="secondThresholdLabel" Text=""/>
     </VerticalStackLayout>
 </ContentPage>
