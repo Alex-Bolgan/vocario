@@ -4,11 +4,17 @@ namespace ReCallVocabulary.Pages;
 
 public partial class DictionaryView : ContentPage
 {
-    private DictionaryContext? activeContext = App.ActiveContext;
+    List<Phrase> PhraseList { get; set; } = App.ActiveContext.Phrases.ToList();
 
     public DictionaryView()
 	{
 		InitializeComponent();
-        dictView.ItemsSource = activeContext?.Phrases.ToList();
+        dictView.ItemsSource = PhraseList;
+    }
+
+    private async void dictView_ItemTapped(object sender, ItemTappedEventArgs e)
+    {
+        Phrase item = e.Item as Phrase;
+        await Navigation.PushAsync(new PhraseViewPage(item.Id));
     }
 }

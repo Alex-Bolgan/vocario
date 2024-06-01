@@ -15,6 +15,7 @@ namespace ReCallVocabulary.Data_Access
         public string? Term { get; set; }
         public string? Definition { get; set; }
         public string[]? Synonyms { get; set; }
+        public string[]? Tags { get; set; }
         public DateOnly CreationDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     }
 }

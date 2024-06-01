@@ -20,7 +20,8 @@ public partial class AddWordsPage : ContentPage
             {
                 Term = phraseEntry.Text,
                 Definition = definitionEntry.Text,
-                Synonyms = synonymsEntry.Text?.Split(" ")
+                Synonyms = synonymsEntry.Text?.Split(" "),
+                Tags = tagsEntry.Text?.Split(" ")
             });
         await activeContext.SaveChangesAsync();
     }

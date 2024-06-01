@@ -4,16 +4,16 @@
              xmlns:data_access="clr-namespace:ReCallVocabulary.Data_Access"
              xmlns:local="clr-namespace:ReCallVocabulary"
              x:Class="ReCallVocabulary.Pages.DictionaryView">
-    <ListView x:Name="dictView">
+    <ListView x:Name="dictView" ItemTapped="dictView_ItemTapped">
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="data_access:Phrase">
                 <ViewCell>
-                    <Grid ColumnDefinitions="*,*" RowDefinitions="*">
-                        <Label Text="{Binding Term}" Grid.Column="0"/>
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="*" HorizontalOptions="Center">
+                        <Label x:Name="termLabel" Text="{Binding Term}" Grid.Column="0"/>
                         <Label Text="{Binding Definition}" Grid.Column="1"/>
                     </Grid>
                 </ViewCell>
             </DataTemplate>
-        </ListView.ItemTemplate>
+        </ListView.ItemTemplate>    
     </ListView>
 </ContentPage>

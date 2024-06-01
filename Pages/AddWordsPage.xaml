@@ -22,6 +22,8 @@
         </Entry>
         <Entry x:Name="synonymsEntry"
         Placeholder="Enter synonyms"/>
+        <Entry x:Name="tagsEntry"
+        Placeholder="Enter tags"/>
         <Button 
         x:Name="AddButton"
         Text="Add"
