@@ -1,27 +1,60 @@
 namespace ReCallVocabulary.Pages;
 using ReCallVocabulary.Data_Access;
-public partial class PhraseViewPage : ContentPage
+using System.ComponentModel;
+
+public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
 {
-    public int Id { get; set; }
-    public string? Term { get; set;}
-    public string? Definition { get; set; }
-    public string[]? Synonyms { get; set; }
-    public string[]? Tags { get; set; }
-    public DateOnly CreationDate { get; set; }
+    public event PropertyChangedEventHandler PropertyChanged;
+    private Phrase CurrentPhrase { get; set; }
+    public string Term
+    {
+        get => CurrentPhrase.Term;
+        set
+        {
+            CurrentPhrase.Term = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Term"));
+        }
+    }
+    public string Definition
+    {
+        get => CurrentPhrase.Definition;
+        set
+        {
+            CurrentPhrase.Definition = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Definition"));
+        }
+    }
+    public string[] Synonyms
+    {
+        get => CurrentPhrase.Synonyms;
+        set
+        {
+            CurrentPhrase.Synonyms = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Synonyms"));
+        }
+    }
+    public DateOnly CreationDate
+    {
+        get => CurrentPhrase.CreationDate;
+    }
+    public string[] Tags
+    {
+        get => CurrentPhrase.Tags;
+        set
+        {
+            CurrentPhrase.Tags = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Tags"));
+        }
+    }
     public PhraseViewPage(int id)
 	{
-		InitializeComponent();
-        Phrase phrase = Model.GetPhraseById(id);
-        Id = id;
-        Term = phrase.Term;
-        Definition = phrase.Definition;
-        Synonyms = phrase.Synonyms;
-        Tags = phrase.Tags;
-        CreationDate = phrase.CreationDate;
+        CurrentPhrase = Model.GetPhraseById(id);
+        BindingContext = this;
+        InitializeComponent();
 	}
-    private void Editor_Completed(object sender, EventArgs e)
+
+    private void SaveChangesButton_Clicked(object sender, EventArgs e)
     {
-        Model.UpdatePhrase(new Phrase { Id=this.Id,Term=this.Term, 
-            Definition = this.Definition, Synonyms=this.Synonyms,Tags=this.Tags});
+        Model.UpdatePhrase(CurrentPhrase);
     }
 }

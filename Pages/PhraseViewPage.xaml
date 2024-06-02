@@ -3,45 +3,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:data_access="clr-namespace:ReCallVocabulary.Data_Access"
              x:Class="ReCallVocabulary.Pages.PhraseViewPage"
-             Title="PhraseViewPage">
-    <ContentPage.BindingContext>
-        <x:Class />
-    </ContentPage.BindingContext>
-    
-    <VerticalStackLayout BindingContext="{}">
-        <Editor      
+             Title="PhraseViewPage"
+             >
+    <VerticalStackLayout Padding="30,0" Spacing="25">
+        <Entry       
             Text="{Binding Term}"
-            
             FontAttributes="Bold"
-            VerticalOptions="Start" 
-            HorizontalOptions="Start"
-            Completed="Editor_Completed"/>
-        <Editor 
-            Text="{Binding Definition}"
+            HorizontalOptions="Fill"
+           HorizontalTextAlignment="Start"  
+            />
+        <Entry 
+            Text="{Binding Definition}"            
             FontAttributes="Italic"
-            VerticalOptions="Start" 
-            HorizontalOptions="Start"
-            Completed="Editor_Completed"/>
+            HorizontalOptions="Fill"
+            />
         <Label 
             Text="Synonyms:"
-            VerticalOptions="Start" 
             HorizontalOptions="Start" />
-        <Editor 
-            Text="{Binding Synonyms}"
-            FontAttributes="Bold"
-            VerticalOptions="Start" 
-            HorizontalOptions="Start" 
-            Completed="Editor_Completed"/>
-        <Editor 
+        <Entry 
+            Text="{Binding Synonyms}"  
+            HorizontalOptions="Fill"
+            />
+        <Entry 
             Text="{Binding Tags}"
-            FontAttributes="Bold"
-            VerticalOptions="Start" 
-            HorizontalOptions="Start"
-            Completed="Editor_Completed"/>
+            HorizontalOptions="Fill"
+            />
         <Label 
-            Text="{Binding CreationDate}"
+            Text="{Binding CreationDate}"            
             TextColor="Grey"
-            VerticalOptions="Start" 
             HorizontalOptions="Start" />
+        <Button 
+            x:Name="SaveChangesButton"
+            Text="Save the changes"
+            HorizontalOptions="Center"
+            Clicked="SaveChangesButton_Clicked"/>  
     </VerticalStackLayout>
 </ContentPage>
