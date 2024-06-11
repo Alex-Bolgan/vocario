@@ -10,9 +10,9 @@ public partial class DictionaryOptions : ContentPage
 	{
 		InitializeComponent();
 	}
-    private void DeleteWordsButton_Clicked(object sender, EventArgs e)
+    private async void DeleteWordsButton_Clicked(object sender, EventArgs e)
     {
-
+        await Navigation.PushAsync(new DeleteWordsPage());
     }
 
     private async void AddWordsButton_Clicked(object sender, EventArgs e)

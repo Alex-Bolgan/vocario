@@ -31,12 +31,18 @@ namespace ReCallVocabulary.Data_Access
         }
         public static void UpdatePhrase(Phrase phrase)
         {
-            Phrase current = (Phrase)App.ActiveContext.Phrases.Find(phrase.Id);
+            Phrase current = (Phrase)App.ActiveContext?.Phrases.Find(phrase.Id);
             current.Term = phrase.Term;
             current.Definition = phrase.Definition;
             current.Synonyms = phrase.Synonyms;
             current.Tags = phrase.Tags;
             App.ActiveContext.SaveChanges();
+        }
+
+        public static void RemovePhrase(Phrase phrase)
+        {
+            App.ActiveContext?.Phrases.Remove(phrase);
+            App.ActiveContext?.SaveChanges();
         }
         public static bool IsEmpty()
         {

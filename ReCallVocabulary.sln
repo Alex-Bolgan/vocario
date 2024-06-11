@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReCallVocabulary", "ReCallVocabulary.csproj", "{C85CE741-292C-43CC-ADC4-B1B14E7764BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReCallVocabulary", "ReCallVocabulary.csproj", "{C85CE741-292C-43CC-ADC4-B1B14E7764BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

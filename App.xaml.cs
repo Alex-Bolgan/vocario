@@ -21,7 +21,7 @@ namespace ReCallVocabulary
         {
             InitializeComponent();
             fileWithCurrentDBName = Path.Combine(
-            FileSystem.AppDataDirectory, "currentDBName.txt");
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "currentDBName.txt");
             if (!File.Exists(fileWithCurrentDBName))
             {
                 var myFile = File.Create(fileWithCurrentDBName);
