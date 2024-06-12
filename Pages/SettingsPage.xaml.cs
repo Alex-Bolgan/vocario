@@ -1,36 +1,70 @@
+using ReCallVocabulary.Data_Access;
+
 namespace ReCallVocabulary.Pages;
 
 public partial class SettingsPage : ContentPage
 {
-	public static int firstThreshold { get; set; }=2;
-	public static int secondThreshold { get; set; }
-    int sliderIncrement = 2;
+	private DateOnly endDate;
+
+	public static readonly string datesListFile = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Dates list.txt");
+
+    public DateOnly FirstStartDate { get; set; }
+	public DateOnly SecondStartDate { get; set; }
+	public DateOnly MinDate { get; set; } = Model.GetPhraseById(Model.GetMinId()).CreationDate;
+	public DateOnly FirstMaxDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+	public DateOnly EndDate { 
+		get=>endDate; 
+		set {
+			endDate = value;
+			SecondEndDate.Date = new DateTime(endDate,new TimeOnly()); 
+		}
+	}
 	public SettingsPage()
 	{
 		InitializeComponent();
-	}
 
-    private void FirstThresholdSlider_ValueChanged(object sender, ValueChangedEventArgs e)
-    {
-            Slider slider = (Slider)sender;
+		bool isValidDate = true;
+		DateOnly tempDate0 = new();
+		DateOnly tempDate1 = new();
+		DateOnly tempDate2 = new();
 
-            double relativeValue = slider.Value - slider.Minimum;
+		if(!File.Exists(datesListFile))
+		{
+			isValidDate = false;
+		}
+		else
+		{
+			var fileContent = File.ReadAllText(datesListFile).Split(" ");
 
-            if (relativeValue % sliderIncrement == 0)
-            {
-                firstThresholdLabel.Text = slider.Value.ToString();
+			if (fileContent.Length == 2)
+			{
+				if (DateOnly.TryParse(fileContent[0],out tempDate0) && DateOnly.TryParse(fileContent[1], out tempDate1))
+				{
+					FirstStartDate = tempDate0;
+					endDate = tempDate1;
+					isValidDate = true;
+				}
+			}
+			else if(fileContent.Length == 3)
+			{
+                if (DateOnly.TryParse(fileContent[0], out tempDate0) && DateOnly.TryParse(fileContent[1], out tempDate1)
+    && DateOnly.TryParse(fileContent[2], out tempDate2))
+                {
+                    FirstStartDate = tempDate0;
+                    SecondStartDate = tempDate1;
+                    endDate = tempDate2;
+                    isValidDate = true;
+                }
             }
-    }
-    private void SecondThresholdSlider_ValueChanged(object sender, ValueChangedEventArgs e)
-    {
-        Slider slider = (Slider)sender;
+		}
 
-        double relativeValue = slider.Value - slider.Minimum;
-
-        if (relativeValue % sliderIncrement == 0)
+        if (!isValidDate)
         {
-
-            secondThresholdLabel.Text = slider.Value.ToString();
+            var myFile = File.Create(datesListFile);
+            myFile.Close();
+			SecondStartDate = FirstStartDate = DateOnly.FromDateTime(DateTime.Now);
+            File.WriteAllText(datesListFile, $"{FirstStartDate} {FirstStartDate}");
         }
     }
 }

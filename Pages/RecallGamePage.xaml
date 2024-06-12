@@ -25,5 +25,11 @@
             Text="Stop the game"
             HorizontalOptions="Center"
             Clicked="StopButton_Clicked"/>
+        <Button 
+            x:Name="ToMainMenuButton"
+            Text="To the main menu"
+            HorizontalOptions="Center"
+            Clicked="ToMainMenuButton_Clicked" 
+            IsVisible="false"/>
     </VerticalStackLayout>
 </ContentPage>

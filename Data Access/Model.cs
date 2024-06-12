@@ -25,9 +25,15 @@ namespace ReCallVocabulary.Data_Access
         }
         public static int GetFirstIdWithDate(DateOnly date)
         {
-            return App.ActiveContext.Phrases
+            Phrase? result = App.ActiveContext.Phrases
                 .Where(x => x.CreationDate > date)
-                .First().Id;
+                .First();
+            if (result is null)
+            {
+                return GetMinId();
+            }
+
+            return result.Id;
         }
         public static void UpdatePhrase(Phrase phrase)
         {
@@ -44,6 +50,7 @@ namespace ReCallVocabulary.Data_Access
             App.ActiveContext?.Phrases.Remove(phrase);
             App.ActiveContext?.SaveChanges();
         }
+
         public static bool IsEmpty()
         {
             return !App.ActiveContext.Phrases.Any();
@@ -51,6 +58,11 @@ namespace ReCallVocabulary.Data_Access
         public static int GetMaxId()
         {
             return App.ActiveContext.Phrases.Max(p=>p.Id);
+        }
+        
+        public static int GetMinId()
+        {
+            return App.ActiveContext.Phrases.Min(p=>p.Id);
         }
     }
 }

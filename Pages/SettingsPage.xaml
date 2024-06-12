@@ -4,12 +4,31 @@
              x:Class="ReCallVocabulary.Pages.SettingsPage"
              Title="NewPage1">
     <VerticalStackLayout>
-        <Label Text="First threshold"/>
-        <Slider x:Name="firstThresholdSlider" ValueChanged="FirstThresholdSlider_ValueChanged"/>
-        <Label x:Name="firstThresholdLabel" Text=""/>
-        <Label Text="Second threshold"/>
-        <Switch x:Name="secondThresholdSwitch" IsToggled="False"/>
-        <Slider x:Name="secondThresholdSlider" ValueChanged="SecondThresholdSlider_ValueChanged"/>
-        <Label x:Name="secondThresholdLabel" Text=""/>
+        <Label Text="1st-priority timespan"/>
+        <Grid ColumnDefinitions="*,*" RowDefinitions="*" HorizontalOptions="Center">
+            <DatePicker
+    MinimumDate="{Binding MinDate}"
+    MaximumDate="{Binding FirstMaxDate}"
+    Date="{Binding FirstStartDate}" Grid.Column="0"/>
+            <DatePicker
+    MinimumDate="{Binding MinDate}"
+    MaximumDate="{Binding FirstMaxDate}"
+    Date="{Binding EndDate}" Grid.Column="1"/>
+        </Grid>
+        
+        <Label x:Name="firstTimespanLabel" Text=""/>
+        <Label Text="2nd-priority timespan"/>
+        <Switch x:Name="SecondPrioritySwitch" IsToggled="False"/>
+        
+        <Grid ColumnDefinitions="*,*" RowDefinitions="*" HorizontalOptions="Center">
+            <DatePicker
+            MinimumDate="{Binding MinDate}"
+            MaximumDate="{Binding FirstStartDate}"
+            Date="{Binding SecondStartDate}" 
+            IsEnabled="{Binding Source={x:Reference SecondPrioritySwitch},
+                               Path=IsToggled}" Grid.Column="0"/>
+            <DatePicker x:Name="SecondEndDate" IsEnabled="False" Grid.Column="1"/>
+        </Grid>
+        <Label x:Name="secondTimespanLabel" Text=""/>
     </VerticalStackLayout>
 </ContentPage>
