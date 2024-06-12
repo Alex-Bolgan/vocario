@@ -12,7 +12,7 @@ public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
         set
         {
             CurrentPhrase.Term = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Term"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Term)));
         }
     }
     public string Definition
@@ -21,7 +21,7 @@ public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
         set
         {
             CurrentPhrase.Definition = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Definition"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Definition)));
         }
     }
     public string[] Synonyms

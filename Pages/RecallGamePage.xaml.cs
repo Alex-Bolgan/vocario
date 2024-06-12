@@ -106,8 +106,16 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
                 OnTapGestureRecognizerTapped(this, new TappedEventArgs(""));
             }
         }
-
+        else
+        {
+            var myFile = File.Create(datesListFile);
+            myFile.Close();
+            DateOnly firstStartDate =Model.GetPhraseById(firstPriorityId).CreationDate;
+            DateOnly endDate =Model.GetPhraseById(endId).CreationDate;
+            File.WriteAllText(datesListFile, $"{firstStartDate,0:dd.MM.yyyy} {endDate,0:dd.MM.yyyy}");
+        }
     }
+
     private void StopButton_Clicked(object sender, EventArgs e)
     {
         Definition = $"Congrats! You recalled {totalCount}!";

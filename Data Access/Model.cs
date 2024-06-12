@@ -27,7 +27,7 @@ namespace ReCallVocabulary.Data_Access
         {
             Phrase? result = App.ActiveContext.Phrases
                 .Where(x => x.CreationDate > date)
-                .First();
+                .FirstOrDefault();
             if (result is null)
             {
                 return GetMinId();
