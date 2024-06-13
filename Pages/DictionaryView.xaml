@@ -8,7 +8,7 @@
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="data_access:Phrase">
                 <ViewCell>
-                    <Grid ColumnDefinitions="*,*" RowDefinitions="*" HorizontalOptions="Center">
+                    <Grid RowSpacing="30" ColumnDefinitions="*,*" RowDefinitions="*">
                         <Label x:Name="termLabel" Text="{Binding Term}" Grid.Column="0"/>
                         <Label Text="{Binding Definition}" Grid.Column="1"/>
                     </Grid>
