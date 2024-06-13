@@ -44,9 +44,9 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         BindingContext = this;
 
         bool isValidDate = true;
-        DateOnly tempDate0 = new();
-        DateOnly tempDate1 = new();
-        DateOnly tempDate2 = new();
+        DateTime tempDate0 = new();
+        DateTime tempDate1 = new();
+        DateTime tempDate2 = new();
 
         if (Model.IsEmpty())
         {
@@ -65,7 +65,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
 
             if (fileContent.Length == 2)
             {
-                if (DateOnly.TryParse(fileContent[0], out tempDate0) && DateOnly.TryParse(fileContent[1], out tempDate1))
+                if (DateTime.TryParse(fileContent[0], out tempDate0) && DateTime.TryParse(fileContent[1], out tempDate1))
                 {
                     firstPriorityId = Model.GetFirstIdWithDate(tempDate0);
                     endId = Model.GetFirstIdWithDate(tempDate1);
@@ -74,8 +74,8 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             }
             else if (fileContent.Length == 3)
             {
-                if (DateOnly.TryParse(fileContent[0], out tempDate0) && DateOnly.TryParse(fileContent[1], out tempDate1)
-    && DateOnly.TryParse(fileContent[2], out tempDate2))
+                if (DateTime.TryParse(fileContent[0], out tempDate0) && DateTime.TryParse(fileContent[1], out tempDate1)
+    && DateTime.TryParse(fileContent[2], out tempDate2))
                 {
                     firstPriorityId = Model.GetFirstIdWithDate(tempDate0);
                     secondPriorityId = Model.GetFirstIdWithDate(tempDate1);
@@ -110,8 +110,8 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         {
             var myFile = File.Create(datesListFile);
             myFile.Close();
-            DateOnly firstStartDate =Model.GetPhraseById(firstPriorityId).CreationDate;
-            DateOnly endDate =Model.GetPhraseById(endId).CreationDate;
+            DateTime firstStartDate =Model.GetPhraseById(firstPriorityId).CreationDate;
+            DateTime endDate =Model.GetPhraseById(endId).CreationDate;
             File.WriteAllText(datesListFile, $"{firstStartDate,0:dd.MM.yyyy} {endDate,0:dd.MM.yyyy}");
         }
     }
@@ -139,6 +139,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         }
         else
         {
+            totalCount++;
             termLabel.IsVisible = true;
         }
     }
@@ -158,6 +159,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         }
         else
         {
+            totalCount++;
             termLabel.IsVisible = true;
         }
     }

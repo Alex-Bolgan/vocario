@@ -33,7 +33,7 @@ public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Synonyms"));
         }
     }
-    public DateOnly CreationDate
+    public DateTime CreationDate
     {
         get => CurrentPhrase.CreationDate;
     }

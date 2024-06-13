@@ -12,7 +12,7 @@ public partial class SettingsPage : ContentPage, INotifyPropertyChanged
 
     public DateTime SecondStartDate { get; set; } = DateTime.Now;
 
-    private DateTime MinDate { get; set; } = new DateTime(Model.GetPhraseById(Model.GetMinId()).CreationDate, new TimeOnly());
+    private DateTime MinDate { get; set; } = Model.GetPhraseById(Model.GetMinId()).CreationDate;
 
     private DateTime FirstMaxDate { get; set; } = DateTime.Now;
 

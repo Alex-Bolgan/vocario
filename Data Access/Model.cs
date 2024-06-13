@@ -23,7 +23,7 @@ namespace ReCallVocabulary.Data_Access
             int id = listWithTerm.First().Id;
             return id;
         }
-        public static int GetFirstIdWithDate(DateOnly date)
+        public static int GetFirstIdWithDate(DateTime date)
         {
             Phrase? result = App.ActiveContext.Phrases
                 .Where(x => x.CreationDate > date)
