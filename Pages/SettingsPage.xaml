@@ -30,7 +30,7 @@
             MaximumDate="{Binding FirstStartDate}"
             IsEnabled="{Binding Source={x:Reference SecondPrioritySwitch},
                                Path=IsToggled}" DateSelected="SecondFormDatePicker_DateSelected" Grid.Column="0"/>
-            <DatePicker x:Name="SecondEndDate" Date="{Binding EndDate}" IsEnabled="False" Grid.Column="1"/>
+            <controls:FormDatePicker x:Name="SecondEndDate" Date="{Binding EndDate}" IsEnabled="False" Grid.Column="1"/>
         </Grid>
         <Label x:Name="secondTimespanLabel"
                Text=""/>

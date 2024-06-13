@@ -97,5 +97,8 @@ public partial class SettingsPage : ContentPage, INotifyPropertyChanged
     private void EndFormDatePicker_DateSelected(object sender, DateChangedEventArgs e)
     {
         EndDate = e.NewDate;
+        SecondEndDate.IsEnabled = true;
+        SecondEndDate.Date = EndDate;
+        SecondEndDate.IsEnabled = false;
     }
 }
