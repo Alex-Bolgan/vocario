@@ -1,5 +1,6 @@
 using ReCallVocabulary.Data_Access;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace ReCallVocabulary.Pages;
 
@@ -9,7 +10,7 @@ public partial class SettingsPage : ContentPage, INotifyPropertyChanged
 
     public DateTime FirstStartDate { get; set; } = DateTime.Now;
 
-    public DateTime SecondStartDate { get; set; } = DateTime.Now;
+    public DateTime? SecondStartDate { get; set; } = null;
 
     private DateTime MinDate { get; set; } = Model.GetPhraseById(Model.GetMinId()).CreationDate;
 
@@ -38,7 +39,10 @@ public partial class SettingsPage : ContentPage, INotifyPropertyChanged
 
             if (fileContent.Length == 2)
             {
-                if (DateTime.TryParse(fileContent[0], out tempDate0) && DateTime.TryParse(fileContent[1], out tempDate1))
+                if (DateTime.TryParseExact(fileContent[0], "dd.MM.yyyy", CultureInfo.InvariantCulture,
+                           DateTimeStyles.None, out tempDate0) &&
+                           DateTime.TryParseExact(fileContent[1], "dd.MM.yyyy", CultureInfo.InvariantCulture,
+                           DateTimeStyles.None, out tempDate1))
                 {
                     FirstStartDate = tempDate0;
                     EndDate = tempDate1;
@@ -47,8 +51,12 @@ public partial class SettingsPage : ContentPage, INotifyPropertyChanged
             }
             else if (fileContent.Length == 3)
             {
-                if (DateTime.TryParse(fileContent[0], out tempDate0) && DateTime.TryParse(fileContent[1], out tempDate1)
-    && DateTime.TryParse(fileContent[2], out tempDate2))
+                if (DateTime.TryParseExact(fileContent[0], "dd.MM.yyyy", CultureInfo.InvariantCulture,
+                           DateTimeStyles.None, out tempDate0)
+                    && DateTime.TryParseExact(fileContent[1], "dd.MM.yyyy", CultureInfo.InvariantCulture,
+                           DateTimeStyles.None, out tempDate1)
+                    && DateTime.TryParseExact(fileContent[2], "dd.MM.yyyy", CultureInfo.InvariantCulture,
+                           DateTimeStyles.None, out tempDate2))
                 {
                     SecondPrioritySwitch.IsToggled = true;
                     FirstStartDate = tempDate0;
@@ -68,7 +76,15 @@ public partial class SettingsPage : ContentPage, INotifyPropertyChanged
         }
 
         FirstFormDatePicker.Date = FirstStartDate;
-        SecondFormDatePicker.Date = SecondStartDate;
+
+        if(SecondStartDate is null)
+        {
+            SecondFormDatePicker.Date = (DateTime)FirstStartDate;
+        }
+        else
+        {
+            SecondFormDatePicker.Date = (DateTime)SecondStartDate;
+        }
         EndFormDatePicker.Date = EndDate;
     }
     protected override void OnDisappearing()

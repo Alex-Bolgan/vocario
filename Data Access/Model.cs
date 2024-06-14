@@ -30,7 +30,7 @@ namespace ReCallVocabulary.Data_Access
                 .FirstOrDefault();
             if (result is null)
             {
-                return GetMinId();
+                return GetMaxId();
             }
 
             return result.Id;

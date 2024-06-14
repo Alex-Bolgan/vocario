@@ -1,5 +1,6 @@
 using ReCallVocabulary.Data_Access;
 using System.ComponentModel;
+using System.Globalization;
 namespace ReCallVocabulary.Pages;
 
 public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
@@ -72,7 +73,10 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
 
             if (fileContent.Length == 2)
             {
-                if (DateTime.TryParse(fileContent[0], out tempDate0) && DateTime.TryParse(fileContent[1], out tempDate1))
+                if (DateTime.TryParseExact(fileContent[0], "dd.MM.yyyy", CultureInfo.InvariantCulture,
+                           DateTimeStyles.None, out tempDate0) && 
+                           DateTime.TryParseExact(fileContent[1], "dd.MM.yyyy", CultureInfo.InvariantCulture,
+                           DateTimeStyles.None, out tempDate1))
                 {
                     firstPriorityId = Model.GetFirstIdWithDate(tempDate0);
                     endId = Model.GetFirstIdWithDate(tempDate1);
@@ -81,8 +85,12 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             }
             else if (fileContent.Length == 3)
             {
-                if (DateTime.TryParse(fileContent[0], out tempDate0) && DateTime.TryParse(fileContent[1], out tempDate1)
-                    && DateTime.TryParse(fileContent[2], out tempDate2))
+                if (DateTime.TryParseExact(fileContent[0], "dd.MM.yyyy", CultureInfo.InvariantCulture,
+                           DateTimeStyles.None, out tempDate0) 
+                    && DateTime.TryParseExact(fileContent[1], "dd.MM.yyyy", CultureInfo.InvariantCulture,
+                           DateTimeStyles.None, out tempDate1) 
+                    && DateTime.TryParseExact(fileContent[2], "dd.MM.yyyy", CultureInfo.InvariantCulture,
+                           DateTimeStyles.None, out tempDate2))
                 {
                     firstPriorityId = Model.GetFirstIdWithDate(tempDate0);
                     secondPriorityId = Model.GetFirstIdWithDate(tempDate1);
