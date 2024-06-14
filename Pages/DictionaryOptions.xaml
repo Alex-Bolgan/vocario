@@ -31,6 +31,11 @@
      Clicked="ChooseDictionaryButton_Clicked"
             WidthRequest="270"/>
         <Button
+x:Name="GetDictionaryFromDevice"
+Text="Get dictionary from device" 
+Clicked="GetDictionaryFromDevice_Clicked"
+       WidthRequest="270"/>
+        <Button
      x:Name="MergeWithButton"
      Text="Merge with..." 
      SemanticProperties.Hint="Add words from existing dictionary and delete the last"

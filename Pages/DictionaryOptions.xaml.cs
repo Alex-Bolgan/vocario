@@ -49,4 +49,9 @@ public partial class DictionaryOptions : ContentPage
     {
         //TODO: secondary
     }
+
+    private async void GetDictionaryFromDevice_Clicked(object sender, EventArgs e)
+    {
+        await Controls.DbFilePicker.PickAndMoveDb();
+    }
 }
