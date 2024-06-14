@@ -57,12 +57,21 @@ namespace ReCallVocabulary.Data_Access
         }
         public static int GetMaxId()
         {
-            return App.ActiveContext.Phrases.Max(p=>p.Id);
+            if (!IsEmpty())
+            {
+                return App.ActiveContext.Phrases.Max(p => p.Id);
+
+            }
+            return 0;
         }
         
         public static int GetMinId()
         {
-            return App.ActiveContext.Phrases.Min(p=>p.Id);
+            if (!IsEmpty())
+            {
+                return App.ActiveContext.Phrases.Min(p => p.Id);
+            }
+            return 0;
         }
     }
 }

@@ -50,8 +50,12 @@
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
 	  <Optimize>False</Optimize>
-	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-	  <ApplicationId>com.recall.recallvocabulary</ApplicationId>
+	  <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+		<DebugSymbols>True</DebugSymbols>
+		<RunAOTCompilation>False</RunAOTCompilation>
+		<ApplicationId>com.recall.recallvocabulary</ApplicationId>
+		<PublishTrimmed>False</PublishTrimmed>
+		<JavaMaximumHeapSize>2G</JavaMaximumHeapSize>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
@@ -75,6 +79,8 @@
 	  <RunAOTCompilation>False</RunAOTCompilation>
 	  <ApplicationId>com.recall.recallvocabulary</ApplicationId>
 	  <PublishTrimmed>False</PublishTrimmed>
+	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	  <JavaMaximumHeapSize>2G</JavaMaximumHeapSize>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
@@ -146,5 +152,7 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionReCallVocabularyHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 </Project>

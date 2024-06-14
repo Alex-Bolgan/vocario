@@ -5,8 +5,7 @@ namespace ReCallVocabulary.Pages;
 
 public partial class SettingsPage : ContentPage, INotifyPropertyChanged
 {
-    public static readonly string datesListFile = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Dates_list.txt");
+    public static string datesListFile;
 
     public DateTime FirstStartDate { get; set; } = DateTime.Now;
 
@@ -21,17 +20,19 @@ public partial class SettingsPage : ContentPage, INotifyPropertyChanged
     public SettingsPage()
     {
         InitializeComponent();
-
-        bool isValidDate = true;
+#if WINDOWS
+        datesListFile = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Dates_list.txt");
+#elif ANDROID
+        datesListFile = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.Personal), "Dates_list.txt");
+#endif
+        bool isValidDate = false;
         DateTime tempDate0 = new();
         DateTime tempDate1 = new();
         DateTime tempDate2 = new();
 
-        if (!File.Exists(datesListFile))
-        {
-            isValidDate = false;
-        }
-        else
+        if (File.Exists(datesListFile))
         {
             var fileContent = File.ReadAllText(datesListFile).Split(" ");
 

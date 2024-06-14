@@ -10,7 +10,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
     private string definition;
     private int countWithThresholds = 1;
     private int totalCount = 0;
-    private int firstPriorityId;
+    private int firstPriorityId = Model.GetMinId();
     private int secondPriorityId = 0;
     private int endId = Model.GetMaxId();
     int randomNumber;
@@ -40,10 +40,21 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
     }
     public RecallGamePage()
     {
+        if (datesListFile is null)
+        {
+#if WINDOWS
+        datesListFile = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Dates_list.txt");
+#elif ANDROID
+            datesListFile = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.Personal), "Dates_list.txt");
+#endif        
+        }
+
         InitializeComponent();
         BindingContext = this;
 
-        bool isValidDate = true;
+        bool isValidDate = false;
         DateTime tempDate0 = new();
         DateTime tempDate1 = new();
         DateTime tempDate2 = new();
@@ -55,11 +66,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             StopButton.IsVisible = false;
             ToMainMenuButton.IsVisible = true;
         }
-        if (!File.Exists(datesListFile))
-        {
-            isValidDate = false;
-        }
-        else
+        if (File.Exists(datesListFile))
         {
             var fileContent = File.ReadAllText(datesListFile).Split(" ");
 
@@ -75,19 +82,20 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             else if (fileContent.Length == 3)
             {
                 if (DateTime.TryParse(fileContent[0], out tempDate0) && DateTime.TryParse(fileContent[1], out tempDate1)
-    && DateTime.TryParse(fileContent[2], out tempDate2))
+                    && DateTime.TryParse(fileContent[2], out tempDate2))
                 {
                     firstPriorityId = Model.GetFirstIdWithDate(tempDate0);
                     secondPriorityId = Model.GetFirstIdWithDate(tempDate1);
                     endId = Model.GetFirstIdWithDate(tempDate2);
+                    isValidDate = true;
                 }
             }
         }
 
-        if(isValidDate)
+        if (isValidDate)
         {
             this.isOnlyRecent = MainPage.IsOnlyRecent;
-            termLabel.IsVisible = definitionLabel.IsVisible= true;
+            termLabel.IsVisible = definitionLabel.IsVisible = true;
 
             generatingMethod = GenerateWith1Threshold;
             if (secondPriorityId != 0)
@@ -110,8 +118,8 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         {
             var myFile = File.Create(datesListFile);
             myFile.Close();
-            DateTime firstStartDate =Model.GetPhraseById(firstPriorityId).CreationDate;
-            DateTime endDate =Model.GetPhraseById(endId).CreationDate;
+            DateTime firstStartDate = Model.GetPhraseById(firstPriorityId).CreationDate;
+            DateTime endDate = Model.GetPhraseById(endId).CreationDate;
             File.WriteAllText(datesListFile, $"{firstStartDate,0:dd.MM.yyyy} {endDate,0:dd.MM.yyyy}");
         }
     }
@@ -132,7 +140,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
                 randomNumber = random.Next(firstPriorityId, endId + 1);
             } while (!Model.PhraseExists(randomNumber));
 
-            randomNumber = random.Next(firstPriorityId, endId+1);
+            randomNumber = random.Next(firstPriorityId, endId + 1);
             Definition = Model.GetPhraseById(randomNumber).Definition;
             Term = Model.GetPhraseById(randomNumber).Term;
             termLabel.IsVisible = false;
@@ -149,7 +157,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         {
             do
             {
-                countWithThresholds = 1; 
+                countWithThresholds = 1;
                 randomNumber = generatingMethod();
             } while (!Model.PhraseExists(randomNumber));
 
@@ -172,7 +180,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         }
         else
         {
-            randomNumber = random.Next(1, endId+1);
+            randomNumber = random.Next(1, endId + 1);
             countWithThresholds++;
         }
         return randomNumber;
@@ -184,7 +192,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             randomNumber = random.Next(firstPriorityId, endId);
             countWithThresholds = 1;
         }
-        else if(countWithThresholds==2)
+        else if (countWithThresholds == 2)
         {
             randomNumber = random.Next(secondPriorityId, firstPriorityId);
             countWithThresholds++;

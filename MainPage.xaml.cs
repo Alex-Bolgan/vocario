@@ -9,6 +9,16 @@ namespace ReCallVocabulary
         public MainPage()
         {
             InitializeComponent();
+            if (!Directory.Exists(Path.GetDirectoryName(activeContext.MyPath)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(activeContext.MyPath));
+            }
+
+            if (!File.Exists(activeContext.MyPath))
+            {
+                var myFile = File.Create(activeContext.MyPath);
+                myFile.Close();
+            }
             activeContext?.Database.EnsureCreated();
         }
         private void Recall_Clicked(object sender, EventArgs e)

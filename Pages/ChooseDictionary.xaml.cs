@@ -9,10 +9,18 @@ public partial class ChooseDictionary : ContentPage
 	{
         InitializeComponent();
         string currentDBName = Path.GetFileNameWithoutExtension(activeContext.MyPath);
-        List<string> fullPathNames = Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+        List<string> fullPathNames = new List<string>();
+#if ANDROID
+        fullPathNames = Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal),
             "*.*", SearchOption.TopDirectoryOnly)
             .Where(s => s.EndsWith(".db", StringComparison.OrdinalIgnoreCase))
             .ToList();
+#elif WINDOWS
+        fullPathNames = Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            "*.*", SearchOption.TopDirectoryOnly)
+            .Where(s => s.EndsWith(".db", StringComparison.OrdinalIgnoreCase))
+            .ToList();
+#endif
         for (int i = 0;i<fullPathNames.Count;++i)
         {
             fullPathNames[i] = Path.GetFileNameWithoutExtension(fullPathNames[i]);
@@ -21,6 +29,7 @@ public partial class ChooseDictionary : ContentPage
             else
                 DatabaseNames.Add(new DatabaseName { Name = fullPathNames[i], FontAttribute = FontAttributes.None });
         }
+
         chooseDictionaryView.ItemsSource = DatabaseNames;
 
     }
