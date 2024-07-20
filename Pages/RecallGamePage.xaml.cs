@@ -1,11 +1,9 @@
 using ReCallVocabulary.Data_Access;
 using System.ComponentModel;
-using System.Globalization;
 namespace ReCallVocabulary.Pages;
 
 public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
 {
-    private readonly string datesListFile = SettingsPage.datesListFile;
     private readonly bool isOnlyRecent;
     private string term;
     private string definition;
@@ -41,24 +39,9 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
     }
     public RecallGamePage()
     {
-        if (datesListFile is null)
-        {
-#if WINDOWS
-        datesListFile = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Dates_list.txt");
-#elif ANDROID
-            datesListFile = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.Personal), "Dates_list.txt");
-#endif        
-        }
 
         InitializeComponent();
         BindingContext = this;
-
-        bool isValidDate = false;
-        DateTime tempDate0 = new();
-        DateTime tempDate1 = new();
-        DateTime tempDate2 = new();
 
         if (Model.IsEmpty())
         {
@@ -67,68 +50,39 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             StopButton.IsVisible = false;
             ToMainMenuButton.IsVisible = true;
         }
-        if (File.Exists(datesListFile))
+
+        DateTime[] dates = DateFileHandler.GetDates();
+
+        if (dates[0] == DateTime.MinValue)
         {
-            var fileContent = File.ReadAllText(datesListFile).Split(" ");
-
-            if (fileContent.Length == 2)
-            {
-                if (DateTime.TryParseExact(fileContent[0], "dd.MM.yyyy", CultureInfo.InvariantCulture,
-                           DateTimeStyles.None, out tempDate0) && 
-                           DateTime.TryParseExact(fileContent[1], "dd.MM.yyyy", CultureInfo.InvariantCulture,
-                           DateTimeStyles.None, out tempDate1))
-                {
-                    firstPriorityId = Model.GetFirstIdWithDate(tempDate0);
-                    endId = Model.GetMaxIdWithDate(tempDate1);
-                    isValidDate = true;
-                }
-            }
-            else if (fileContent.Length == 3)
-            {
-                if (DateTime.TryParseExact(fileContent[0], "dd.MM.yyyy", CultureInfo.InvariantCulture,
-                           DateTimeStyles.None, out tempDate0) 
-                    && DateTime.TryParseExact(fileContent[1], "dd.MM.yyyy", CultureInfo.InvariantCulture,
-                           DateTimeStyles.None, out tempDate1) 
-                    && DateTime.TryParseExact(fileContent[2], "dd.MM.yyyy", CultureInfo.InvariantCulture,
-                           DateTimeStyles.None, out tempDate2))
-                {
-                    firstPriorityId = Model.GetFirstIdWithDate(tempDate0);
-                    secondPriorityId = Model.GetFirstIdWithDate(tempDate1);
-                    endId = Model.GetMaxIdWithDate(tempDate2);
-                    isValidDate = true;
-                }
-            }
-        }
-
-        if (isValidDate)
-        {
-            this.isOnlyRecent = MainPage.IsOnlyRecent;
-            termLabel.IsVisible = definitionLabel.IsVisible = true;
-
-            generatingMethod = GenerateWith1Threshold;
-            if (secondPriorityId != 0)
-            {
-                generatingMethod = GenerateWith2Thresholds;
-            }
-
-            if (this.isOnlyRecent)
-            {
-                tapRecognizer.Tapped += OnTapGestureRecognizerTappedRecent;
-                OnTapGestureRecognizerTappedRecent(this, new TappedEventArgs(""));
-            }
-            else
-            {
-                tapRecognizer.Tapped += OnTapGestureRecognizerTapped;
-                OnTapGestureRecognizerTapped(this, new TappedEventArgs(""));
-            }
+            firstPriorityId = Model.GetFirstIdWithDate(dates[1]);
+            endId = Model.GetMaxIdWithDate(dates[2]);
         }
         else
         {
-            var myFile = File.Create(datesListFile);
-            myFile.Close();
-            DateTime firstStartDate = Model.GetPhraseById(firstPriorityId).CreationDate;
-            DateTime endDate = Model.GetPhraseById(endId).CreationDate;
-            File.WriteAllText(datesListFile, $"{firstStartDate,0:dd.MM.yyyy} {endDate,0:dd.MM.yyyy}");
+            firstPriorityId = Model.GetFirstIdWithDate(dates[1]);
+            secondPriorityId = Model.GetFirstIdWithDate(dates[0]);
+            endId = Model.GetMaxIdWithDate(dates[2]);
+        }
+
+        this.isOnlyRecent = MainPage.IsOnlyRecent;
+        termLabel.IsVisible = definitionLabel.IsVisible = true;
+
+        generatingMethod = GenerateWith1Threshold;
+        if (secondPriorityId != 0)
+        {
+            generatingMethod = GenerateWith2Thresholds;
+        }
+
+        if (this.isOnlyRecent)
+        {
+            tapRecognizer.Tapped += OnTapGestureRecognizerTappedRecent;
+            OnTapGestureRecognizerTappedRecent(this, new TappedEventArgs(""));
+        }
+        else
+        {
+            tapRecognizer.Tapped += OnTapGestureRecognizerTapped;
+            OnTapGestureRecognizerTapped(this, new TappedEventArgs(""));
         }
     }
 

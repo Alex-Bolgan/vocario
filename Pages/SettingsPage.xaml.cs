@@ -1,13 +1,10 @@
 using ReCallVocabulary.Data_Access;
 using System.ComponentModel;
-using System.Globalization;
 
 namespace ReCallVocabulary.Pages;
 
 public partial class SettingsPage : ContentPage, INotifyPropertyChanged
 {
-    public static string datesListFile;
-
     public DateTime FirstStartDate { get; set; } = DateTime.Now;
 
     public DateTime? SecondStartDate { get; set; } = null;
@@ -21,63 +18,24 @@ public partial class SettingsPage : ContentPage, INotifyPropertyChanged
     public SettingsPage()
     {
         InitializeComponent();
-#if WINDOWS
-        datesListFile = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Dates_list.txt");
-#elif ANDROID
-        datesListFile = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.Personal), "Dates_list.txt");
-#endif
-        bool isValidDate = false;
-        DateTime tempDate0 = new();
-        DateTime tempDate1 = new();
-        DateTime tempDate2 = new();
+        DateTime[] dates = DateFileHandler.GetDates();
 
-        if (File.Exists(datesListFile))
+        if (dates[0] == DateTime.MinValue)
         {
-            var fileContent = File.ReadAllText(datesListFile).Split(" ");
-
-            if (fileContent.Length == 2)
-            {
-                if (DateTime.TryParseExact(fileContent[0], "dd.MM.yyyy", CultureInfo.InvariantCulture,
-                           DateTimeStyles.None, out tempDate0) &&
-                           DateTime.TryParseExact(fileContent[1], "dd.MM.yyyy", CultureInfo.InvariantCulture,
-                           DateTimeStyles.None, out tempDate1))
-                {
-                    FirstStartDate = tempDate0;
-                    EndDate = tempDate1;
-                    isValidDate = true;
-                }
-            }
-            else if (fileContent.Length == 3)
-            {
-                if (DateTime.TryParseExact(fileContent[0], "dd.MM.yyyy", CultureInfo.InvariantCulture,
-                           DateTimeStyles.None, out tempDate0)
-                    && DateTime.TryParseExact(fileContent[1], "dd.MM.yyyy", CultureInfo.InvariantCulture,
-                           DateTimeStyles.None, out tempDate1)
-                    && DateTime.TryParseExact(fileContent[2], "dd.MM.yyyy", CultureInfo.InvariantCulture,
-                           DateTimeStyles.None, out tempDate2))
-                {
-                    SecondPrioritySwitch.IsToggled = true;
-                    FirstStartDate = tempDate0;
-                    SecondStartDate = tempDate1;
-                    EndDate = tempDate2;
-                    isValidDate = true;
-                }
-            }
+            FirstStartDate = dates[1];
+            EndDate = dates[2];
         }
-
-        if (!isValidDate)
+        else
         {
-            var myFile = File.Create(datesListFile);
-            myFile.Close();
-            EndDate = FirstStartDate = DateTime.Now;
-            File.WriteAllText(datesListFile, $"{FirstStartDate,0:dd.MM.yyyy} {EndDate,0:dd.MM.yyyy}");
+            SecondPrioritySwitch.IsToggled = true;
+            FirstStartDate = dates[1];
+            SecondStartDate = dates[0];
+            EndDate = dates[2];
         }
 
         FirstFormDatePicker.Date = FirstStartDate;
 
-        if(SecondStartDate is null)
+        if (SecondStartDate is null)
         {
             SecondFormDatePicker.Date = (DateTime)FirstStartDate;
         }
@@ -91,13 +49,13 @@ public partial class SettingsPage : ContentPage, INotifyPropertyChanged
     {
         base.OnDisappearing();
 
-        if (SecondPrioritySwitch.IsToggled == true)
+        if (SecondPrioritySwitch.IsToggled)
         {
-            File.WriteAllText(datesListFile, $"{FirstStartDate,0:dd.MM.yyyy} {SecondStartDate,0:dd.MM.yyyy} {EndDate,0:dd.MM.yyyy}");
+            DateFileHandler.WriteDates(new DateTime[] { SecondStartDate ?? default, FirstStartDate,EndDate});
         }
         else
         {
-            File.WriteAllText(datesListFile, $"{FirstStartDate,0:dd.MM.yyyy} {EndDate,0:dd.MM.yyyy}");
+            DateFileHandler.WriteDates(new DateTime[] {FirstStartDate, EndDate });
         }
     }
 
