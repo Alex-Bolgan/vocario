@@ -23,6 +23,7 @@ namespace ReCallVocabulary
         }
         private void Recall_Clicked(object sender, EventArgs e)
         {
+            IsOnlyRecent = false;
             Navigation.PushAsync(new RecallGamePage());
         }
         private void RecallRecent_Clicked(object sender, EventArgs e)
