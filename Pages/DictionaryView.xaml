@@ -4,7 +4,7 @@
              xmlns:data_access="clr-namespace:ReCallVocabulary.Data_Access"
              xmlns:local="clr-namespace:ReCallVocabulary"
              x:Class="ReCallVocabulary.Pages.DictionaryView">
-    <ListView x:Name="dictView" ItemTapped="dictView_ItemTapped">
+    <ListView x:Name="dictView" ItemTapped="dictView_ItemTapped" CachingStrategy="RecycleElement">
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="data_access:Phrase">
                 <ViewCell>
