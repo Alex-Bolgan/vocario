@@ -2,13 +2,13 @@ using ReCallVocabulary.Data_Access;
 
 namespace ReCallVocabulary.Pages;
 
-public partial class DictionaryView : ContentPage
+public partial class DictionaryViewPage : ContentPage
 {
     List<Phrase> PhraseList { get; set; } = App.ActiveContext.Phrases.ToList();
 
-    public DictionaryView()
-	{
-		InitializeComponent();
+    public DictionaryViewPage()
+    {
+        InitializeComponent();
         int wordNumber = Model.GetTotalNumber();
         this.Title = $"{Path.GetFileNameWithoutExtension(File.ReadAllText(App.fileWithCurrentDBName))} ({wordNumber} words)";
         dictView.ItemsSource = PhraseList;

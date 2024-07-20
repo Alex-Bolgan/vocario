@@ -139,10 +139,10 @@
 	  <MauiXaml Update="Pages\DeleteWordsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\DictionaryOptions.xaml">
+	  <MauiXaml Update="Pages\DictionaryOptionsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\DictionaryView.xaml">
+	  <MauiXaml Update="Pages\DictionaryViewPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\PhraseViewPage.xaml">

@@ -2,14 +2,14 @@ using ReCallVocabulary.Data_Access;
 
 namespace ReCallVocabulary.Pages;
 
-public partial class DictionaryOptions : ContentPage
+public partial class DictionaryOptionsPage : ContentPage
 {
     private DictionaryContext? activeContext = App.ActiveContext;
 
-    public DictionaryOptions()
-	{
-		InitializeComponent();
-	}
+    public DictionaryOptionsPage()
+    {
+        InitializeComponent();
+    }
     private async void DeleteWordsButton_Clicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new DeleteWordsPage());
@@ -38,7 +38,7 @@ public partial class DictionaryOptions : ContentPage
 
     private async void DeleteDictionaryButton_Clicked(object sender, EventArgs e)
     {
-        bool answer = await DisplayAlert("Confirm deletion","Are you sure you want to delete your dictionary? ", "Yes", "No");
+        bool answer = await DisplayAlert("Confirm deletion", "Are you sure you want to delete your dictionary? ", "Yes", "No");
         if (answer)
         {
             File.Delete(activeContext.MyPath);

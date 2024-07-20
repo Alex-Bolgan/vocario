@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ReCallVocabulary.Pages.DictionaryOptions">
+             x:Class="ReCallVocabulary.Pages.DictionaryOptionsPage">
     <VerticalStackLayout  Spacing="20">
         <Button
      x:Name="AddWordsButton"
@@ -39,7 +39,7 @@ Clicked="GetDictionaryFromDevice_Clicked"
      Text="Merge with..." 
      SemanticProperties.Hint="Add words from existing dictionary and delete the last"
      Clicked="MergeWithButton_Clicked" 
-            WidthRequest="270"/>            
+            WidthRequest="270"/>
         <Button
      x:Name="DeleteDictionaryButton"
      Text="Delete the dictionary" 

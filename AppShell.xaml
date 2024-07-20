@@ -17,14 +17,14 @@
         </Tab>
            
     </FlyoutItem>
-    <FlyoutItem x:Name="dictionaryView" Title="My dictionary"  Route="Pages.DictionaryView">
+    <FlyoutItem x:Name="dictionaryView" Title="My dictionary"  Route="Pages.DictionaryViewPage">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate pages:DictionaryView}"/>
+            <ShellContent ContentTemplate="{DataTemplate pages:DictionaryViewPage}"/>
         </Tab>
     </FlyoutItem>
-    <FlyoutItem Title="Dictionary options"  Route="Pages.DictionaryOptions">
+    <FlyoutItem Title="Dictionary options"  Route="Pages.DictionaryOptionsPage">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate pages:DictionaryOptions}"/>
+            <ShellContent ContentTemplate="{DataTemplate pages:DictionaryOptionsPage}"/>
         </Tab>
     </FlyoutItem>
 

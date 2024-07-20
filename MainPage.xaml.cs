@@ -37,7 +37,7 @@ namespace ReCallVocabulary
         }
         private async void SeeDictionary_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(nameof(DictionaryView));
+            await Shell.Current.GoToAsync(nameof(DictionaryViewPage));
         }
     }
 }

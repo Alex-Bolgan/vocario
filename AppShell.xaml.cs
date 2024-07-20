@@ -7,9 +7,8 @@ namespace ReCallVocabulary
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(DictionaryView), typeof(DictionaryView));
-
+            Routing.RegisterRoute(nameof(DictionaryViewPage), typeof(DictionaryViewPage));
+            Routing.RegisterRoute(nameof(DictionaryOptionsPage), typeof(DictionaryOptionsPage));
         }
-
     }
 }
