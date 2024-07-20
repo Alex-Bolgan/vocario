@@ -79,7 +79,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
                            DateTimeStyles.None, out tempDate1))
                 {
                     firstPriorityId = Model.GetFirstIdWithDate(tempDate0);
-                    endId = Model.GetFirstIdWithDate(tempDate1);
+                    endId = Model.GetMaxIdWithDate(tempDate1);
                     isValidDate = true;
                 }
             }
@@ -94,7 +94,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
                 {
                     firstPriorityId = Model.GetFirstIdWithDate(tempDate0);
                     secondPriorityId = Model.GetFirstIdWithDate(tempDate1);
-                    endId = Model.GetFirstIdWithDate(tempDate2);
+                    endId = Model.GetMaxIdWithDate(tempDate2);
                     isValidDate = true;
                 }
             }

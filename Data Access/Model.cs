@@ -35,6 +35,20 @@ namespace ReCallVocabulary.Data_Access
 
             return result.Id;
         }
+
+        public static int GetMaxIdWithDate(DateTime date)
+        {
+            Phrase? result = App.ActiveContext.Phrases
+                .Where(x => x.CreationDate > date)
+                .OrderBy(p => p.Id)
+                .LastOrDefault();
+            if (result is null)
+            {
+                return GetMaxId();
+            }
+
+            return result.Id;
+        }
         public static void UpdatePhrase(Phrase phrase)
         {
             Phrase current = (Phrase)App.ActiveContext?.Phrases.Find(phrase.Id);
