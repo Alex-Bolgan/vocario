@@ -15,7 +15,7 @@ namespace ReCallVocabulary.Data_Access
         public static Phrase GetPhraseById(int id)
         {
             Phrase tmp = (Phrase)App.ActiveContext.Phrases.Find(id);
-            return tmp != null ? tmp : null;
+            return tmp ?? null;
         }
         public static int GetIdByTerm(string term)
         {
@@ -86,6 +86,11 @@ namespace ReCallVocabulary.Data_Access
                 return App.ActiveContext.Phrases.Min(p => p.Id);
             }
             return 0;
+        }
+
+        public static int GetTotalNumber()
+        {
+            return App.ActiveContext.Phrases.Count();
         }
     }
 }

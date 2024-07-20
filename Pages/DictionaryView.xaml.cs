@@ -9,6 +9,8 @@ public partial class DictionaryView : ContentPage
     public DictionaryView()
 	{
 		InitializeComponent();
+        int wordNumber = Model.GetTotalNumber();
+        this.Title = $"{Path.GetFileNameWithoutExtension(File.ReadAllText(App.fileWithCurrentDBName))} ({wordNumber} words)";
         dictView.ItemsSource = PhraseList;
     }
 

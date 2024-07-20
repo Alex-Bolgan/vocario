@@ -5,8 +5,9 @@ namespace ReCallVocabulary
 {
     public partial class App : Application
     {
-        private static string fileWithCurrentDBName;
+        public static string fileWithCurrentDBName { get; private set; }
         private static DictionaryContext? activeContext;
+
         internal static DictionaryContext? ActiveContext
         {
             get => activeContext;
@@ -17,6 +18,7 @@ namespace ReCallVocabulary
             }
 
         }
+
         public App()
         {
             InitializeComponent();
