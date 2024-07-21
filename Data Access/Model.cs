@@ -65,6 +65,12 @@ namespace ReCallVocabulary.Data_Access
             App.ActiveContext?.SaveChanges();
         }
 
+        public static void RemoveRange(List<Phrase> phrases)
+        {
+            App.ActiveContext?.Phrases.RemoveRange(phrases);
+            App.ActiveContext?.SaveChanges();
+        }
+
         public static bool IsEmpty()
         {
             return !App.ActiveContext.Phrases.Any();
