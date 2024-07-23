@@ -3,15 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:data_access="clr-namespace:ReCallVocabulary.Data_Access"
              xmlns:local="clr-namespace:ReCallVocabulary"
+             xmlns:controls ="clr-namespace:ReCallVocabulary.Controls"
              x:Class="ReCallVocabulary.Pages.DeleteWordsPage">
-    <CollectionView x:Name="dictView" SelectedItems="{Binding SelectedItems,Mode=TwoWay}" SelectionMode="Multiple">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="data_access:Phrase">
-                <Grid RowSpacing="30" ColumnDefinitions="*,*" RowDefinitions="*">
-                            <Label x:Name="termLabel" Text="{Binding Term}" Grid.Column="0"/>
-                            <Label Text="{Binding Definition}" Grid.Column="1"/>
-                        </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+    <ContentPage.Resources>
+        <DataTemplate x:Key="FirstPriorityWordTemplate">
+            <Grid RowSpacing="30" ColumnDefinitions="*,*" RowDefinitions="*" BackgroundColor="Plum">
+                <Label x:Name="termLabel" Text="{Binding Term}" Grid.Column="0"/>
+                <Label Text="{Binding Definition}" Grid.Column="1"/>
+            </Grid>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="OtherWordTemplate">
+            <Grid RowSpacing="30" ColumnDefinitions="*,*" RowDefinitions="*">
+                <Label x:Name="termLabel" Text="{Binding Term}" Grid.Column="0"/>
+                <Label Text="{Binding Definition}" Grid.Column="1"/>
+            </Grid>
+        </DataTemplate>
+
+        <controls:WordSelector x:Key="WordSelector"
+                                             FirstPriorityWord="{StaticResource FirstPriorityWordTemplate}"
+                                             OtherWord="{StaticResource OtherWordTemplate}" />
+    </ContentPage.Resources>
+    <CollectionView Style="{DynamicResource withSelection}" ItemTemplate="{StaticResource WordSelector}" x:Name="dictView"
+                    SelectionMode="Multiple"/>
+
 </ContentPage>

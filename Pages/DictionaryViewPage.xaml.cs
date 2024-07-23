@@ -14,9 +14,9 @@ public partial class DictionaryViewPage : ContentPage
         dictView.ItemsSource = PhraseList;
     }
 
-    private async void dictView_ItemTapped(object sender, ItemTappedEventArgs e)
+    private async void dictView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        Phrase item = e.Item as Phrase;
+        Phrase item = (Phrase)e.CurrentSelection;
         await Navigation.PushAsync(new PhraseViewPage(item.Id));
     }
 }
