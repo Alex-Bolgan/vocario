@@ -24,6 +24,18 @@
                                          FirstPriorityWord="{StaticResource FirstPriorityWordTemplate}"
                                          OtherWord="{StaticResource OtherWordTemplate}" />
     </ContentPage.Resources>
-    <CollectionView ItemTemplate="{StaticResource WordSelector}" x:Name="dictView"
-                SelectionMode="Single" SelectionChanged="dictView_SelectionChanged"/>
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <SearchBar TextChanged="OnTextChanged" 
+               SearchButtonPressed="OnTextChanged"/>
+            <CollectionView x:Name="searchResultTags" ItemsLayout="HorizontalList" IsVisible="False"
+        SelectionMode="Single" SelectionChanged="dictView_SelectionChanged"/>
+            <CollectionView x:Name="searchResults" IsVisible="False"  ItemTemplate="{StaticResource WordSelector}"
+        SelectionMode="Single" SelectionChanged="dictView_SelectionChanged"/>
+
+            <CollectionView ItemTemplate="{StaticResource WordSelector}" x:Name="dictView" IsVisible="True"
+        SelectionMode="Single" SelectionChanged="dictView_SelectionChanged"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

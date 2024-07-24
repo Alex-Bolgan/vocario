@@ -37,12 +37,22 @@ public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
     {
         get => CurrentPhrase.CreationDate;
     }
-    public string[] Tags
+    public string Tags
     {
-        get => CurrentPhrase.Tags;
+        get
+        {
+            if(CurrentPhrase.Tags is not null)
+            {
+                return string.Join(' ', CurrentPhrase.Tags);
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
         set
         {
-            CurrentPhrase.Tags = value;
+            CurrentPhrase.Tags = value.Split(' ');
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Tags"));
         }
     }

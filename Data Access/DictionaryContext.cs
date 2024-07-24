@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ReCallVocabulary.Data_Access
 {
@@ -14,9 +15,25 @@ namespace ReCallVocabulary.Data_Access
         {
             MyPath = PathDB.GetPath(path);
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite($"Data Source={MyPath}");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            var splitStringConverter = new ValueConverter<string[], string>(
+                v => (v != null && v.Length > 0) ? string.Empty : string.Join(',', v),
+                v => (string.IsNullOrWhiteSpace(v)) ? new string[] { string.Empty} : v.Split(',', StringSplitOptions.RemoveEmptyEntries));
+
+            modelBuilder.Entity<Phrase>()
+                .Property(e => e.Tags)
+                .HasConversion(splitStringConverter);
+
+            modelBuilder.Entity<Phrase>()
+                .Property(e => e.Synonyms)
+                .HasConversion(splitStringConverter);
         }
     }
 }

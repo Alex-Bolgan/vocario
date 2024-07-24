@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -97,6 +98,22 @@ namespace ReCallVocabulary.Data_Access
         public static int GetTotalNumber()
         {
             return App.ActiveContext.Phrases.Count();
+        }
+
+        public static List<Phrase> SearchPhrases(string search)
+        {
+            List<Phrase> result = App.ActiveContext.Phrases.AsQueryable().Where(p => p.Term.Contains(search)).ToList();
+
+            return result;
+        }
+        
+        public static List<string> SearchTags(string search)
+        {
+            List<string> result = App.ActiveContext.Phrases.Where(p => p.Tags != null).AsEnumerable().SelectMany(p => p.Tags)
+                .Distinct()
+                .ToList();
+
+            return result;
         }
     }
 }
