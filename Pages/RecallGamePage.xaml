@@ -13,7 +13,7 @@
             Text="{Binding Definition}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Label 
+        <Label x:Name="answerLabel"
             Text="Answer:"
             HorizontalOptions="Center" />
         <Label x:Name="termLabel"

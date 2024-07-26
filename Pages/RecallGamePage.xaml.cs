@@ -88,12 +88,14 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
 
     private void StopButton_Clicked(object sender, EventArgs e)
     {
-        Definition = $"Congrats! You recalled {totalCount}!";
-        Term = "";
+        definitionLabel.IsVisible = false;
+        termLabel.IsVisible = false;
+        Term = $"Congrats! You recalled {totalCount}!";
+        answerLabel.Text = "";
         StopButton.IsVisible = false;
         ToMainMenuButton.IsVisible = true;
     }
-    void OnTapGestureRecognizerTappedRecent(object sender, TappedEventArgs args)
+    void OnTapGestureRecognizerTappedRecent(object? sender, TappedEventArgs args)
     {
         if (termLabel.IsVisible)
         {
@@ -113,6 +115,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             termLabel.IsVisible = true;
         }
     }
+
     private void OnTapGestureRecognizerTapped(object? sender, TappedEventArgs e)
     {
         if (termLabel.IsVisible)
@@ -133,6 +136,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             termLabel.IsVisible = true;
         }
     }
+
     private int GenerateWith1Threshold()
     {
         if (countWithThresholds == 3)
@@ -147,6 +151,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         }
         return randomNumber;
     }
+
     private int GenerateWith2Thresholds()
     {
         if (countWithThresholds == 3)
