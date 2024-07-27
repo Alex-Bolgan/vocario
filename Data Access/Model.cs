@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +14,13 @@ namespace ReCallVocabulary.Data_Access
         {
             return App.ActiveContext.Phrases.Any(p => p.Id == id);
         }
+
         public static Phrase GetPhraseById(int id)
         {
             Phrase tmp = (Phrase)App.ActiveContext.Phrases.Find(id);
             return tmp ?? null;
         }
-        public static int GetIdByTerm(string term)
-        {
-            List<Phrase> listWithTerm = App.ActiveContext.Phrases.Where(p => p.Term == term).ToList();
-            int id = listWithTerm.First().Id;
-            return id;
-        }
+
         public static int GetFirstIdWithDate(DateTime date)
         {
             Phrase? result = App.ActiveContext.Phrases
@@ -50,6 +47,7 @@ namespace ReCallVocabulary.Data_Access
 
             return result.Id;
         }
+
         public static void UpdatePhrase(Phrase phrase)
         {
             Phrase current = (Phrase)App.ActiveContext?.Phrases.Find(phrase.Id);
@@ -58,12 +56,6 @@ namespace ReCallVocabulary.Data_Access
             current.Synonyms = phrase.Synonyms;
             current.Tags = phrase.Tags;
             App.ActiveContext.SaveChanges();
-        }
-
-        public static void RemovePhrase(Phrase phrase)
-        {
-            App.ActiveContext?.Phrases.Remove(phrase);
-            App.ActiveContext?.SaveChanges();
         }
 
         public static void RemoveRange(List<Phrase> phrases)
@@ -115,5 +107,17 @@ namespace ReCallVocabulary.Data_Access
 
             return result;
         }
+
+        public static List<Phrase> SearchPhrasesWithTag(string tag)
+        {
+            List<Phrase> result = App.ActiveContext.Phrases
+                .Where(p=> p.Tags != null)
+                .AsEnumerable()
+                .Where(p => p.Tags.Any(t => t.Contains(tag)))
+                .ToList();
+
+            return result;
+        }
+
     }
 }

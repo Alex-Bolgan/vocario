@@ -56,9 +56,9 @@ public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Tags"));
         }
     }
-    public PhraseViewPage(int id)
+    public PhraseViewPage(Phrase phrase)
 	{
-        CurrentPhrase = Model.GetPhraseById(id);
+        CurrentPhrase = phrase;
         BindingContext = this;
         InitializeComponent();
 	}

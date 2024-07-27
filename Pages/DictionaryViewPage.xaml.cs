@@ -20,7 +20,7 @@ public partial class DictionaryViewPage : ContentPage
         Phrase item = e.CurrentSelection[0] as Phrase;
         if (item is not null)
         {
-            await Navigation.PushAsync(new PhraseViewPage(item.Id));
+            await Navigation.PushAsync(new PhraseViewPage(item));
         }
     }
     
@@ -41,6 +41,17 @@ public partial class DictionaryViewPage : ContentPage
             dictView.ItemsSource = PhraseList;
             searchResultTags.IsVisible = false;
             searchResults.IsVisible = false;
+        }
+    }
+
+    private void searchResultTags_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        string tag = e.CurrentSelection[0] as string;
+
+        if (tag is not null)
+        {
+            searchResults.ItemsSource = Model.SearchPhrasesWithTag(tag);
+            searchResultTags.IsVisible = false;
         }
     }
 }
