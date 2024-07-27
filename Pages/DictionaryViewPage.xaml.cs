@@ -17,10 +17,12 @@ public partial class DictionaryViewPage : ContentPage
 
     private async void dictView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        Phrase item = e.CurrentSelection[0] as Phrase;
-        if (item is not null)
+        Phrase item;
+
+        if (e.CurrentSelection.Count > 0 && (item = e.CurrentSelection[0] as Phrase) is not null)
         {
             await Navigation.PushAsync(new PhraseViewPage(item));
+            dictView.SelectedItem = null;
         }
     }
     

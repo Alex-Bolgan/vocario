@@ -24,7 +24,7 @@ namespace ReCallVocabulary.Data_Access
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var splitStringConverter = new ValueConverter<string[], string>(
-                v => (v != null && v.Length > 0) ? string.Empty : string.Join(',', v),
+                v => (v != null && v.Length > 0) ? string.Join(',', v) : string.Empty,
                 v => (string.IsNullOrWhiteSpace(v)) ? new string[] { string.Empty} : v.Split(',', StringSplitOptions.RemoveEmptyEntries));
 
             modelBuilder.Entity<Phrase>()
