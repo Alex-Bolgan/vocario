@@ -2,6 +2,7 @@ using ReCallVocabulary.Data_Access;
 
 namespace ReCallVocabulary.Pages;
 
+[XamlCompilation(XamlCompilationOptions.Compile)]
 public partial class DictionaryViewPage : ContentPage
 {
     List<Phrase> PhraseList { get; set; } = App.ActiveContext.Phrases.ToList();

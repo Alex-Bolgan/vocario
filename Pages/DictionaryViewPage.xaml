@@ -6,17 +6,31 @@
                           xmlns:controls ="clr-namespace:ReCallVocabulary.Controls"
              x:Class="ReCallVocabulary.Pages.DictionaryViewPage">
     <ContentPage.Resources>
-        <DataTemplate x:Key="FirstPriorityWordTemplate">
-            <Grid RowSpacing="30" ColumnDefinitions="*,*" RowDefinitions="*" BackgroundColor="Plum">
-                <Label x:Name="termLabel" Text="{Binding Term}" Grid.Column="0"/>
-                <Label Text="{Binding Definition}" Grid.Column="1"/>
+        <DataTemplate x:Key="FirstPriorityWordTemplate" x:DataType="data_access:Phrase">
+            <Grid RowSpacing="30" BackgroundColor="Plum">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="termLabel" Text="{Binding Term, Mode=OneTime}" Grid.Column="0"/>
+                <Label Text="{Binding Definition, Mode=OneTime}" Grid.Column="1"/>
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="OtherWordTemplate">
-            <Grid RowSpacing="30" ColumnDefinitions="*,*" RowDefinitions="*">
-                <Label x:Name="termLabel" Text="{Binding Term}" Grid.Column="0"/>
-                <Label Text="{Binding Definition}" Grid.Column="1"/>
+        <DataTemplate x:Key="OtherWordTemplate" x:DataType="data_access:Phrase">
+            <Grid RowSpacing="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition Width="800"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="termLabel" Text="{Binding Term, Mode=OneTime}" Grid.Column="0"/>
+                <Label Text="{Binding Definition, Mode=OneTime}" Grid.Column="1"/>
             </Grid>
         </DataTemplate>
 
@@ -25,17 +39,17 @@
                                          OtherWord="{StaticResource OtherWordTemplate}" />
     </ContentPage.Resources>
 
-    <ScrollView>
-        <VerticalStackLayout>
+    <ScrollView CompressedLayout.IsHeadless="True">
+        <VerticalStackLayout CompressedLayout.IsHeadless="True">
             <SearchBar TextChanged="OnTextChanged" 
                SearchButtonPressed="OnTextChanged"/>
             <CollectionView x:Name="searchResultTags" ItemsLayout="HorizontalList" IsVisible="False"
-        SelectionMode="Single" SelectionChanged="dictView_SelectionChanged"/>
+        SelectionMode="Single" SelectionChanged="dictView_SelectionChanged" ItemSizingStrategy="MeasureFirstItem"/>
             <CollectionView x:Name="searchResults" IsVisible="False"  ItemTemplate="{StaticResource WordSelector}"
-        SelectionMode="Single" SelectionChanged="dictView_SelectionChanged"/>
+        SelectionMode="Single" SelectionChanged="dictView_SelectionChanged" ItemSizingStrategy="MeasureFirstItem"/>
 
             <CollectionView ItemTemplate="{StaticResource WordSelector}" x:Name="dictView" IsVisible="True"
-        SelectionMode="Single" SelectionChanged="dictView_SelectionChanged"/>
+        SelectionMode="Single" SelectionChanged="dictView_SelectionChanged" ItemSizingStrategy="MeasureFirstItem"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
