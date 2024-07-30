@@ -67,7 +67,7 @@ namespace ReCallVocabulary.Data_Access
 
         public static bool IsEmpty()
         {
-            return activeContext.Phrases.Any();
+            return !activeContext.Phrases.Any();
         }
         public static int GetMaxId()
         {
