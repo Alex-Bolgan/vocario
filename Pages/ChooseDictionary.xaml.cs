@@ -46,7 +46,7 @@ public partial class ChooseDictionary : ContentPage
         await Navigation.PushAsync(new AddDictionaryPage());
     }
 }
-public class DatabaseName { 
-    public string Name { get; set; }
+public class DatabaseName {
+    public required string Name { get; set; }
     public FontAttributes FontAttribute { get; set; } = FontAttributes.None;
 }

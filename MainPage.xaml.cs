@@ -4,14 +4,15 @@ namespace ReCallVocabulary
 {
     public partial class MainPage : ContentPage
     {
-        private DictionaryContext? activeContext = App.ActiveContext;
+        private DictionaryContext activeContext = App.ActiveContext ??
+        throw new ArgumentNullException(nameof(activeContext));
         public static bool IsOnlyRecent { get; set; } = false;
         public MainPage()
         {
             InitializeComponent();
             if (!Directory.Exists(Path.GetDirectoryName(activeContext.MyPath)))
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(activeContext.MyPath));
+                Directory.CreateDirectory(Path.GetDirectoryName(activeContext.MyPath)!);
             }
 
             if (!File.Exists(activeContext.MyPath))

@@ -4,8 +4,8 @@ namespace ReCallVocabulary.Controls
 {
     public class WordSelector : DataTemplateSelector
     {
-        public DataTemplate FirstPriorityWord { get; set; }
-        public DataTemplate OtherWord { get; set; }
+        public required DataTemplate FirstPriorityWord { get; set; }
+        public required DataTemplate OtherWord { get; set; }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {

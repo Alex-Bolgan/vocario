@@ -4,7 +4,8 @@ namespace ReCallVocabulary.Pages;
 
 public partial class DictionaryOptionsPage : ContentPage
 {
-    private DictionaryContext? activeContext = App.ActiveContext;
+    private readonly DictionaryContext activeContext = App.ActiveContext ??
+        throw new ArgumentNullException(nameof(activeContext));
 
     public DictionaryOptionsPage()
     {

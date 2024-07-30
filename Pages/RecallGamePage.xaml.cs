@@ -5,19 +5,28 @@ namespace ReCallVocabulary.Pages;
 public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
 {
     private readonly bool isOnlyRecent;
-    private string term;
-    private string definition;
+
+    private string term = string.Empty;
+
+    private string definition = string.Empty;
+
     private int countWithThresholds = 1;
+
     private int totalCount = 0;
-    private int firstPriorityId = Model.GetMinId();
+
+    private int firstPriorityId = Model.GetMinIdAsync();
+
     private int secondPriorityId = 0;
-    private int endId = Model.GetMaxId();
+
+    private int endId = Model.GetMaxIdAsync();
+
     int randomNumber;
+
     Random random = new Random();
 
     private Func<int> generatingMethod;
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    new public event PropertyChangedEventHandler? PropertyChanged;
 
     public string Term
     {
@@ -55,13 +64,13 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
 
         if (dates[0] == DateTime.MinValue)
         {
-            firstPriorityId = Model.GetFirstIdWithDate(dates[1]);
+            firstPriorityId = Model.GetFirstIdWithDateAsync(dates[1]);
             endId = Model.GetMaxIdWithDate(dates[2]);
         }
         else
         {
-            firstPriorityId = Model.GetFirstIdWithDate(dates[1]);
-            secondPriorityId = Model.GetFirstIdWithDate(dates[0]);
+            firstPriorityId = Model.GetFirstIdWithDateAsync(dates[1]);
+            secondPriorityId = Model.GetFirstIdWithDateAsync(dates[0]);
             endId = Model.GetMaxIdWithDate(dates[2]);
         }
 
@@ -102,11 +111,11 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             do
             {
                 randomNumber = random.Next(firstPriorityId, endId + 1);
-            } while (!Model.PhraseExists(randomNumber));
+            } while (!Model.PhraseExistsAsync(randomNumber));
 
             randomNumber = random.Next(firstPriorityId, endId + 1);
-            Definition = Model.GetPhraseById(randomNumber).Definition;
-            Term = Model.GetPhraseById(randomNumber).Term;
+            Definition = Model.GetPhraseByIdAsync(randomNumber).Definition;
+            Term = Model.GetPhraseByIdAsync(randomNumber).Term;
             termLabel.IsVisible = false;
         }
         else
@@ -124,10 +133,10 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             {
                 countWithThresholds = 1;
                 randomNumber = generatingMethod();
-            } while (!Model.PhraseExists(randomNumber));
+            } while (!Model.PhraseExistsAsync(randomNumber));
 
-            Definition = Model.GetPhraseById(randomNumber).Definition;
-            Term = Model.GetPhraseById(randomNumber).Term;
+            Definition = Model.GetPhraseByIdAsync(randomNumber).Definition;
+            Term = Model.GetPhraseByIdAsync(randomNumber).Term;
             termLabel.IsVisible = false;
         }
         else

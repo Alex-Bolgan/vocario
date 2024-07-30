@@ -13,8 +13,8 @@ public partial class DictionaryViewPage : ContentPage
     public DictionaryViewPage()
     {
         InitializeComponent();
-        int wordNumber = Model.GetTotalNumber();
-        this.Title = $"{Path.GetFileNameWithoutExtension(File.ReadAllText(App.fileWithCurrentDBName))} ({wordNumber} words)";
+        int wordNumber = Model.GetTotalNumberAsync();
+        this.Title = $"{Path.GetFileNameWithoutExtension(File.ReadAllText(App.FileWithCurrentDBName))} ({wordNumber} words)";
         dictView.ItemsSource = PhraseList;
         searchResultTags.ItemsSource = Model.GetTags();
     }

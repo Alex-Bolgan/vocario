@@ -29,7 +29,7 @@ public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
     }
     public string[] Synonyms
     {
-        get => CurrentPhrase.Synonyms;
+        get => CurrentPhrase.Synonyms!;
         set
         {
             CurrentPhrase.Synonyms = value;
@@ -70,7 +70,7 @@ public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
 
     private void SaveChangesButton_Clicked(object sender, EventArgs e)
     {
-        Model.UpdatePhrase(CurrentPhrase);
+        Model.UpdatePhraseAsync(CurrentPhrase);
     }
 
     private void TagEntry_Focused(object sender, FocusEventArgs e)
