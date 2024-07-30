@@ -5,7 +5,10 @@ namespace ReCallVocabulary.Pages;
 [XamlCompilation(XamlCompilationOptions.Compile)]
 public partial class DictionaryViewPage : ContentPage
 {
-    List<Phrase> PhraseList { get; set; } = App.ActiveContext.Phrases.ToList();
+    List<Phrase> PhraseList { get; set; } = [.. (App.ActiveContext ??
+        throw new ArgumentNullException(nameof(PhraseList))).Phrases];
+
+    private readonly List<string> tagList = Model.GetTags();
 
     public DictionaryViewPage()
     {
@@ -18,7 +21,7 @@ public partial class DictionaryViewPage : ContentPage
 
     private async void dictView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        Phrase item;
+        Phrase? item;
 
         if (e.CurrentSelection.Count > 0 && (item = e.CurrentSelection[0] as Phrase) is not null)
         {
@@ -46,11 +49,18 @@ public partial class DictionaryViewPage : ContentPage
 
     private void SearchResultTags_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        string tag = e.CurrentSelection[0] as string;
+        string? tag;
 
-        if (tag is not null)
+        if (e.CurrentSelection.Count > 0 && (tag = e.CurrentSelection[0] as string) is not null)
         {
             searchResults.ItemsSource = Model.SearchPhrasesWithTag(tag);
+            searchResults.IsVisible = true;
+            dictView.IsVisible = false;
+        }
+        else
+        {
+            searchResults.IsVisible = false;
+            dictView.IsVisible = true;
         }
     }
 }

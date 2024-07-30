@@ -3,9 +3,9 @@ using ReCallVocabulary.Data_Access;
 namespace ReCallVocabulary.Pages;
 public partial class AddWordsPage : ContentPage
 {
-    private DictionaryContext? activeContext = App.ActiveContext;
+    private readonly DictionaryContext activeContext = (App.ActiveContext ?? throw new ArgumentNullException(nameof(activeContext)));
 
-    private List<string> tagList = Model.GetTags();
+    private readonly List<string> tagList = Model.GetTags();
 
     public AddWordsPage()
     {
@@ -26,7 +26,7 @@ public partial class AddWordsPage : ContentPage
 
     private void Tags_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        string item;
+        string? item;
 
         if (e.CurrentSelection.Count > 0 && (item = e.CurrentSelection[0] as string) is not null)
         {
@@ -38,6 +38,7 @@ public partial class AddWordsPage : ContentPage
     {
         activeContext.Database.EnsureCreated();
         if (!String.IsNullOrWhiteSpace(phraseEntry.Text) && !String.IsNullOrWhiteSpace(definitionEntry.Text))
+        {
             await activeContext.Phrases.AddAsync(new Phrase
             {
                 Term = phraseEntry.Text,
@@ -45,6 +46,8 @@ public partial class AddWordsPage : ContentPage
                 Synonyms = synonymsEntry.Text?.Split(" "),
                 Tags = TagEntry.Text?.Split(" ")
             });
+        }
+
         await activeContext.SaveChangesAsync();
     }
 }

@@ -10,20 +10,21 @@ namespace ReCallVocabulary.Data_Access
 {
     public static class Model
     {
+        private static readonly DictionaryContext activeContext = 
+            (App.ActiveContext ?? throw new ArgumentNullException(nameof(activeContext)));
         public static bool PhraseExists(int id)
         {
-            return App.ActiveContext.Phrases.Any(p => p.Id == id);
+            return activeContext.Phrases.Any(p => p.Id == id);
         }
 
         public static Phrase GetPhraseById(int id)
         {
-            Phrase tmp = (Phrase)App.ActiveContext.Phrases.Find(id);
-            return tmp ?? null;
+            return activeContext.Phrases.Find(id) ?? throw new ArgumentException(nameof(id));
         }
 
         public static int GetFirstIdWithDate(DateTime date)
         {
-            Phrase? result = App.ActiveContext.Phrases
+            Phrase? result = activeContext.Phrases
                 .Where(x => x.CreationDate > date)
                 .FirstOrDefault();
             if (result is null)
@@ -36,7 +37,7 @@ namespace ReCallVocabulary.Data_Access
 
         public static int GetMaxIdWithDate(DateTime date)
         {
-            Phrase? result = App.ActiveContext.Phrases
+            Phrase? result = activeContext.Phrases
                 .Where(x => x.CreationDate > date)
                 .OrderBy(p => p.Id)
                 .LastOrDefault();
@@ -50,12 +51,12 @@ namespace ReCallVocabulary.Data_Access
 
         public static void UpdatePhrase(Phrase phrase)
         {
-            Phrase current = (Phrase)App.ActiveContext?.Phrases.Find(phrase.Id);
+            Phrase current = activeContext.Phrases.Find(phrase.Id) ?? throw new ArgumentException(nameof(phrase));
             current.Term = phrase.Term;
             current.Definition = phrase.Definition;
             current.Synonyms = phrase.Synonyms;
             current.Tags = phrase.Tags;
-            App.ActiveContext.SaveChanges();
+            activeContext.SaveChanges();
         }
 
         public static void RemoveRange(List<Phrase> phrases)
@@ -66,13 +67,13 @@ namespace ReCallVocabulary.Data_Access
 
         public static bool IsEmpty()
         {
-            return !App.ActiveContext.Phrases.Any();
+            return activeContext.Phrases.Any();
         }
         public static int GetMaxId()
         {
             if (!IsEmpty())
             {
-                return App.ActiveContext.Phrases.Max(p => p.Id);
+                return activeContext.Phrases.Max(p => p.Id);
 
             }
             return 0;
@@ -82,26 +83,26 @@ namespace ReCallVocabulary.Data_Access
         {
             if (!IsEmpty())
             {
-                return App.ActiveContext.Phrases.Min(p => p.Id);
+                return activeContext.Phrases.Min(p => p.Id);
             }
             return 0;
         }
 
         public static int GetTotalNumber()
         {
-            return App.ActiveContext.Phrases.Count();
+            return activeContext.Phrases.Count();
         }
 
         public static List<Phrase> SearchPhrases(string search)
         {
-            List<Phrase> result = App.ActiveContext.Phrases.AsQueryable().Where(p => p.Term.Contains(search)).ToList();
+            List<Phrase> result = [.. activeContext.Phrases.AsQueryable().Where(p => !string.IsNullOrWhiteSpace(p.Term) && p.Term.Contains(search))];
 
             return result;
         }
         
         public static List<string> GetTags()
         {
-            List<string> result = App.ActiveContext.Phrases.Where(p => p.Tags != null).AsEnumerable().SelectMany(p => p.Tags)
+            List<string> result = activeContext.Phrases.Where(p => p.Tags != null).AsEnumerable().SelectMany(p => p.Tags)
                 .Distinct()
                 .ToList();
 
@@ -110,7 +111,7 @@ namespace ReCallVocabulary.Data_Access
 
         public static List<Phrase> SearchPhrasesWithTag(string tag)
         {
-            List<Phrase> result = App.ActiveContext.Phrases
+            List<Phrase> result = activeContext.Phrases
                 .Where(p=> p.Tags != null)
                 .AsEnumerable()
                 .Where(p => p.Tags.Any(t => t.Contains(tag)))

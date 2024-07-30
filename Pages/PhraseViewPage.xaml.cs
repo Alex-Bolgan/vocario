@@ -4,14 +4,14 @@ using System.ComponentModel;
 
 public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
 {
-    public event PropertyChangedEventHandler PropertyChanged;
+    new public event PropertyChangedEventHandler? PropertyChanged;
 
-    private List<string> tagList = Model.GetTags();
+    private readonly List<string> tagList = Model.GetTags();
 
     private Phrase CurrentPhrase { get; set; }
     public string Term
     {
-        get => CurrentPhrase.Term;
+        get => CurrentPhrase.Term!;
         set
         {
             CurrentPhrase.Term = value;
@@ -86,7 +86,7 @@ public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
 
     private void tags_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        string item;
+        string? item;
 
         if (e.CurrentSelection.Count > 0 && (item = e.CurrentSelection[0] as string) is not null)
         {
