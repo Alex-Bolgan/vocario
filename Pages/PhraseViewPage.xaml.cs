@@ -5,6 +5,9 @@ using System.ComponentModel;
 public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
+
+    private List<string> tagList = Model.GetTags();
+
     private Phrase CurrentPhrase { get; set; }
     public string Term
     {
@@ -56,15 +59,38 @@ public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Tags"));
         }
     }
+
     public PhraseViewPage(Phrase phrase)
 	{
         CurrentPhrase = phrase;
         BindingContext = this;
         InitializeComponent();
+        tags.ItemsSource = tagList;
 	}
 
     private void SaveChangesButton_Clicked(object sender, EventArgs e)
     {
         Model.UpdatePhrase(CurrentPhrase);
+    }
+
+    private void TagEntry_Focused(object sender, FocusEventArgs e)
+    {
+        tags.IsVisible = AddTagButton.IsVisible = true;
+    }
+
+    private void AddTagButton_Clicked(object sender, EventArgs e)
+    {
+        TagEntry.Text += " ";
+        tagList.Add(TagEntry.Text.Split(" ").Last());
+    }
+
+    private void tags_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        string item;
+
+        if (e.CurrentSelection.Count > 0 && (item = e.CurrentSelection[0] as string) is not null)
+        {
+            Tags += " " + item;
+        }
     }
 }

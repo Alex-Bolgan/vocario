@@ -24,8 +24,20 @@
             />
         <Entry 
             Text="{Binding Tags}"
+            x:Name="TagEntry"
             HorizontalOptions="Fill"
+             Focused="TagEntry_Focused"
             />
+        <CollectionView x:Name="tags" ItemsLayout="VerticalList" IsVisible="False"
+SelectionMode="Single" SelectionChanged="tags_SelectionChanged" ItemSizingStrategy="MeasureFirstItem"/>
+        <Button 
+            x:Name="AddTagButton"
+            Text="Add new tag"
+            HorizontalOptions="Start"
+            Clicked="AddTagButton_Clicked"
+            BackgroundColor="White"
+            TextColor="Blue"
+            IsVisible="False"/>   
         <Label 
             Text="{Binding CreationDate}"            
             TextColor="Grey"
@@ -34,6 +46,7 @@
             x:Name="SaveChangesButton"
             Text="Save the changes"
             HorizontalOptions="Center"
-            Clicked="SaveChangesButton_Clicked"/>  
+            Clicked="SaveChangesButton_Clicked"/>
+        
     </VerticalStackLayout>
 </ContentPage>

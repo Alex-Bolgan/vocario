@@ -43,8 +43,8 @@
         <VerticalStackLayout CompressedLayout.IsHeadless="True">
             <SearchBar TextChanged="OnTextChanged" 
                SearchButtonPressed="OnTextChanged"/>
-            <CollectionView x:Name="searchResultTags" ItemsLayout="HorizontalList" IsVisible="False"
-        SelectionMode="Single" SelectionChanged="searchResultTags_SelectionChanged" ItemSizingStrategy="MeasureFirstItem"/>
+            <CollectionView x:Name="searchResultTags" ItemsLayout="HorizontalList"
+        SelectionMode="Single" SelectionChanged="SearchResultTags_SelectionChanged" ItemSizingStrategy="MeasureFirstItem"/>
             <CollectionView x:Name="searchResults" IsVisible="False"  ItemTemplate="{StaticResource WordSelector}"
         SelectionMode="Single" SelectionChanged="dictView_SelectionChanged" ItemSizingStrategy="MeasureFirstItem"/>
 

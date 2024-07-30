@@ -99,7 +99,7 @@ namespace ReCallVocabulary.Data_Access
             return result;
         }
         
-        public static List<string> SearchTags(string search)
+        public static List<string> GetTags()
         {
             List<string> result = App.ActiveContext.Phrases.Where(p => p.Tags != null).AsEnumerable().SelectMany(p => p.Tags)
                 .Distinct()

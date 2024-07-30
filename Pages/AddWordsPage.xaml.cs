@@ -5,12 +5,34 @@ public partial class AddWordsPage : ContentPage
 {
     private DictionaryContext? activeContext = App.ActiveContext;
 
+    private List<string> tagList = Model.GetTags();
+
     public AddWordsPage()
     {
         InitializeComponent();
-
+        Tags.ItemsSource = tagList;
     }
 
+    private void TagEntry_Focused(object sender, FocusEventArgs e)
+    {
+        Tags.IsVisible = AddTagButton.IsVisible = true;
+    }
+
+    private void AddTagButton_Clicked(object sender, EventArgs e)
+    {
+        TagEntry.Text += " ";
+        tagList.Add(TagEntry.Text.Split(" ").Last());
+    }
+
+    private void Tags_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        string item;
+
+        if (e.CurrentSelection.Count > 0 && (item = e.CurrentSelection[0] as string) is not null)
+        {
+            TagEntry.Text += " " + item;
+        }
+    }
 
     private async void AddButton_Clicked(object sender, EventArgs e)
     {
@@ -21,7 +43,7 @@ public partial class AddWordsPage : ContentPage
                 Term = phraseEntry.Text,
                 Definition = definitionEntry.Text,
                 Synonyms = synonymsEntry.Text?.Split(" "),
-                Tags = tagsEntry.Text?.Split(" ")
+                Tags = TagEntry.Text?.Split(" ")
             });
         await activeContext.SaveChangesAsync();
     }
