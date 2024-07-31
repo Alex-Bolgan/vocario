@@ -12,9 +12,9 @@ namespace ReCallVocabulary.Data_Access
     {
         private static readonly DictionaryContext activeContext = 
             (App.ActiveContext ?? throw new ArgumentNullException(nameof(activeContext)));
-        public static bool PhraseExists(int id)
+        public static async Task<bool> PhraseExistsAsync(int id)
         {
-            return activeContext.Phrases.Any(p => p.Id == id);
+            return await activeContext.Phrases.AnyAsync(p => p.Id == id);
         }
 
         public static Phrase GetPhraseById(int id)
@@ -49,14 +49,15 @@ namespace ReCallVocabulary.Data_Access
             return result.Id;
         }
 
-        public static void UpdatePhrase(Phrase phrase)
+        public static async void UpdatePhraseAsync(Phrase phrase)
         {
-            Phrase current = activeContext.Phrases.Find(phrase.Id) ?? throw new ArgumentException(nameof(phrase));
+            Phrase current = await activeContext.Phrases.FindAsync(phrase.Id) 
+                ?? throw new ArgumentException(nameof(phrase));
             current.Term = phrase.Term;
             current.Definition = phrase.Definition;
             current.Synonyms = phrase.Synonyms;
             current.Tags = phrase.Tags;
-            activeContext.SaveChanges();
+            await activeContext.SaveChangesAsync();
         }
 
         public static void RemoveRange(List<Phrase> phrases)
@@ -74,8 +75,8 @@ namespace ReCallVocabulary.Data_Access
             if (!IsEmpty())
             {
                 return activeContext.Phrases.Max(p => p.Id);
-
             }
+
             return 0;
         }
         
@@ -95,14 +96,14 @@ namespace ReCallVocabulary.Data_Access
 
         public static List<Phrase> SearchPhrases(string search)
         {
-            List<Phrase> result = [.. activeContext.Phrases.AsQueryable().Where(p => !string.IsNullOrWhiteSpace(p.Term) && p.Term.Contains(search))];
+            List<Phrase> result = [.. activeContext.Phrases.Where(p => !string.IsNullOrWhiteSpace(p.Term) && p.Term.Contains(search))];
 
             return result;
         }
         
         public static List<string> GetTags()
         {
-            List<string> result = activeContext.Phrases.Where(p => p.Tags != null).AsEnumerable().SelectMany(p => p.Tags)
+            List<string> result = activeContext.Phrases.Where(p => p.Tags != null).AsEnumerable().SelectMany(p => p.Tags!)
                 .Distinct()
                 .ToList();
 
@@ -114,7 +115,7 @@ namespace ReCallVocabulary.Data_Access
             List<Phrase> result = activeContext.Phrases
                 .Where(p=> p.Tags != null)
                 .AsEnumerable()
-                .Where(p => p.Tags.Any(t => t.Contains(tag)))
+                .Where(p => p.Tags!.Any(t => t.Contains(tag)))
                 .ToList();
 
             return result;

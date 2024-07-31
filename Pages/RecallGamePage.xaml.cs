@@ -14,11 +14,11 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
 
     private int totalCount = 0;
 
-    private int firstPriorityId = Model.GetMinIdAsync();
+    private int firstPriorityId = Model.GetMinId();
 
     private int secondPriorityId = 0;
 
-    private int endId = Model.GetMaxIdAsync();
+    private int endId = Model.GetMaxId();
 
     int randomNumber;
 
@@ -64,13 +64,13 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
 
         if (dates[0] == DateTime.MinValue)
         {
-            firstPriorityId = Model.GetFirstIdWithDateAsync(dates[1]);
+            firstPriorityId = Model.GetFirstIdWithDate(dates[1]);
             endId = Model.GetMaxIdWithDate(dates[2]);
         }
         else
         {
-            firstPriorityId = Model.GetFirstIdWithDateAsync(dates[1]);
-            secondPriorityId = Model.GetFirstIdWithDateAsync(dates[0]);
+            firstPriorityId = Model.GetFirstIdWithDate(dates[1]);
+            secondPriorityId = Model.GetFirstIdWithDate(dates[0]);
             endId = Model.GetMaxIdWithDate(dates[2]);
         }
 
@@ -104,18 +104,19 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         StopButton.IsVisible = false;
         ToMainMenuButton.IsVisible = true;
     }
-    void OnTapGestureRecognizerTappedRecent(object? sender, TappedEventArgs args)
+     async void OnTapGestureRecognizerTappedRecent(object? sender, TappedEventArgs args)
     {
         if (termLabel.IsVisible)
         {
             do
             {
                 randomNumber = random.Next(firstPriorityId, endId + 1);
-            } while (!Model.PhraseExistsAsync(randomNumber));
+            } while (!(await Model.PhraseExistsAsync(randomNumber)));
 
             randomNumber = random.Next(firstPriorityId, endId + 1);
-            Definition = Model.GetPhraseByIdAsync(randomNumber).Definition;
-            Term = Model.GetPhraseByIdAsync(randomNumber).Term;
+            Phrase newPhrase = Model.GetPhraseById(randomNumber);
+            Definition = newPhrase.Definition;
+            Term = newPhrase.Term;
             termLabel.IsVisible = false;
         }
         else
@@ -125,7 +126,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         }
     }
 
-    private void OnTapGestureRecognizerTapped(object? sender, TappedEventArgs e)
+    private async void OnTapGestureRecognizerTapped(object? sender, TappedEventArgs e)
     {
         if (termLabel.IsVisible)
         {
@@ -133,10 +134,11 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             {
                 countWithThresholds = 1;
                 randomNumber = generatingMethod();
-            } while (!Model.PhraseExistsAsync(randomNumber));
+            } while (!await Model.PhraseExistsAsync(randomNumber));
 
-            Definition = Model.GetPhraseByIdAsync(randomNumber).Definition;
-            Term = Model.GetPhraseByIdAsync(randomNumber).Term;
+            Phrase newPhrase = Model.GetPhraseById(randomNumber);
+            Definition = newPhrase.Definition;
+            Term = newPhrase.Term;
             termLabel.IsVisible = false;
         }
         else
