@@ -12,9 +12,9 @@ namespace ReCallVocabulary.Data_Access
     {
         private static readonly DictionaryContext activeContext = 
             (App.ActiveContext ?? throw new ArgumentNullException(nameof(activeContext)));
-        public static async Task<bool> PhraseExistsAsync(int id)
+        public static bool PhraseExists(int id)
         {
-            return await activeContext.Phrases.AnyAsync(p => p.Id == id);
+            return activeContext.Phrases.Any(p => p.Id == id);
         }
 
         public static Phrase GetPhraseById(int id)

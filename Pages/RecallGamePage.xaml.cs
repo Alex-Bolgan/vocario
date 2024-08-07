@@ -104,16 +104,15 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         StopButton.IsVisible = false;
         ToMainMenuButton.IsVisible = true;
     }
-     async void OnTapGestureRecognizerTappedRecent(object? sender, TappedEventArgs args)
+     void OnTapGestureRecognizerTappedRecent(object? sender, TappedEventArgs args)
     {
         if (termLabel.IsVisible)
         {
             do
             {
                 randomNumber = random.Next(firstPriorityId, endId + 1);
-            } while (!(await Model.PhraseExistsAsync(randomNumber)));
+            } while (!Model.PhraseExists(randomNumber));
 
-            randomNumber = random.Next(firstPriorityId, endId + 1);
             Phrase newPhrase = Model.GetPhraseById(randomNumber);
             Definition = newPhrase.Definition;
             Term = newPhrase.Term;
@@ -126,7 +125,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         }
     }
 
-    private async void OnTapGestureRecognizerTapped(object? sender, TappedEventArgs e)
+    private void OnTapGestureRecognizerTapped(object? sender, TappedEventArgs e)
     {
         if (termLabel.IsVisible)
         {
@@ -134,7 +133,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             {
                 countWithThresholds = 1;
                 randomNumber = generatingMethod();
-            } while (!await Model.PhraseExistsAsync(randomNumber));
+            } while (!Model.PhraseExists(randomNumber));
 
             Phrase newPhrase = Model.GetPhraseById(randomNumber);
             Definition = newPhrase.Definition;
