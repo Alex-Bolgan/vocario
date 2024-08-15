@@ -6,7 +6,7 @@ namespace ReCallVocabulary
     {
         private DictionaryContext activeContext = App.ActiveContext ??
         throw new ArgumentNullException(nameof(activeContext));
-        public static bool IsOnlyRecent { get; set; } = false;
+        public static bool IsOnlyRecent { get; set; }
         public MainPage()
         {
             InitializeComponent();
@@ -25,12 +25,12 @@ namespace ReCallVocabulary
         private void Recall_Clicked(object sender, EventArgs e)
         {
             IsOnlyRecent = false;
-            Navigation.PushAsync(new RecallGamePage());
+            Navigation.PushAsync(new RecallGamePage(IsOnlyRecent));
         }
         private void RecallRecent_Clicked(object sender, EventArgs e)
         {
             IsOnlyRecent = true;
-            Navigation.PushAsync(new RecallGamePage());
+            Navigation.PushAsync(new RecallGamePage(IsOnlyRecent));
         }
         private async void Addwords_Clicked(object sender, EventArgs e)
         {

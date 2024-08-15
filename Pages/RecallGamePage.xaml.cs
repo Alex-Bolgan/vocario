@@ -48,10 +48,11 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         }
     }
 
-    public RecallGamePage()
+    public RecallGamePage(bool isOnlyRecent)
     {
         InitializeComponent();
         BindingContext = this;
+        this.isOnlyRecent = isOnlyRecent;
 
         if (Model.IsEmpty())
         {
@@ -153,8 +154,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
 
     private int GenerateWith1Threshold()
     {
-        return 10;
-        /*if (countWithThresholds == 3)
+        if (countWithThresholds == 3)
         {
             randomNumber = random.Next(firstPriorityId, endId);
             countWithThresholds = 1;
@@ -164,7 +164,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             randomNumber = random.Next(1, endId + 1);
             countWithThresholds++;
         }
-        return randomNumber;*/
+        return randomNumber;
     }
 
     private int GenerateWith2Thresholds()
