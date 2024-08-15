@@ -34,21 +34,22 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         set
         {
             term = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Term"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Term)));
         }
     }
+
     public string Definition
     {
         get => definition;
         set
         {
             definition = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Definition"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Definition)));
         }
     }
+
     public RecallGamePage()
     {
-
         InitializeComponent();
         BindingContext = this;
 
@@ -104,8 +105,9 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         StopButton.IsVisible = false;
         ToMainMenuButton.IsVisible = true;
     }
+
      void OnTapGestureRecognizerTappedRecent(object? sender, TappedEventArgs args)
-    {
+     {
         if (termLabel.IsVisible)
         {
             do
@@ -117,13 +119,14 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             Definition = newPhrase.Definition;
             Term = newPhrase.Term;
             termLabel.IsVisible = false;
+            tagView.ItemsSource = newPhrase.Tags;
         }
         else
         {
             totalCount++;
             termLabel.IsVisible = true;
         }
-    }
+     }
 
     private void OnTapGestureRecognizerTapped(object? sender, TappedEventArgs e)
     {
@@ -138,6 +141,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             Phrase newPhrase = Model.GetPhraseById(randomNumber);
             Definition = newPhrase.Definition;
             Term = newPhrase.Term;
+            tagView.ItemsSource = newPhrase.Tags;
             termLabel.IsVisible = false;
         }
         else
@@ -149,7 +153,8 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
 
     private int GenerateWith1Threshold()
     {
-        if (countWithThresholds == 3)
+        return 10;
+        /*if (countWithThresholds == 3)
         {
             randomNumber = random.Next(firstPriorityId, endId);
             countWithThresholds = 1;
@@ -159,7 +164,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             randomNumber = random.Next(1, endId + 1);
             countWithThresholds++;
         }
-        return randomNumber;
+        return randomNumber;*/
     }
 
     private int GenerateWith2Thresholds()

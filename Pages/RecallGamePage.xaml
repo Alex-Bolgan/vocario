@@ -13,6 +13,19 @@
             Text="{Binding Definition}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <CollectionView x:Name="tagView"
+            SelectionMode="None" 
+                ItemSizingStrategy="MeasureFirstItem" HorizontalOptions="Center">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal"
+                           ItemSpacing="20" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Label BackgroundColor="Aqua" Text="{Binding}"/>
+                </DataTemplate>  
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         <Label x:Name="answerLabel"
             Text="Answer:"
             HorizontalOptions="Center" />
