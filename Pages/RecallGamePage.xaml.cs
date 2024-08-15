@@ -48,10 +48,11 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         }
     }
 
-    public RecallGamePage()
+    public RecallGamePage(bool isOnlyRecent)
     {
         InitializeComponent();
         BindingContext = this;
+        this.isOnlyRecent = isOnlyRecent;
 
         if (Model.IsEmpty())
         {
