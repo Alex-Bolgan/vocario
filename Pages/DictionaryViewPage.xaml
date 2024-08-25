@@ -62,7 +62,7 @@ SelectionMode="Single" SelectionChanged="dictView_SelectionChanged" HeightReques
 
             <CollectionView ItemTemplate="{StaticResource WordSelector}" x:Name="dictView"
 SelectionMode="Single" SelectionChanged="dictView_SelectionChanged"
-                            ItemSizingStrategy="MeasureFirstItem" Grid.Row="3" HeightRequest="500"/>
+                            ItemSizingStrategy="MeasureFirstItem" Grid.Row="3" HeightRequest="445"/>
         </Grid>
             
 </ContentPage>
