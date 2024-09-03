@@ -1,12 +1,12 @@
 ﻿using ReCallVocabulary.Data_Access;
 using ReCallVocabulary.Pages;
+using CommunityToolkit.Maui.Views;
 namespace ReCallVocabulary
 {
     public partial class MainPage : ContentPage
     {
         private DictionaryContext activeContext = App.ActiveContext ??
         throw new ArgumentNullException(nameof(activeContext));
-        public static bool IsOnlyRecent { get; set; }
         public MainPage()
         {
             InitializeComponent();
@@ -22,15 +22,19 @@ namespace ReCallVocabulary
             }
             activeContext?.Database.EnsureCreated();
         }
-        private void Recall_Clicked(object sender, EventArgs e)
+        private async void Recall_Clicked(object sender, EventArgs e)
         {
-            IsOnlyRecent = false;
-            Navigation.PushAsync(new RecallGamePage(IsOnlyRecent));
+            Popup popup = new ChoosePriorityPopup(false);
+            await Application.Current.MainPage.ShowPopupAsync(popup);
+
+            popup.Close();
         }
-        private void RecallRecent_Clicked(object sender, EventArgs e)
+        private async void RecallRecent_Clicked(object sender, EventArgs e)
         {
-            IsOnlyRecent = true;
-            Navigation.PushAsync(new RecallGamePage(IsOnlyRecent));
+            Popup popup = new ChoosePriorityPopup(true);
+            await Application.Current.MainPage.ShowPopupAsync(popup);
+
+            popup.Close();
         }
         private async void Addwords_Clicked(object sender, EventArgs e)
         {

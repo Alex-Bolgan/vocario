@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:controls="clr-namespace:ReCallVocabulary.Controls"             
+                   xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+                   x:Class="ReCallVocabulary.Pages.ChoosePriorityPopup">
+
+                <VerticalStackLayout x:Name="Layout">
+                    <Label Text="1st-priority timespan"/>
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="*" HorizontalOptions="Center">
+                        <controls:FormDatePicker
+                            x:Name="FirstFormDatePicker"
+                            MinimumDate="{Binding MinDate}"
+                            MaximumDate="{Binding FirstMaxDate}"
+                            DateSelected="FirstFormDatePicker_DateSelected" Grid.Column="0"/>
+                        <controls:FormDatePicker
+                            x:Name="EndFormDatePicker"
+                            MinimumDate="{Binding MinDate}"
+                            MaximumDate="{Binding FirstMaxDate}"
+                            DateSelected="EndFormDatePicker_DateSelected" Grid.Column="1"/>
+                    </Grid>
+    
+                    <Label x:Name="firstTimespanLabel" Text=""/>
+                    <Label Text="2nd-priority timespan"/>
+                    <Switch x:Name="SecondPrioritySwitch" IsToggled="False"/>
+
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="*" HorizontalOptions="Center">
+                        <controls:FormDatePicker x:Name="SecondFormDatePicker"
+                                                 MinimumDate="{Binding MinDate}"
+                                                 MaximumDate="{Binding FirstStartDate}"
+                                                 IsEnabled="{Binding Source={x:Reference SecondPrioritySwitch},
+                   Path=IsToggled}" DateSelected="SecondFormDatePicker_DateSelected" Grid.Column="0"/>
+                        <controls:FormDatePicker x:Name="SecondEndDate" Date="{Binding EndDate}" IsEnabled="False" Grid.Column="1"/>
+                    </Grid>
+                    <Button
+                        x:Name="StartGameButton"
+                        Text="Start the game" 
+                        Clicked="StartGameButton_OnClicked"/>
+                </VerticalStackLayout>
+</toolkit:Popup>

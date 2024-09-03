@@ -76,7 +76,6 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             endId = Model.GetMaxIdWithDate(dates[2]);
         }
 
-        this.isOnlyRecent = MainPage.IsOnlyRecent;
         termLabel.IsVisible = definitionLabel.IsVisible = true;
 
         generatingMethod = GenerateWith1Threshold;
