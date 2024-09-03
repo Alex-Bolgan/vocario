@@ -7,7 +7,7 @@
              x:Class="ReCallVocabulary.Pages.DictionaryViewPage">
     <ContentPage.Resources>
         <DataTemplate x:Key="FirstPriorityWordTemplate" x:DataType="data_access:Phrase">
-            <Grid RowSpacing="30" HeightRequest="20" WidthRequest="1000" BackgroundColor="Plum">
+            <Grid RowSpacing="30" HeightRequest="20" WidthRequest="1000">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20"/>
                 </Grid.RowDefinitions>
@@ -15,8 +15,8 @@
                     <ColumnDefinition Width="400"/>
                     <ColumnDefinition Width="600"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="termLabel" Text="{Binding Term, Mode=OneTime}" Grid.Column="0" LineBreakMode="NoWrap"/>
-                <Label Text="{Binding Definition, Mode=OneTime}" Grid.Column="1" LineBreakMode="NoWrap"/>
+                <Label x:Name="termLabel" Text="{Binding Term, Mode=OneTime}" TextColor="Plum" Grid.Column="0" LineBreakMode="NoWrap"/>
+                <Label Text="{Binding Definition, Mode=OneTime}" TextColor="Plum" Grid.Column="1" LineBreakMode="NoWrap"/>
             </Grid>
         </DataTemplate>
 
@@ -46,11 +46,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
             <SearchBar TextChanged="OnTextChanged" 
-       SearchButtonPressed="OnTextChanged" Grid.Row="0"/>
+                       SearchButtonPressed="OnTextChanged" Grid.Row="0"/>
             
             <CollectionView x:Name="searchResultTags" ItemsLayout="HorizontalList"
                         SelectionMode="Single" SelectionChanged="SearchResultTags_SelectionChanged" 
