@@ -17,6 +17,13 @@ public partial class DictionaryViewPage : ContentPage
         this.Title = $"{Path.GetFileNameWithoutExtension(File.ReadAllText(App.FileWithCurrentDBName))} ({wordNumber} words)";
         dictView.ItemsSource = PhraseList;
         searchResultTags.ItemsSource = Model.GetTags();
+        SizeChanged += new EventHandler(ChangeDictViewSize);
+    }
+
+    private void ChangeDictViewSize(object? sender, EventArgs e)
+    {
+        dictView.HeightRequest =
+            DeviceDisplay.Current.MainDisplayInfo.Height / DeviceDisplay.Current.MainDisplayInfo.Density;
     }
 
     private async void dictView_SelectionChanged(object sender, SelectionChangedEventArgs e)
