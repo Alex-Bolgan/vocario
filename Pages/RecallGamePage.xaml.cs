@@ -4,15 +4,13 @@ namespace ReCallVocabulary.Pages;
 
 public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
 {
-    private readonly bool isOnlyRecent;
+    private List<int> phraseNumberList = new();
 
     private string term = string.Empty;
 
     private string definition = string.Empty;
 
     private int countWithThresholds = 1;
-
-    private int totalCount = 0;
 
     private int firstPriorityId = Model.GetMinId();
 
@@ -52,11 +50,10 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
     {
         InitializeComponent();
         BindingContext = this;
-        this.isOnlyRecent = isOnlyRecent;
 
         if (Model.IsEmpty())
         {
-            Definition = "Oops. It seems you have an empty dictionary";
+            Definition = "Oops. It seems you have an empty dictionary. Try adding some words first";
             definitionLabel.IsVisible = true;
             StopButton.IsVisible = false;
             ToMainMenuButton.IsVisible = true;
@@ -64,17 +61,18 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
 
         DateTime[] dates = DateFileHandler.GetDates();
 
+        //MinValue is default value
         if (dates[0] == DateTime.MinValue)
         {
             firstPriorityId = Model.GetFirstIdWithDate(dates[1]);
-            endId = Model.GetMaxIdWithDate(dates[2]);
         }
         else
         {
             firstPriorityId = Model.GetFirstIdWithDate(dates[1]);
             secondPriorityId = Model.GetFirstIdWithDate(dates[0]);
-            endId = Model.GetMaxIdWithDate(dates[2]);
         }
+
+        endId = Model.GetMaxIdWithDate(dates[2]);
 
         termLabel.IsVisible = definitionLabel.IsVisible = true;
 
@@ -84,7 +82,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             generatingMethod = GenerateWith2Thresholds;
         }
 
-        if (this.isOnlyRecent)
+        if (isOnlyRecent)
         {
             tapRecognizer.Tapped += OnTapGestureRecognizerTappedRecent;
             OnTapGestureRecognizerTappedRecent(this, new TappedEventArgs(""));
@@ -100,7 +98,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
     {
         definitionLabel.IsVisible = false;
         termLabel.IsVisible = false;
-        Term = $"Congrats! You recalled {totalCount}!";
+        Term = $"Congrats! You recalled {phraseNumberList.Distinct().Count()} ({phraseNumberList.Count} with duplicates)!";
         answerLabel.Text = "";
         StopButton.IsVisible = false;
         ToMainMenuButton.IsVisible = true;
@@ -123,11 +121,11 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         }
         else
         {
-            totalCount++;
+            phraseNumberList.Add(randomNumber);
             termLabel.IsVisible = true;
         }
      }
-
+    
     private void OnTapGestureRecognizerTapped(object? sender, TappedEventArgs e)
     {
         if (termLabel.IsVisible)
@@ -138,6 +136,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
                 randomNumber = generatingMethod();
             } while (!Model.PhraseExists(randomNumber));
 
+            phraseNumberList.Add(randomNumber);
             Phrase newPhrase = Model.GetPhraseById(randomNumber);
             Definition = newPhrase.Definition;
             Term = newPhrase.Term;
@@ -146,7 +145,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         }
         else
         {
-            totalCount++;
+            phraseNumberList.Add(randomNumber);
             termLabel.IsVisible = true;
         }
     }
