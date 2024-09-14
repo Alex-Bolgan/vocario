@@ -15,14 +15,14 @@ public partial class DictionaryViewPage : ContentPage
         InitializeComponent();
         int wordNumber = Model.GetTotalNumber();
         this.Title = $"{Path.GetFileNameWithoutExtension(File.ReadAllText(App.FileWithCurrentDBName))} ({wordNumber} words)";
-        dictView.ItemsSource = PhraseList;
-        searchResultTags.ItemsSource = Model.GetTags();
+        DictView.ItemsSource = PhraseList;
+        SearchResultTags.ItemsSource = Model.GetTags();
         SizeChanged += new EventHandler(ChangeDictViewSize);
     }
 
     private void ChangeDictViewSize(object? sender, EventArgs e)
     {
-        dictView.HeightRequest =
+        DictView.HeightRequest =
             DeviceDisplay.Current.MainDisplayInfo.Height / DeviceDisplay.Current.MainDisplayInfo.Density;
     }
 
@@ -33,7 +33,7 @@ public partial class DictionaryViewPage : ContentPage
         if (e.CurrentSelection.Count > 0 && (item = e.CurrentSelection[0] as Phrase) is not null)
         {
             await Navigation.PushAsync(new PhraseViewPage(item));
-            dictView.SelectedItem = null;
+            DictView.SelectedItem = null;
         }
     }
     
@@ -42,15 +42,15 @@ public partial class DictionaryViewPage : ContentPage
         SearchBar searchBar = (SearchBar)sender;
         if (!String.IsNullOrWhiteSpace(searchBar.Text))
         {
-            searchResults.ItemsSource = Model.SearchPhrases(searchBar.Text);
-            dictView.IsVisible = false;
-            searchResults.IsVisible = true;
+            SearchResults.ItemsSource = Model.SearchPhrases(searchBar.Text);
+            DictView.IsVisible = false;
+            SearchResults.IsVisible = true;
         }
         else
         {
-            dictView.IsVisible = true;
-            dictView.ItemsSource = PhraseList;
-            searchResults.IsVisible = false;
+            DictView.IsVisible = true;
+            DictView.ItemsSource = PhraseList;
+            SearchResults.IsVisible = false;
         }
     }
 
@@ -60,14 +60,14 @@ public partial class DictionaryViewPage : ContentPage
 
         if (e.CurrentSelection.Count > 0 && (tag = e.CurrentSelection[0] as string) is not null)
         {
-            searchResults.ItemsSource = Model.SearchPhrasesWithTag(tag);
-            searchResults.IsVisible = true;
-            dictView.IsVisible = false;
+            SearchResults.ItemsSource = Model.SearchPhrasesWithTag(tag);
+            SearchResults.IsVisible = true;
+            DictView.IsVisible = false;
         }
         else
         {
-            searchResults.IsVisible = false;
-            dictView.IsVisible = true;
+            SearchResults.IsVisible = false;
+            DictView.IsVisible = true;
         }
     }
 }

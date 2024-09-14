@@ -49,15 +49,15 @@
             <SearchBar TextChanged="OnTextChanged" 
                        SearchButtonPressed="OnTextChanged" Grid.Row="0"/>
             
-            <CollectionView x:Name="searchResultTags" ItemsLayout="HorizontalList"
+            <CollectionView x:Name="SearchResultTags" ItemsLayout="HorizontalList"
                         SelectionMode="Single" SelectionChanged="SearchResultTags_SelectionChanged" 
                             ItemSizingStrategy="MeasureFirstItem"
                             Grid.Row="1"/>
-            <CollectionView x:Name="searchResults" IsVisible="False"  ItemTemplate="{StaticResource WordSelector}"
+            <CollectionView x:Name="SearchResults" IsVisible="False"  ItemTemplate="{StaticResource WordSelector}"
 SelectionMode="Single" SelectionChanged="dictView_SelectionChanged" HeightRequest="500"
                             ItemSizingStrategy="MeasureFirstItem" Grid.Row="2"/>
 
-            <CollectionView ItemTemplate="{StaticResource WordSelector}" x:Name="dictView"
+            <CollectionView ItemTemplate="{StaticResource WordSelector}" x:Name="DictView"
 SelectionMode="Single" SelectionChanged="dictView_SelectionChanged"
                             ItemSizingStrategy="MeasureFirstItem" Grid.Row="3" HeightRequest="445"/>
         </Grid>
