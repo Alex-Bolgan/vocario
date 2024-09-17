@@ -27,11 +27,6 @@ public partial class DictionaryOptionsPage : ContentPage
         { File = new ShareFile(activeContext.MyPath) });
     }
 
-    private void GenerateDefinitionsButton_Clicked(object sender, EventArgs e)
-    {
-        //TODO: secondary
-    }
-
     private async void ChooseDictionaryButton_Clicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new ChooseDictionary());

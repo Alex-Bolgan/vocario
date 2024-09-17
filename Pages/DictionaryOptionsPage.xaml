@@ -19,11 +19,6 @@
      Clicked="ShareDictionary_Clicked"
             WidthRequest="270"/>
         <Button
-     x:Name="GenerateDefinitionsButton"
-     Text="Generate definitions where empty" 
-     Clicked="GenerateDefinitionsButton_Clicked"
-            WidthRequest="270"/>
-        <Button
      x:Name="ChooseDictionaryButton"
      Text="Choose another dictionary" 
      SemanticProperties.Hint="Switch another dictionary (or create new one)"
