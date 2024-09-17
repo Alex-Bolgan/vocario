@@ -10,7 +10,7 @@ public partial class AddDictionaryPage : ContentPage
 
     private async void addDictionaryButton_Clicked(object sender, EventArgs e)
     {
-		File.Create(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+		File.Create(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ReCallVocabulary",
 			newDictionaryNameEntry.Text+".db"));
 		await Navigation.PopAsync();
     }

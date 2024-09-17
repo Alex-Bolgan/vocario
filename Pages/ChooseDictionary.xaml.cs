@@ -16,7 +16,8 @@ public partial class ChooseDictionary : ContentPage
             .Where(s => s.EndsWith(".db", StringComparison.OrdinalIgnoreCase))
             .ToList();
 #elif WINDOWS
-        fullPathNames = Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+        fullPathNames = Directory.GetFiles(
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"ReCallVocabulary"),
             "*.*", SearchOption.TopDirectoryOnly)
             .Where(s => s.EndsWith(".db", StringComparison.OrdinalIgnoreCase))
             .ToList();
