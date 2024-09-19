@@ -9,6 +9,8 @@ namespace ReCallVocabulary
 
         private static DictionaryContext activeContext = null!;
 
+        private static DictionaryContext statsContext = null!;
+
         public static DictionaryContext ActiveContext
         {
             get => activeContext;
@@ -50,6 +52,7 @@ var myFile = File.Create(FileWithCurrentDBName);
             }
 #endif
             ActiveContext = new DictionaryContext(File.ReadAllText(FileWithCurrentDBName));
+            statsContext = new DictionaryContext("Stats.db");
             MainPage = new AppShell();
         }
     }

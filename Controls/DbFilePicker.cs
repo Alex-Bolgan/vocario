@@ -29,12 +29,12 @@ namespace ReCallVocabulary.Controls
                 var result = await FilePicker.Default.PickAsync(options);
                 if (result == null) return 1;
 
-                if (File.Exists(PathDB.GetPath(result.FileName)))
+                if (File.Exists(PathDB.GetDocumentsPath(result.FileName)))
                 {
-                    File.Delete(PathDB.GetPath(result.FileName));
+                    File.Delete(PathDB.GetDocumentsPath(result.FileName));
                 }
 
-                File.Move(result.FullPath, PathDB.GetPath(result.FileName));
+                File.Move(result.FullPath, PathDB.GetDocumentsPath(result.FileName));
                 return 0;
             }
             catch (Exception)

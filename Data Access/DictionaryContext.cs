@@ -13,7 +13,7 @@ namespace ReCallVocabulary.Data_Access
         public string MyPath { get; }
         public DictionaryContext(string path)
         {
-            MyPath = PathDB.GetPath(path);
+            MyPath = PathDB.GetDocumentsPath(path);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
