@@ -23,6 +23,18 @@ namespace ReCallVocabulary
                 var myFile = File.Create(activeContext.MyPath);
                 myFile.Close();
             }
+
+            if (!Directory.Exists(Path.GetDirectoryName(statsContext.MyPath)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(statsContext.MyPath)!);
+            }
+
+            if (!File.Exists(statsContext.MyPath))
+            {
+                var myFile = File.Create(statsContext.MyPath);
+                myFile.Close();
+            }
+
             activeContext.Database.EnsureCreated();
             statsContext.Database.EnsureCreated();
         }

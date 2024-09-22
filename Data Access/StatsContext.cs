@@ -17,10 +17,6 @@
                 optionsBuilder.UseSqlite($"Data Source={MyPath}");
             }
 
-            protected override void OnModelCreating(ModelBuilder modelBuilder)
-            {
-                modelBuilder.Entity<StatsRecord>().ToTable("StatsRecords");
-            }
         }
     }
 

@@ -16,7 +16,7 @@
 #if WINDOWS
             pathDBSQLite =
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                pathDBSQLite = Path.Combine(pathDBSQLite, "ReCallVocabulary", DbName);
+                pathDBSQLite = Path.Combine(pathDBSQLite, DbName);
 
 #elif ANDROID
             pathDBSQLite = Path.Combine(
