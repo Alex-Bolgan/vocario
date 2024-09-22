@@ -8,8 +8,7 @@ namespace ReCallVocabulary
         public static string FileWithCurrentDBName { get; private set; } = null!;
 
         private static DictionaryContext activeContext = null!;
-
-        private static DictionaryContext statsContext = null!;
+        public static StatsContext statsContext { get; set; } = null!;
 
         public static DictionaryContext ActiveContext
         {
@@ -42,7 +41,7 @@ namespace ReCallVocabulary
                 Directory.CreateDirectory(FileWithCurrentDBName);               
             }
             FileWithCurrentDBName = Path.Combine(
-            FileWithCurrentDBName, "currentDBName.txt");
+                    FileWithCurrentDBName, "currentDBName.txt");
 
             if(!File.Exists((FileWithCurrentDBName)))
             {
@@ -52,7 +51,7 @@ var myFile = File.Create(FileWithCurrentDBName);
             }
 #endif
             ActiveContext = new DictionaryContext(File.ReadAllText(FileWithCurrentDBName));
-            statsContext = new DictionaryContext("Stats.db");
+            statsContext = new StatsContext("Stats.db");
             MainPage = new AppShell();
         }
     }

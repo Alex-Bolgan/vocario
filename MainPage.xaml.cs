@@ -7,6 +7,9 @@ namespace ReCallVocabulary
     {
         private DictionaryContext activeContext = App.ActiveContext ??
         throw new ArgumentNullException(nameof(activeContext));
+        
+        private StatsContext statsContext = App.statsContext ??
+                                            throw new ArgumentNullException(nameof(statsContext));
         public MainPage()
         {
             InitializeComponent();
@@ -20,7 +23,8 @@ namespace ReCallVocabulary
                 var myFile = File.Create(activeContext.MyPath);
                 myFile.Close();
             }
-            activeContext?.Database.EnsureCreated();
+            activeContext.Database.EnsureCreated();
+            statsContext.Database.EnsureCreated();
         }
         private async void Recall_Clicked(object sender, EventArgs e)
         {

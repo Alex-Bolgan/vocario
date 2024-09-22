@@ -1,5 +1,8 @@
 ﻿using CommunityToolkit.Maui;
+using Microcharts.Maui;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using ReCallVocabulary.Data_Access;
 
 namespace ReCallVocabulary
@@ -11,6 +14,7 @@ namespace ReCallVocabulary
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMicrocharts()
                 .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
@@ -21,6 +25,7 @@ namespace ReCallVocabulary
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+
             return builder.Build();
         }
     }

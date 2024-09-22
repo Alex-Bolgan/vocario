@@ -14,12 +14,12 @@ namespace ReCallVocabulary.Data_Access
         [Key]
         public int Id { get; set; }
 
-        public DateTime Date;
+        public DateTime Date { get; set; }
 
-        public int AddedNumber;
+        public int AddedNumber { get; set; }
 
-        public int UniqueRecalledNumber;
+        public int UniqueRecalledNumber { get; set; }
 
-        public int RecalledNumber;
+        public int RecalledNumber { get; set; }
     }
 }

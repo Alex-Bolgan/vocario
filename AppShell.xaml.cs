@@ -9,6 +9,7 @@ namespace ReCallVocabulary
             InitializeComponent();
             Routing.RegisterRoute(nameof(DictionaryViewPage), typeof(DictionaryViewPage));
             Routing.RegisterRoute(nameof(DictionaryOptionsPage), typeof(DictionaryOptionsPage));
+            Routing.RegisterRoute(nameof(StatsPage), typeof(StatsPage));
         }
     }
 }
