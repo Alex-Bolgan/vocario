@@ -22,5 +22,7 @@ public partial class DeleteWordsPage : ContentPage
         {
             Model.RemoveRange(SelectedItems.Cast<Phrase>().ToList());
         }
+
+        StatsService.UpdateAddedNumber();
     }
 }

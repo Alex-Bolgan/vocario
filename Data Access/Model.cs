@@ -38,9 +38,10 @@ namespace ReCallVocabulary.Data_Access
         public static int GetMaxIdWithDate(DateTime date)
         {
             Phrase? result = activeContext.Phrases
-                .Where(x => x.CreationDate > date)
+                .Where(x => x.CreationDate <= date)
                 .OrderBy(p => p.Id)
                 .LastOrDefault();
+
             if (result is null)
             {
                 return GetMaxId();
@@ -121,5 +122,21 @@ namespace ReCallVocabulary.Data_Access
             return result;
         }
 
+        public static int GetNumberOfAddedToday()
+        {
+            int max = GetMaxId();
+            int max_previous = GetMaxIdWithDate(DateTime.Today.AddDays(-1));
+
+            int realCount = 0;
+            for (int i = max_previous; i < max; ++i)
+            {
+                if (PhraseExists(i))
+                {
+                    realCount++;
+                }
+            }
+
+            return realCount;
+        }
     }
 }

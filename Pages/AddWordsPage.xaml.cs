@@ -50,4 +50,9 @@ public partial class AddWordsPage : ContentPage
 
         await activeContext.SaveChangesAsync();
     }
+
+    protected override void OnDisappearing()
+    {
+        StatsService.UpdateAddedNumber();
+    }
 }

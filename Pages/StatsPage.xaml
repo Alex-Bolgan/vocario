@@ -5,7 +5,10 @@
              x:Class="ReCallVocabulary.Pages.StatsPage"
              Title="StatsPage">
     <VerticalStackLayout>
-        <micro:ChartView x:Name="ChartView"
-            HorizontalOptions="Fill"/>
+        <Label Text="The number of added and recalled per day:" 
+               x:Name="textLabel" 
+               HorizontalOptions="Center"/>
+        <micro:ChartView x:Name="ChartView" HeightRequest="200"
+                         HorizontalOptions="Fill"/>
     </VerticalStackLayout>
 </ContentPage>

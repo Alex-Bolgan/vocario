@@ -98,7 +98,11 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
     {
         definitionLabel.IsVisible = false;
         termLabel.IsVisible = false;
-        Term = $"Congrats! You recalled {phraseNumberList.Distinct().Count()} ({phraseNumberList.Count} with duplicates)!";
+
+        int uniqueCount = phraseNumberList.Distinct().Count();
+        StatsService.UpdateRecalledNumber(phraseNumberList.Count,uniqueCount, DateTime.Now);
+        Term = $"Congrats! You recalled {uniqueCount} ({phraseNumberList.Count} with duplicates)!";
+
         answerLabel.Text = "";
         StopButton.IsVisible = false;
         ToMainMenuButton.IsVisible = true;

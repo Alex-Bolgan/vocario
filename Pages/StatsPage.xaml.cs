@@ -19,16 +19,23 @@ public partial class StatsPage : ContentPage
             Color = color
         }).ToList();
 
-        var recalledNumberEntries = context.StatsRecords.Select(stat => new Microcharts.ChartEntry(stat.AddedNumber)
+        var recalledNumberEntries = context.StatsRecords.Select(stat => new Microcharts.ChartEntry(stat.UniqueRecalledNumber)
         {
             Label = stat.Date.ToString("MM/dd/yyyy"),
-            ValueLabel = stat.RecalledNumber.ToString(),
+            ValueLabel = stat.UniqueRecalledNumber.ToString(),
             Color = color
         }).ToList();
 
-        ChartView.Chart = new LineChart()
+        if (addedNumbersEntries.Count > 0 && recalledNumberEntries.Count > 0)
         {
-            Entries = addedNumbersEntries.Concat(recalledNumberEntries)
-        };
+            ChartView.Chart = new LineChart()
+            {
+                Entries = addedNumbersEntries.Concat(recalledNumberEntries)
+            };
+        }
+        else
+        {
+            textLabel.Text = "Oops. It seems you have words to recall";
+        }
     }
 }
