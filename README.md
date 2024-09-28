@@ -30,7 +30,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Vocario Screen Shot][product-screenshot-main]]
+[Vocario Screen Shot][product-screenshot-main]
 [![Vocario Screen Shot][product-screenshot-options]]
 [![Vocario Screen Shot][product-screenshot-dict]]
 [![Vocario Screen Shot][product-screenshot-settings]]
