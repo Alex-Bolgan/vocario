@@ -11,32 +11,15 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-[Vocario Screen Shot][product-screenshot-main]
-[![Vocario Screen Shot][product-screenshot-options]]
-[![Vocario Screen Shot][product-screenshot-dict]]
-[![Vocario Screen Shot][product-screenshot-settings]]
-[![Vocario Screen Shot][product-screenshot-start]]
-[![Vocario Screen Shot][product-screenshot-main-mobile]]
-[![Vocario Screen Shot][product-screenshot-options-mobile]]
 
 More than just a digital dictionary, ReCallVocabulary is a cross-platform tool that allows you to store and organize your vocabulary in one place. It features a gamified format to help you recall words more effeciently, making vocabulary learning engaging and fun.
 
@@ -45,6 +28,29 @@ Here's why you should use:
 * Recall the words you choose using the priority system
 * Track your progress
 * Customize the Vocario to suit your needs
+
+### Screenshots
+<div style="text-align: center;">
+
+<img src="images/main.png" width="400">
+<img src="images/options.png"  width="400">
+<img src="images/dict.png"  width="400">
+<img src="images/start.png"  width="400">
+<img src="images/settings.png"  width="400">
+
+</div>
+<div style="text-align: center;">
+  
+<img src="images/main-mobile.jpg" width="300">
+<img src="images/options-mobile.jpg"  width="300">
+</div>
+
+images/options.png
+[product-screenshot-dict]: images/dict.png
+[product-screenshot-settings]: images/settings.png
+[product-screenshot-start]: images/start.png
+[product-screenshot-main-mobile]:images/main-mobile.jpg
+[product-screenshot-options-mobile]:images/options-mobile.jpg
 
 ### Built With
 
@@ -102,13 +108,6 @@ Project Link: [https://github.com/Alex-Bolgan/vocario](https://github.com/Alex-B
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[product-screenshot-main]: images/main.png
-[product-screenshot-options]: images/options.png
-[product-screenshot-dict]: images/dict.png
-[product-screenshot-settings]: images/settings.png
-[product-screenshot-start]: images/start.png
-[product-screenshot-main-mobile]:images/main-mobile.jpg
-[product-screenshot-options-mobile]:images/options-mobile.jpg
 [Maui]:https://img.shields.io/badge/MAUI_8-8A2BE2
 [Maui-url]:https://github.com/dotnet/maui
 [EF Core]: https://img.shields.io/badge/EFCore-c0392b
