@@ -37,9 +37,9 @@
         {
             StatsRecord? currentRecord;
 
-            if ((currentRecord = await App.statsContext.StatsRecords.FindAsync(creationDate)) is null)
+            if ((currentRecord = await App.statsContext.StatsRecords.FindAsync(creationDate.Date)) is null)
             {
-                await App.statsContext.AddAsync(new StatsRecord()
+                await App.statsContext.StatsRecords.AddAsync(new StatsRecord()
                 {
                     Date = DateTime.Today,
                     RecalledNumber = number,
