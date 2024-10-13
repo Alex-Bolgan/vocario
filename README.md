@@ -1,4 +1,4 @@
-# ReCallVocabulary
+# Vocario
 
 
 <!-- TABLE OF CONTENTS -->
@@ -21,7 +21,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-More than just a digital dictionary, ReCallVocabulary is a cross-platform tool that allows you to store and organize your vocabulary in one place. It features a gamified format to help you recall words more effeciently, making vocabulary learning engaging and fun.
+More than just a digital dictionary, Vocario is a cross-platform tool that allows you to store and organize your vocabulary in one place. It features a gamified format to help you recall words more effeciently, making vocabulary learning engaging and fun.
 
 Here's why you should use:
 * Easily manage and edit your word lists
@@ -44,13 +44,6 @@ Here's why you should use:
 <img src="images/main-mobile.jpg" width="300">
 <img src="images/options-mobile.jpg"  width="300">
 </div>
-
-images/options.png
-[product-screenshot-dict]: images/dict.png
-[product-screenshot-settings]: images/settings.png
-[product-screenshot-start]: images/start.png
-[product-screenshot-main-mobile]:images/main-mobile.jpg
-[product-screenshot-options-mobile]:images/options-mobile.jpg
 
 ### Built With
 
@@ -86,15 +79,11 @@ Don't forget to give the project a star! Thanks again!
   <img src="https://contrib.rocks/image?repo=Alex-Bolgan/vocario" alt="contrib.rocks image" />
 </a>
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 <!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- CONTACT -->
@@ -104,15 +93,13 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Project Link: [https://github.com/Alex-Bolgan/vocario](https://github.com/Alex-Bolgan/vocario)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [Maui]:https://img.shields.io/badge/MAUI_8-8A2BE2
 [Maui-url]:https://github.com/dotnet/maui
 [EF Core]: https://img.shields.io/badge/EFCore-c0392b
 [EF_Core-url]:https://github.com/dotnet/efcore
- [Microcharts.Maui]: https://img.shields.io/badge/Microcharts.Maui-8A2BE2
- [Microcharts.Maui-url]: https://github.com/microcharts-dotnet/Microcharts
+[Microcharts.Maui]: https://img.shields.io/badge/Microcharts.Maui-8A2BE2
+[Microcharts.Maui-url]: https://github.com/microcharts-dotnet/Microcharts
  [SQLite]: https://img.shields.io/badge/SQlite-3498db
  [SQLite-url]: https://github.com/sqlite/sqlite
