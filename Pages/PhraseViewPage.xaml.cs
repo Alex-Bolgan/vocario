@@ -6,7 +6,7 @@ public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
 {
     new public event PropertyChangedEventHandler? PropertyChanged;
 
-    private readonly List<string> tagList = Model.GetTags();
+    private readonly List<string> tagList = PhraseService.GetTags();
 
     private Phrase CurrentPhrase { get; set; }
     public string Term
@@ -70,7 +70,7 @@ public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
 
     private void SaveChangesButton_Clicked(object sender, EventArgs e)
     {
-        Model.UpdatePhraseAsync(CurrentPhrase);
+        PhraseService.UpdatePhraseAsync(CurrentPhrase);
     }
 
     private void TagEntry_Focused(object sender, FocusEventArgs e)

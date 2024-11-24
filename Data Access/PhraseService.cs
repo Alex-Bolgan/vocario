@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ReCallVocabulary.Data_Access
 {
-    public static class Model
+    public static class PhraseService
     {
         private static readonly DictionaryContext activeContext = 
             (App.ActiveContext ?? throw new ArgumentNullException(nameof(activeContext)));

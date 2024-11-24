@@ -12,11 +12,11 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
 
     private int countWithThresholds = 1;
 
-    private int firstPriorityId = Model.GetMinId();
+    private int firstPriorityId = PhraseService.GetMinId();
 
     private int secondPriorityId = 0;
 
-    private int endId = Model.GetMaxId();
+    private int endId = PhraseService.GetMaxId();
 
     int randomNumber;
 
@@ -51,7 +51,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         InitializeComponent();
         BindingContext = this;
 
-        if (Model.IsEmpty())
+        if (PhraseService.IsEmpty())
         {
             Definition = "Oops. It seems you have an empty dictionary. Try adding some words first";
             definitionLabel.IsVisible = true;
@@ -64,15 +64,15 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         //MinValue is default value
         if (dates[0] == DateTime.MinValue)
         {
-            firstPriorityId = Model.GetFirstIdWithDate(dates[1]);
+            firstPriorityId = PhraseService.GetFirstIdWithDate(dates[1]);
         }
         else
         {
-            firstPriorityId = Model.GetFirstIdWithDate(dates[1]);
-            secondPriorityId = Model.GetFirstIdWithDate(dates[0]);
+            firstPriorityId = PhraseService.GetFirstIdWithDate(dates[1]);
+            secondPriorityId = PhraseService.GetFirstIdWithDate(dates[0]);
         }
 
-        endId = Model.GetMaxIdWithDate(dates[2]);
+        endId = PhraseService.GetMaxIdWithDate(dates[2]);
 
         termLabel.IsVisible = definitionLabel.IsVisible = true;
 
@@ -115,9 +115,9 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             do
             {
                 randomNumber = random.Next(firstPriorityId, endId + 1);
-            } while (!Model.PhraseExists(randomNumber));
+            } while (!PhraseService.PhraseExists(randomNumber));
 
-            Phrase newPhrase = Model.GetPhraseById(randomNumber);
+            Phrase newPhrase = PhraseService.GetPhraseById(randomNumber);
             Definition = newPhrase.Definition;
             Term = newPhrase.Term;
             termLabel.IsVisible = false;
@@ -138,10 +138,10 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             {
                 countWithThresholds = 1;
                 randomNumber = generatingMethod();
-            } while (!Model.PhraseExists(randomNumber));
+            } while (!PhraseService.PhraseExists(randomNumber));
 
             phraseNumberList.Add(randomNumber);
-            Phrase newPhrase = Model.GetPhraseById(randomNumber);
+            Phrase newPhrase = PhraseService.GetPhraseById(randomNumber);
             Definition = newPhrase.Definition;
             Term = newPhrase.Term;
             tagView.ItemsSource = newPhrase.Tags;

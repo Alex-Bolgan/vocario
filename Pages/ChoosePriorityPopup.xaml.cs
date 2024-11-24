@@ -2,7 +2,6 @@ using CommunityToolkit.Maui.Views;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ReCallVocabulary.Controls;
 using ReCallVocabulary.Data_Access;
-using Model = ReCallVocabulary.Data_Access.Model;
 
 namespace ReCallVocabulary.Pages;
 
@@ -14,7 +13,7 @@ public partial class ChoosePriorityPopup : Popup
 
     public DateTime? SecondStartDate { get; set; } = null;
 
-    private DateTime MinDate { get; set; } = Model.GetPhraseById(Model.GetMinId()).CreationDate;
+    private DateTime MinDate { get; set; } = PhraseService.GetPhraseById(PhraseService.GetMinId()).CreationDate;
 
     private DateTime FirstMaxDate { get; set; } = DateTime.Now;
 

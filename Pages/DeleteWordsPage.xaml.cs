@@ -20,7 +20,7 @@ public partial class DeleteWordsPage : ContentPage
         base.OnDisappearing();
         if (SelectedItems is not null)
         {
-            Model.RemoveRange(SelectedItems.Cast<Phrase>().ToList());
+            PhraseService.RemoveRange(SelectedItems.Cast<Phrase>().ToList());
         }
 
         StatsService.UpdateAddedNumber();

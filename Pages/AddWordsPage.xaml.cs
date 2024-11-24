@@ -5,7 +5,7 @@ public partial class AddWordsPage : ContentPage
 {
     private readonly DictionaryContext activeContext = (App.ActiveContext ?? throw new ArgumentNullException(nameof(activeContext)));
 
-    private readonly List<string> tagList = Model.GetTags();
+    private readonly List<string> tagList = PhraseService.GetTags();
 
     public AddWordsPage()
     {

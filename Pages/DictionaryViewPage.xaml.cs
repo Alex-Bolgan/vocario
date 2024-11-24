@@ -8,15 +8,15 @@ public partial class DictionaryViewPage : ContentPage
     List<Phrase> PhraseList { get; set; } = [.. (App.ActiveContext ??
         throw new ArgumentNullException(nameof(PhraseList))).Phrases];
 
-    private readonly List<string> tagList = Model.GetTags();
+    private readonly List<string> tagList = PhraseService.GetTags();
 
     public DictionaryViewPage()
     {
         InitializeComponent();
-        int wordNumber = Model.GetTotalNumber();
+        int wordNumber = PhraseService.GetTotalNumber();
         this.Title = $"{Path.GetFileNameWithoutExtension(File.ReadAllText(App.FileWithCurrentDBName))} ({wordNumber} words)";
         DictView.ItemsSource = PhraseList;
-        SearchResultTags.ItemsSource = Model.GetTags();
+        SearchResultTags.ItemsSource = PhraseService.GetTags();
         SizeChanged += new EventHandler(ChangeDictViewSize);
     }
 
@@ -42,7 +42,7 @@ public partial class DictionaryViewPage : ContentPage
         SearchBar searchBar = (SearchBar)sender;
         if (!String.IsNullOrWhiteSpace(searchBar.Text))
         {
-            SearchResults.ItemsSource = Model.SearchPhrases(searchBar.Text);
+            SearchResults.ItemsSource = PhraseService.SearchPhrases(searchBar.Text);
             DictView.IsVisible = false;
             SearchResults.IsVisible = true;
         }
@@ -60,7 +60,7 @@ public partial class DictionaryViewPage : ContentPage
 
         if (e.CurrentSelection.Count > 0 && (tag = e.CurrentSelection[0] as string) is not null)
         {
-            SearchResults.ItemsSource = Model.SearchPhrasesWithTag(tag);
+            SearchResults.ItemsSource = PhraseService.SearchPhrasesWithTag(tag);
             SearchResults.IsVisible = true;
             DictView.IsVisible = false;
         }

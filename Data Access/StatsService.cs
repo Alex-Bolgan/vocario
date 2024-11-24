@@ -4,7 +4,7 @@
     {
         public static async void UpdateAddedNumber()
         {
-            int addedToday = Model.GetNumberOfAddedToday();
+            int addedToday = PhraseService.GetNumberOfAddedToday();
 
             if (addedToday < 0)
             {
