@@ -8,7 +8,9 @@
         <Label Text="The number of added and recalled per day:" 
                x:Name="textLabel" 
                HorizontalOptions="Center"/>
-        <micro:ChartView x:Name="ChartView" HeightRequest="200"
+        <micro:ChartView x:Name="AddedChart" HeightRequest="200"
+                         HorizontalOptions="Fill"/>
+        <micro:ChartView x:Name="RecalledChart" HeightRequest="200"
                          HorizontalOptions="Fill"/>
     </VerticalStackLayout>
 </ContentPage>
