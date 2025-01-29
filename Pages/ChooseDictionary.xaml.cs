@@ -3,12 +3,14 @@ using ReCallVocabulary.Data_Access;
 public partial class ChooseDictionary : ContentPage
 {
     private readonly List<DatabaseName> DatabaseNames = [];
-    private DictionaryContext? activeContext = App.ActiveContext;
+    private DictionaryContext dictionaryContext;
 
-    public ChooseDictionary()
-	{
+    public ChooseDictionary(DbContextManager dbContextManager)
+    {
+        dictionaryContext = dbContextManager.CurrentDictionaryContext; 
+
         InitializeComponent();
-        string currentDBName = Path.GetFileNameWithoutExtension(activeContext.MyPath);
+        string currentDBName = Path.GetFileNameWithoutExtension(dictionaryContext.MyPath);
         List<string> fullPathNames = new List<string>();
 #if ANDROID
         fullPathNames = Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal),
@@ -38,7 +40,7 @@ public partial class ChooseDictionary : ContentPage
     private async void Button_Clicked(object sender, EventArgs e)
     {
         Button buttonSender = (Button)sender;
-        activeContext = App.ActiveContext = new DictionaryContext(buttonSender.Text+".db");
+        dictionaryContext = new DictionaryContext(buttonSender.Text+".db");
         await Navigation.PopAsync();
     }
 

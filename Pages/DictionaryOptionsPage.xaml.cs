@@ -29,7 +29,7 @@ public partial class DictionaryOptionsPage : ContentPage
 
     private async void ChooseDictionaryButton_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new ChooseDictionary());
+        await Shell.Current.GoToAsync(nameof(ChooseDictionary));
     }
 
     private async void DeleteDictionaryButton_Clicked(object sender, EventArgs e)

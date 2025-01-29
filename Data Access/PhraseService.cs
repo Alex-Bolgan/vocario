@@ -70,8 +70,8 @@ namespace ReCallVocabulary.Data_Access
 
         public void RemoveRange(List<Phrase> phrases)
         {
-            App.ActiveContext?.Phrases.RemoveRange(phrases);
-            App.ActiveContext?.SaveChanges();
+            dictionaryContext.Phrases.RemoveRange(phrases);
+            dictionaryContext.SaveChanges();
         }
 
         public bool IsEmpty()

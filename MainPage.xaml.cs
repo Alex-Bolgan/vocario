@@ -61,7 +61,7 @@ namespace ReCallVocabulary
         }
         private async void Addwords_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(nameof(DictionaryViewPage));
+            await Shell.Current.GoToAsync(nameof(AddWordsPage));
         }
         private async void SeeDictionary_Clicked(object sender, EventArgs e)
         {
