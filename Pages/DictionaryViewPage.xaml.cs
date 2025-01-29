@@ -5,16 +5,17 @@ namespace ReCallVocabulary.Pages;
 [XamlCompilation(XamlCompilationOptions.Compile)]
 public partial class DictionaryViewPage : ContentPage
 {
-    List<Phrase> PhraseList { get; set; } = [.. (App.ActiveContext ??
-        throw new ArgumentNullException(nameof(PhraseList))).Phrases];
+    List<Phrase> PhraseList { get; set; }
 
     private readonly List<string> tagList = PhraseService.GetTags();
 
-    public DictionaryViewPage()
+    public DictionaryViewPage(DbContextManager dbContextManager)
     {
+        PhraseList = dbContextManager.CurrentDictionaryContext.Phrases.ToList();
+
         InitializeComponent();
         int wordNumber = PhraseService.GetTotalNumber();
-        this.Title = $"{Path.GetFileNameWithoutExtension(File.ReadAllText(App.FileWithCurrentDBName))} ({wordNumber} words)";
+        this.Title = $"{Path.GetFileNameWithoutExtension(File.ReadAllText(dbContextManager.FileWithCurrentDBName))} ({wordNumber} words)";
         DictView.ItemsSource = PhraseList;
         SearchResultTags.ItemsSource = PhraseService.GetTags();
         SizeChanged += new EventHandler(ChangeDictViewSize);

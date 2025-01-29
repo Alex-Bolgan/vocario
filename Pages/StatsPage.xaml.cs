@@ -6,10 +6,11 @@ namespace ReCallVocabulary.Pages;
 
 public partial class StatsPage : ContentPage
 {
-    private StatsContext context = App.statsContext ?? 
-                           throw new ArgumentNullException(nameof(context));
-	public StatsPage()
-	{
+    private StatsContext context;
+	public StatsPage(DbContextManager contextManager)
+    {
+        context = contextManager.CurrentStatsContext;
+
 		InitializeComponent();
         SKColor color = SKColor.Parse("#266489");
         var addedNumbersEntries = context.StatsRecords.Select(stat => new Microcharts.ChartEntry(stat.AddedNumber)

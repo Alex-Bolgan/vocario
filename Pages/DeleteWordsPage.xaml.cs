@@ -4,12 +4,13 @@ namespace ReCallVocabulary.Pages;
 
 public partial class DeleteWordsPage : ContentPage
 {
-    List<Phrase> PhraseList { get; set; } = App.ActiveContext.Phrases.ToList();
+    List<Phrase> PhraseList { get; set; }
 
     public List<object> SelectedItems { get; set; } = new List<object>();
 
-    public DeleteWordsPage()
+    public DeleteWordsPage(DbContextManager dbContextManager)
     {
+        PhraseList = dbContextManager.CurrentDictionaryContext.Phrases.ToList();
         InitializeComponent();
         dictView.ItemsSource = PhraseList;
         dictView.SelectedItems = SelectedItems;
