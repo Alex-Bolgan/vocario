@@ -25,6 +25,7 @@ namespace ReCallVocabulary
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+            builder.Services.AddSingleton<DictionaryContextManager>();
 
             return builder.Build();
         }
