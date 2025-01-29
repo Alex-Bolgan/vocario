@@ -26,7 +26,9 @@ namespace ReCallVocabulary
     		builder.Logging.AddDebug();
 #endif
             builder.Services.AddSingleton<DbContextManager>();
-            builder.Services.AddTransient<Pages.AddWordsPage>();
+            builder.Services.AddSingleton<PhraseService>();
+            builder.Services.AddSingleton<StatsService>();
+
             return builder.Build();
         }
     }

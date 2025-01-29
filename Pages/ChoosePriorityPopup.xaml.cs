@@ -7,20 +7,28 @@ namespace ReCallVocabulary.Pages;
 
 public partial class ChoosePriorityPopup : Popup
 {
+    private PhraseService _phraseService;
+
+    private StatsService _statsService;
+
     private readonly bool isOnlyRecent;
 
     public DateTime FirstStartDate { get; set; } = DateTime.Now;
 
     public DateTime? SecondStartDate { get; set; } = null;
 
-    private DateTime MinDate { get; set; } = PhraseService.GetPhraseById(PhraseService.GetMinId()).CreationDate;
+    private DateTime MinDate { get; set; }
 
     private DateTime FirstMaxDate { get; set; } = DateTime.Now;
 
     public DateTime EndDate { get; set; } = DateTime.Now;
 
-    public ChoosePriorityPopup(bool isOnlyRecent)
+    public ChoosePriorityPopup(bool isOnlyRecent, PhraseService phraseService, StatsService statsService)
     {
+        _phraseService = phraseService;
+        _statsService = statsService;
+        MinDate = _phraseService.GetPhraseById(_phraseService.GetMinId()).CreationDate;
+
         this.isOnlyRecent = isOnlyRecent;
         InitializeComponent();
         Layout.HeightRequest = 400;
@@ -83,7 +91,7 @@ public partial class ChoosePriorityPopup : Popup
             DateFileHandler.WriteDates(new DateTime[] {FirstStartDate, EndDate });
         }
 
-        await Application.Current.MainPage.Navigation.PushAsync(new RecallGamePage(isOnlyRecent));
+        await Application.Current.MainPage.Navigation.PushAsync(new RecallGamePage(isOnlyRecent, _phraseService, _statsService));
         this.Close();
     }
 }

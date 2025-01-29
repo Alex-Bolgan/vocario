@@ -4,9 +4,11 @@ using System.ComponentModel;
 
 public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
 {
+    private PhraseService _phraseService;
+
     new public event PropertyChangedEventHandler? PropertyChanged;
 
-    private readonly List<string> tagList = PhraseService.GetTags();
+    private readonly List<string> tagList;
 
     private Phrase CurrentPhrase { get; set; }
     public string Term
@@ -60,9 +62,12 @@ public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
         }
     }
 
-    public PhraseViewPage(Phrase phrase)
+    public PhraseViewPage(PhraseService phraseService)
 	{
-        CurrentPhrase = phrase;
+        _phraseService = phraseService;
+        tagList = _phraseService.GetTags();
+
+        CurrentPhrase = _phraseService.CurrentPhrase;
         BindingContext = this;
         InitializeComponent();
         tags.ItemsSource = tagList;
@@ -70,7 +75,7 @@ public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
 
     private void SaveChangesButton_Clicked(object sender, EventArgs e)
     {
-        PhraseService.UpdatePhraseAsync(CurrentPhrase);
+        _phraseService.UpdatePhraseAsync(CurrentPhrase);
     }
 
     private void TagEntry_Focused(object sender, FocusEventArgs e)

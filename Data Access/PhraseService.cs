@@ -8,23 +8,30 @@ using System.Threading.Tasks;
 
 namespace ReCallVocabulary.Data_Access
 {
-    public static class PhraseService
+    public class PhraseService
     {
-        private static readonly DictionaryContext activeContext = 
-            (App.ActiveContext ?? throw new ArgumentNullException(nameof(activeContext)));
-        public static bool PhraseExists(int id)
+        private readonly DictionaryContext dictionaryContext;
+
+        public Phrase? CurrentPhrase { get; set; }
+
+        public PhraseService(DbContextManager dbContextManager)
         {
-            return activeContext.Phrases.Any(p => p.Id == id);
+            dictionaryContext = dbContextManager.CurrentDictionaryContext;
         }
 
-        public static Phrase GetPhraseById(int id)
+        public bool PhraseExists(int id)
         {
-            return activeContext.Phrases.Find(id) ?? throw new ArgumentException(nameof(id));
+            return dictionaryContext.Phrases.Any(p => p.Id == id);
         }
 
-        public static int GetFirstIdWithDate(DateTime date)
+        public Phrase GetPhraseById(int id)
         {
-            Phrase? result = activeContext.Phrases
+            return dictionaryContext.Phrases.Find(id) ?? throw new ArgumentException(nameof(id));
+        }
+
+        public int GetFirstIdWithDate(DateTime date)
+        {
+            Phrase? result = dictionaryContext.Phrases
                 .Where(x => x.CreationDate > date)
                 .FirstOrDefault();
             if (result is null)
@@ -35,9 +42,9 @@ namespace ReCallVocabulary.Data_Access
             return result.Id;
         }
 
-        public static int GetMaxIdWithDate(DateTime date)
+        public int GetMaxIdWithDate(DateTime date)
         {
-            Phrase? result = activeContext.Phrases
+            Phrase? result = dictionaryContext.Phrases
                 .Where(x => x.CreationDate <= date)
                 .OrderBy(p => p.Id)
                 .LastOrDefault();
@@ -50,70 +57,70 @@ namespace ReCallVocabulary.Data_Access
             return result.Id;
         }
 
-        public static async void UpdatePhraseAsync(Phrase phrase)
+        public async void UpdatePhraseAsync(Phrase phrase)
         {
-            Phrase current = await activeContext.Phrases.FindAsync(phrase.Id) 
+            Phrase current = await dictionaryContext.Phrases.FindAsync(phrase.Id) 
                 ?? throw new ArgumentException(nameof(phrase));
             current.Term = phrase.Term;
             current.Definition = phrase.Definition;
             current.Synonyms = phrase.Synonyms;
             current.Tags = phrase.Tags;
-            await activeContext.SaveChangesAsync();
+            await dictionaryContext.SaveChangesAsync();
         }
 
-        public static void RemoveRange(List<Phrase> phrases)
+        public void RemoveRange(List<Phrase> phrases)
         {
             App.ActiveContext?.Phrases.RemoveRange(phrases);
             App.ActiveContext?.SaveChanges();
         }
 
-        public static bool IsEmpty()
+        public bool IsEmpty()
         {
-            return !activeContext.Phrases.Any();
+            return !dictionaryContext.Phrases.Any();
         }
-        public static int GetMaxId()
+        public int GetMaxId()
         {
             if (!IsEmpty())
             {
-                return activeContext.Phrases.Max(p => p.Id);
+                return dictionaryContext.Phrases.Max(p => p.Id);
             }
 
             return 0;
         }
         
-        public static int GetMinId()
+        public int GetMinId()
         {
             if (!IsEmpty())
             {
-                return activeContext.Phrases.Min(p => p.Id);
+                return dictionaryContext.Phrases.Min(p => p.Id);
             }
             return 0;
         }
 
-        public static int GetTotalNumber()
+        public int GetTotalNumber()
         {
-            return activeContext.Phrases.Count();
+            return dictionaryContext.Phrases.Count();
         }
 
-        public static List<Phrase> SearchPhrases(string search)
+        public List<Phrase> SearchPhrases(string search)
         {
-            List<Phrase> result = [.. activeContext.Phrases.Where(p => !string.IsNullOrWhiteSpace(p.Term) && p.Term.Contains(search))];
+            List<Phrase> result = [.. dictionaryContext.Phrases.Where(p => !string.IsNullOrWhiteSpace(p.Term) && p.Term.Contains(search))];
 
             return result;
         }
         
-        public static List<string> GetTags()
+        public List<string> GetTags()
         {
-            List<string> result = activeContext.Phrases.Where(p => p.Tags != null).AsEnumerable().SelectMany(p => p.Tags!)
+            List<string> result = dictionaryContext.Phrases.Where(p => p.Tags != null).AsEnumerable().SelectMany(p => p.Tags!)
                 .Distinct()
                 .ToList();
 
             return result;
         }
 
-        public static List<Phrase> SearchPhrasesWithTag(string tag)
+        public List<Phrase> SearchPhrasesWithTag(string tag)
         {
-            List<Phrase> result = activeContext.Phrases
+            List<Phrase> result = dictionaryContext.Phrases
                 .Where(p=> p.Tags != null)
                 .AsEnumerable()
                 .Where(p => p.Tags!.Any(t => t.Contains(tag)))
@@ -122,7 +129,7 @@ namespace ReCallVocabulary.Data_Access
             return result;
         }
 
-        public static int GetNumberOfAddedToday()
+        public int GetNumberOfAddedToday()
         {
             int max = GetMaxId();
             int max_previous = GetMaxIdWithDate(DateTime.Today.AddDays(-1));

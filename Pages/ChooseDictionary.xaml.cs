@@ -38,7 +38,7 @@ public partial class ChooseDictionary : ContentPage
     private async void Button_Clicked(object sender, EventArgs e)
     {
         Button buttonSender = (Button)sender;
-        activeContext = App.ActiveContext= new DictionaryContext(buttonSender.Text+".db");
+        activeContext = App.ActiveContext = new DictionaryContext(buttonSender.Text+".db");
         await Navigation.PopAsync();
     }
 

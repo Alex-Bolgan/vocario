@@ -12,6 +12,7 @@ namespace ReCallVocabulary
             Routing.RegisterRoute(nameof(StatsPage), typeof(StatsPage));
             Routing.RegisterRoute(nameof(DeleteWordsPage), typeof(DeleteWordsPage));
             Routing.RegisterRoute(nameof(AddWordsPage), typeof(AddWordsPage));
+            Routing.RegisterRoute(nameof(RecallGamePage), typeof(RecallGamePage));
         }
     }
 }

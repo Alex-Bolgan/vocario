@@ -5,19 +5,22 @@ namespace ReCallVocabulary.Pages;
 [XamlCompilation(XamlCompilationOptions.Compile)]
 public partial class DictionaryViewPage : ContentPage
 {
+    private PhraseService _phraseService;
     List<Phrase> PhraseList { get; set; }
 
-    private readonly List<string> tagList = PhraseService.GetTags();
+    private readonly List<string> tagList;
 
-    public DictionaryViewPage(DbContextManager dbContextManager)
+    public DictionaryViewPage(DbContextManager dbContextManager, PhraseService phraseService)
     {
         PhraseList = dbContextManager.CurrentDictionaryContext.Phrases.ToList();
+        _phraseService = phraseService;
+        tagList = _phraseService.GetTags();
 
         InitializeComponent();
-        int wordNumber = PhraseService.GetTotalNumber();
+        int wordNumber = _phraseService.GetTotalNumber();
         this.Title = $"{Path.GetFileNameWithoutExtension(File.ReadAllText(dbContextManager.FileWithCurrentDBName))} ({wordNumber} words)";
         DictView.ItemsSource = PhraseList;
-        SearchResultTags.ItemsSource = PhraseService.GetTags();
+        SearchResultTags.ItemsSource = _phraseService.GetTags();
         SizeChanged += new EventHandler(ChangeDictViewSize);
     }
 
@@ -33,7 +36,8 @@ public partial class DictionaryViewPage : ContentPage
 
         if (e.CurrentSelection.Count > 0 && (item = e.CurrentSelection[0] as Phrase) is not null)
         {
-            await Navigation.PushAsync(new PhraseViewPage(item));
+            _phraseService.CurrentPhrase = item;
+            await Shell.Current.GoToAsync(nameof(PhraseViewPage));
             DictView.SelectedItem = null;
         }
     }
@@ -43,7 +47,7 @@ public partial class DictionaryViewPage : ContentPage
         SearchBar searchBar = (SearchBar)sender;
         if (!String.IsNullOrWhiteSpace(searchBar.Text))
         {
-            SearchResults.ItemsSource = PhraseService.SearchPhrases(searchBar.Text);
+            SearchResults.ItemsSource = _phraseService.SearchPhrases(searchBar.Text);
             DictView.IsVisible = false;
             SearchResults.IsVisible = true;
         }
@@ -61,7 +65,7 @@ public partial class DictionaryViewPage : ContentPage
 
         if (e.CurrentSelection.Count > 0 && (tag = e.CurrentSelection[0] as string) is not null)
         {
-            SearchResults.ItemsSource = PhraseService.SearchPhrasesWithTag(tag);
+            SearchResults.ItemsSource = _phraseService.SearchPhrasesWithTag(tag);
             SearchResults.IsVisible = true;
             DictView.IsVisible = false;
         }

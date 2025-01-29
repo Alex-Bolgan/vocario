@@ -8,10 +8,16 @@ namespace ReCallVocabulary
         private DictionaryContext dictionaryContext;
         
         private StatsContext statsContext;
-        public MainPage(DbContextManager dbContextManager)
+
+        private StatsService statsService;
+
+        private PhraseService phraseService;
+        public MainPage(DbContextManager dbContextManager, StatsService statsService, PhraseService phraseService)
         {
             statsContext = dbContextManager.CurrentStatsContext;
             dictionaryContext = dbContextManager.CurrentDictionaryContext;
+            this.statsService = statsService;
+            this.phraseService = phraseService;
 
             InitializeComponent();
             if (!Directory.Exists(Path.GetDirectoryName(dictionaryContext.MyPath)))
@@ -41,14 +47,14 @@ namespace ReCallVocabulary
         }
         private async void Recall_Clicked(object sender, EventArgs e)
         {
-            Popup popup = new ChoosePriorityPopup(false);
+            Popup popup = new ChoosePriorityPopup(false, phraseService, statsService);
             await Application.Current.MainPage.ShowPopupAsync(popup);
 
             popup.Close();
         }
         private async void RecallRecent_Clicked(object sender, EventArgs e)
         {
-            Popup popup = new ChoosePriorityPopup(true);
+            Popup popup = new ChoosePriorityPopup(true, phraseService, statsService);
             await Application.Current.MainPage.ShowPopupAsync(popup);
 
             popup.Close();

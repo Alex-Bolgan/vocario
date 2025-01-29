@@ -4,13 +4,18 @@ namespace ReCallVocabulary.Pages;
 
 public partial class DeleteWordsPage : ContentPage
 {
+    private StatsService _statsService;
+    private PhraseService _phraseService;
     List<Phrase> PhraseList { get; set; }
 
     public List<object> SelectedItems { get; set; } = new List<object>();
 
-    public DeleteWordsPage(DbContextManager dbContextManager)
+    public DeleteWordsPage(DbContextManager dbContextManager, StatsService statsService, PhraseService phraseService)
     {
         PhraseList = dbContextManager.CurrentDictionaryContext.Phrases.ToList();
+        _statsService = statsService;
+        _phraseService = phraseService;
+
         InitializeComponent();
         dictView.ItemsSource = PhraseList;
         dictView.SelectedItems = SelectedItems;
@@ -21,9 +26,9 @@ public partial class DeleteWordsPage : ContentPage
         base.OnDisappearing();
         if (SelectedItems is not null)
         {
-            PhraseService.RemoveRange(SelectedItems.Cast<Phrase>().ToList());
+            _phraseService.RemoveRange(SelectedItems.Cast<Phrase>().ToList());
         }
 
-        StatsService.UpdateAddedNumber();
+        _statsService.UpdateAddedNumber();
     }
 }

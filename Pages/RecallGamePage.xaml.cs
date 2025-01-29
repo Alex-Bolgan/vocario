@@ -4,6 +4,11 @@ namespace ReCallVocabulary.Pages;
 
 public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
 {
+    private PhraseService _phraseService;
+
+    private StatsService _statsService;
+
+
     private List<int> phraseNumberList = new();
 
     private string term = string.Empty;
@@ -12,11 +17,11 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
 
     private int countWithThresholds = 1;
 
-    private int firstPriorityId = PhraseService.GetMinId();
+    private int firstPriorityId;
 
     private int secondPriorityId = 0;
 
-    private int endId = PhraseService.GetMaxId();
+    private int endId;
 
     int randomNumber;
 
@@ -46,12 +51,18 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         }
     }
 
-    public RecallGamePage(bool isOnlyRecent)
+    public RecallGamePage(bool isOnlyRecent, PhraseService phraseService, StatsService statsService)
     {
+
+        _phraseService = phraseService;
+        _statsService = statsService;
+        firstPriorityId = _phraseService.GetMinId();
+        endId = _phraseService.GetMaxId();
+
         InitializeComponent();
         BindingContext = this;
 
-        if (PhraseService.IsEmpty())
+        if (_phraseService.IsEmpty())
         {
             Definition = "Oops. It seems you have an empty dictionary. Try adding some words first";
             definitionLabel.IsVisible = true;
@@ -64,15 +75,15 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         //MinValue is default value
         if (dates[0] == DateTime.MinValue)
         {
-            firstPriorityId = PhraseService.GetFirstIdWithDate(dates[1]);
+            firstPriorityId = _phraseService.GetFirstIdWithDate(dates[1]);
         }
         else
         {
-            firstPriorityId = PhraseService.GetFirstIdWithDate(dates[1]);
-            secondPriorityId = PhraseService.GetFirstIdWithDate(dates[0]);
+            firstPriorityId = _phraseService.GetFirstIdWithDate(dates[1]);
+            secondPriorityId = _phraseService.GetFirstIdWithDate(dates[0]);
         }
 
-        endId = PhraseService.GetMaxIdWithDate(dates[2]);
+        endId = _phraseService.GetMaxIdWithDate(dates[2]);
 
         termLabel.IsVisible = definitionLabel.IsVisible = true;
 
@@ -100,7 +111,7 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         termLabel.IsVisible = false;
 
         int uniqueCount = phraseNumberList.Distinct().Count();
-        StatsService.UpdateRecalledNumber(phraseNumberList.Count,uniqueCount, DateTime.Now);
+        _statsService.UpdateRecalledNumber(phraseNumberList.Count,uniqueCount, DateTime.Now);
         Term = $"Congrats! You recalled {uniqueCount} ({phraseNumberList.Count} with duplicates)!";
 
         answerLabel.Text = "";
@@ -115,9 +126,9 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             do
             {
                 randomNumber = random.Next(firstPriorityId, endId + 1);
-            } while (!PhraseService.PhraseExists(randomNumber));
+            } while (!_phraseService.PhraseExists(randomNumber));
 
-            Phrase newPhrase = PhraseService.GetPhraseById(randomNumber);
+            Phrase newPhrase = _phraseService.GetPhraseById(randomNumber);
             Definition = newPhrase.Definition;
             Term = newPhrase.Term;
             termLabel.IsVisible = false;
@@ -138,10 +149,10 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
             {
                 countWithThresholds = 1;
                 randomNumber = generatingMethod();
-            } while (!PhraseService.PhraseExists(randomNumber));
+            } while (!_phraseService.PhraseExists(randomNumber));
 
             phraseNumberList.Add(randomNumber);
-            Phrase newPhrase = PhraseService.GetPhraseById(randomNumber);
+            Phrase newPhrase = _phraseService.GetPhraseById(randomNumber);
             Definition = newPhrase.Definition;
             Term = newPhrase.Term;
             tagView.ItemsSource = newPhrase.Tags;

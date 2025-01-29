@@ -5,12 +5,16 @@ public partial class AddWordsPage : ContentPage
 {
     private readonly DictionaryContext dictionaryContext;
 
-    private readonly List<string> tagList = PhraseService.GetTags();
+    private StatsService _statsService;
 
-    public AddWordsPage(DbContextManager dbContextManager)
+    private readonly List<string> tagList;
+
+    public AddWordsPage(DbContextManager dbContextManager, StatsService statsService, PhraseService phraseService)
     {
 
         dictionaryContext = dbContextManager.CurrentDictionaryContext;
+        _statsService = statsService;
+        tagList = phraseService.GetTags();
 
         InitializeComponent();
         Tags.ItemsSource = tagList;
@@ -56,6 +60,6 @@ public partial class AddWordsPage : ContentPage
 
     protected override void OnDisappearing()
     {
-        StatsService.UpdateAddedNumber();
+        _statsService.UpdateAddedNumber();
     }
 }
