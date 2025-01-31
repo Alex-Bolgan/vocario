@@ -7,9 +7,9 @@ namespace ReCallVocabulary.Pages;
 public partial class StatsPage : ContentPage
 {
     private StatsContext context;
-	public StatsPage(DbContextManager contextManager)
+	public StatsPage()
     {
-        context = contextManager.CurrentStatsContext;
+        context = ServiceHelper.GetService<DbContextManager>().CurrentStatsContext;
 
 		InitializeComponent();
         SKColor color = SKColor.Parse("#266489");

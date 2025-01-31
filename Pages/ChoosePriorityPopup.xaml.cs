@@ -23,10 +23,10 @@ public partial class ChoosePriorityPopup : Popup
 
     public DateTime EndDate { get; set; } = DateTime.Now;
 
-    public ChoosePriorityPopup(bool isOnlyRecent, PhraseService phraseService, StatsService statsService)
+    public ChoosePriorityPopup(bool isOnlyRecent)
     {
-        _phraseService = phraseService;
-        _statsService = statsService;
+        _phraseService = ServiceHelper.GetService<PhraseService>();
+        _statsService = ServiceHelper.GetService<StatsService>();
         MinDate = _phraseService.GetPhraseById(_phraseService.GetMinId()).CreationDate;
 
         this.isOnlyRecent = isOnlyRecent;
@@ -91,7 +91,7 @@ public partial class ChoosePriorityPopup : Popup
             DateFileHandler.WriteDates(new DateTime[] {FirstStartDate, EndDate });
         }
 
-        await Application.Current.MainPage.Navigation.PushAsync(new RecallGamePage(isOnlyRecent, _phraseService, _statsService));
+        await Application.Current.MainPage.Navigation.PushAsync(new RecallGamePage(isOnlyRecent));
         this.Close();
     }
 }

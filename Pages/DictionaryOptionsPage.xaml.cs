@@ -13,12 +13,12 @@ public partial class DictionaryOptionsPage : ContentPage
     }
     private async void DeleteWordsButton_Clicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(DeleteWordsPage));
+        await Navigation.PushAsync(new Pages.DeleteWordsPage());
     }
 
     private async void AddWordsButton_Clicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(AddWordsPage));
+        await Navigation.PushAsync(new Pages.AddWordsPage());
     }
 
     private async void ShareDictionary_Clicked(object sender, EventArgs e)
@@ -29,7 +29,7 @@ public partial class DictionaryOptionsPage : ContentPage
 
     private async void ChooseDictionaryButton_Clicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(ChooseDictionary));
+        await Navigation.PushAsync(new Pages.DictionaryViewPage());
     }
 
     private async void DeleteDictionaryButton_Clicked(object sender, EventArgs e)

@@ -62,9 +62,9 @@ public partial class PhraseViewPage : ContentPage, INotifyPropertyChanged
         }
     }
 
-    public PhraseViewPage(PhraseService phraseService)
+    public PhraseViewPage()
 	{
-        _phraseService = phraseService;
+        _phraseService = ServiceHelper.GetService<PhraseService>();
         tagList = _phraseService.GetTags();
 
         CurrentPhrase = _phraseService.CurrentPhrase;

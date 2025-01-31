@@ -9,7 +9,13 @@ namespace ReCallVocabulary.Data_Access;
 public static class ServiceHelper
 {
     public static TService GetService<TService>()
-        => Current.GetService<TService>();
+    {
+        if (Current.GetService<TService>() is null)
+            throw new NullReferenceException();
+
+        return Current.GetService<TService>();
+
+    }
 
     public static IServiceProvider Current =>
 #if WINDOWS10_0_17763_0_OR_GREATER

@@ -10,11 +10,11 @@ public partial class DeleteWordsPage : ContentPage
 
     public List<object> SelectedItems { get; set; } = new List<object>();
 
-    public DeleteWordsPage(DbContextManager dbContextManager, StatsService statsService, PhraseService phraseService)
+    public DeleteWordsPage()
     {
-        PhraseList = dbContextManager.CurrentDictionaryContext.Phrases.ToList();
-        _statsService = statsService;
-        _phraseService = phraseService;
+        PhraseList = ServiceHelper.GetService<DbContextManager>().CurrentDictionaryContext.Phrases.ToList();
+        _statsService = ServiceHelper.GetService<StatsService>();
+        _phraseService = ServiceHelper.GetService<PhraseService>();
 
         InitializeComponent();
         dictView.ItemsSource = PhraseList;

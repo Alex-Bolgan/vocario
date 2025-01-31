@@ -16,9 +16,9 @@ public partial class SettingsPage : ContentPage, INotifyPropertyChanged
 
     public DateTime EndDate { get; set; } = DateTime.Now;
 
-    public SettingsPage(PhraseService phraseService)
+    public SettingsPage()
     {
-        _phraseService = phraseService;
+        _phraseService = ServiceHelper.GetService<PhraseService>();
         MinDate = _phraseService.GetPhraseById(_phraseService.GetMinId()).CreationDate;
 
         InitializeComponent();

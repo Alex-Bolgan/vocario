@@ -45,14 +45,14 @@ namespace ReCallVocabulary
         }
         private async void Recall_Clicked(object sender, EventArgs e)
         {
-            Popup popup = new ChoosePriorityPopup(false, phraseService, statsService);
+            Popup popup = new ChoosePriorityPopup(false);
             await Application.Current.MainPage.ShowPopupAsync(popup);
 
             popup.Close();
         }
         private async void RecallRecent_Clicked(object sender, EventArgs e)
         {
-            Popup popup = new ChoosePriorityPopup(true, phraseService, statsService);
+            Popup popup = new ChoosePriorityPopup(true);
             await Application.Current.MainPage.ShowPopupAsync(popup);
 
             popup.Close();

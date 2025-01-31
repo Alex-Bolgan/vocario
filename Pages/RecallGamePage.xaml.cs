@@ -51,11 +51,11 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
         }
     }
 
-    public RecallGamePage(bool isOnlyRecent, PhraseService phraseService, StatsService statsService)
+    public RecallGamePage(bool isOnlyRecent)
     {
 
-        _phraseService = phraseService;
-        _statsService = statsService;
+        _phraseService = ServiceHelper.GetService<PhraseService>();
+        _statsService = ServiceHelper.GetService<StatsService>();
         firstPriorityId = _phraseService.GetMinId();
         endId = _phraseService.GetMaxId();
 
