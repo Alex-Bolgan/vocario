@@ -10,10 +10,11 @@ public partial class DictionaryViewPage : ContentPage
 
     private readonly List<string> tagList;
 
-    public DictionaryViewPage(DbContextManager dbContextManager, PhraseService phraseService)
+    public DictionaryViewPage()
     {
+        DbContextManager dbContextManager = ServiceHelper.GetService<DbContextManager>();
         PhraseList = dbContextManager.CurrentDictionaryContext.Phrases.ToList();
-        _phraseService = phraseService;
+        _phraseService = ServiceHelper.GetService<PhraseService>();
         tagList = _phraseService.GetTags();
 
         InitializeComponent();

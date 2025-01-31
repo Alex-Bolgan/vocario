@@ -9,12 +9,12 @@ public partial class AddWordsPage : ContentPage
 
     private readonly List<string> tagList;
 
-    public AddWordsPage(DbContextManager dbContextManager, StatsService statsService, PhraseService phraseService)
+    public AddWordsPage()
     {
 
-        dictionaryContext = dbContextManager.CurrentDictionaryContext;
-        _statsService = statsService;
-        tagList = phraseService.GetTags();
+        dictionaryContext = ServiceHelper.GetService<DbContextManager>().CurrentDictionaryContext;
+        _statsService = ServiceHelper.GetService<StatsService>();
+        tagList = ServiceHelper.GetService<PhraseService>().GetTags();
 
         InitializeComponent();
         Tags.ItemsSource = tagList;

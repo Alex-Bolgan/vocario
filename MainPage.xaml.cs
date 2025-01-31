@@ -12,12 +12,10 @@ namespace ReCallVocabulary
         private StatsService statsService;
 
         private PhraseService phraseService;
-        public MainPage(DbContextManager dbContextManager, StatsService statsService, PhraseService phraseService)
+        public MainPage()
         {
-            statsContext = dbContextManager.CurrentStatsContext;
-            dictionaryContext = dbContextManager.CurrentDictionaryContext;
-            this.statsService = statsService;
-            this.phraseService = phraseService;
+            statsContext = ServiceHelper.GetService<DbContextManager>().CurrentStatsContext;
+            dictionaryContext = ServiceHelper.GetService<DbContextManager>().CurrentDictionaryContext;
 
             InitializeComponent();
             if (!Directory.Exists(Path.GetDirectoryName(dictionaryContext.MyPath)))
@@ -61,11 +59,11 @@ namespace ReCallVocabulary
         }
         private async void Addwords_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(nameof(AddWordsPage));
+            await Navigation.PushAsync(new Pages.AddWordsPage());
         }
         private async void SeeDictionary_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(nameof(DictionaryViewPage));
+            await Navigation.PushAsync(new Pages.DictionaryViewPage());
         }
     }
 }

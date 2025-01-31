@@ -5,11 +5,11 @@ namespace ReCallVocabulary
 {
     public partial class App : Application
     {
-        public App(MainPage page)
+        public App(AppShell shell)
         {
             InitializeComponent();
 
-            MainPage = page;
+            MainPage = shell;
         }
     }
 }
