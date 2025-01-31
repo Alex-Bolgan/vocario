@@ -18,27 +18,27 @@
            
     </FlyoutItem>
 
-    <FlyoutItem x:Name="dictionaryView" Title="My dictionary"  Route="Pages.DictionaryViewPage">
+    <FlyoutItem x:Name="dictionaryView" Title="My dictionary">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate pages:DictionaryViewPage}"/>
+            <ShellContent ContentTemplate="{DataTemplate pages:DictionaryViewPage}" Route="Pages.DictionaryViewPage"/>
         </Tab>
     </FlyoutItem>
 
-    <FlyoutItem Title="Dictionary options"  Route="Pages.DictionaryOptionsPage">
+    <FlyoutItem Title="Dictionary options">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate pages:DictionaryOptionsPage}"/>
+            <ShellContent ContentTemplate="{DataTemplate pages:DictionaryOptionsPage}"  Route="Pages.DictionaryOptionsPage"/>
         </Tab>
     </FlyoutItem>
 
-    <FlyoutItem Title="Statistics"  Route="Pages.StatsPage">
+    <FlyoutItem Title="Statistics">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate pages:StatsPage}"/>
+            <ShellContent ContentTemplate="{DataTemplate pages:StatsPage}" Route="Pages.StatsPage"/>
         </Tab>
     </FlyoutItem>
 
-    <FlyoutItem Title="Settings"  Route="Pages.SettingsPage">
+    <FlyoutItem Title="Settings">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate pages:SettingsPage}"/>
+            <ShellContent ContentTemplate="{DataTemplate pages:SettingsPage}" Route="Pages.SettingsPage"/>
         </Tab>
     </FlyoutItem>
 
