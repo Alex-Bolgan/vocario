@@ -1,10 +1,19 @@
 ﻿namespace ReCallVocabulary.Data_Access
 {
-    public static class StatsService
+    public class StatsService
     {
-        public static async void UpdateAddedNumber()
+        private PhraseService _phraseService;
+
+        private StatsContext _statsContext;
+
+        public StatsService(DbContextManager dbContextManager, PhraseService phraseService)
         {
-            int addedToday = PhraseService.GetNumberOfAddedToday();
+            _phraseService = phraseService;
+            _statsContext = dbContextManager.CurrentStatsContext;
+        }
+        public async void UpdateAddedNumber()
+        {
+            int addedToday = _phraseService.GetNumberOfAddedToday();
 
             if (addedToday < 0)
             {
@@ -12,9 +21,9 @@
             }
 
             StatsRecord? currentRecord;
-            if ((currentRecord = await App.statsContext.StatsRecords.FindAsync(DateTime.Today)) is null)
+            if ((currentRecord = await _statsContext.StatsRecords.FindAsync(DateTime.Today)) is null)
             {
-                await App.statsContext.AddAsync(new StatsRecord()
+                await _statsContext.AddAsync(new StatsRecord()
                 {
                     Date = DateTime.Today,
                     AddedNumber = addedToday
@@ -26,20 +35,20 @@
 
                 if (addedToday == 0)
                 {
-                    App.statsContext.StatsRecords.Remove(currentRecord);
+                    _statsContext.StatsRecords.Remove(currentRecord);
                 }
             }
 
-            await App.statsContext.SaveChangesAsync();
+            await _statsContext.SaveChangesAsync();
         }
 
-        public static async void UpdateRecalledNumber(int number, int uniqueNumber, DateTime creationDate)
+        public async void UpdateRecalledNumber(int number, int uniqueNumber, DateTime creationDate)
         {
             StatsRecord? currentRecord;
 
-            if ((currentRecord = await App.statsContext.StatsRecords.FindAsync(creationDate.Date)) is null)
+            if ((currentRecord = await _statsContext.StatsRecords.FindAsync(creationDate.Date)) is null)
             {
-                await App.statsContext.StatsRecords.AddAsync(new StatsRecord()
+                await _statsContext.StatsRecords.AddAsync(new StatsRecord()
                 {
                     Date = DateTime.Today,
                     RecalledNumber = number,
@@ -52,7 +61,7 @@
                 currentRecord.UniqueRecalledNumber += uniqueNumber;
             }
 
-            await App.statsContext.SaveChangesAsync();
+            await _statsContext.SaveChangesAsync();
         }
     }
 }

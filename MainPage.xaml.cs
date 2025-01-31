@@ -5,22 +5,27 @@ namespace ReCallVocabulary
 {
     public partial class MainPage : ContentPage
     {
-        private DictionaryContext activeContext = App.ActiveContext ??
-        throw new ArgumentNullException(nameof(activeContext));
+        private DictionaryContext dictionaryContext;
         
-        private StatsContext statsContext = App.statsContext ??
-                                            throw new ArgumentNullException(nameof(statsContext));
+        private StatsContext statsContext;
+
+        private StatsService statsService;
+
+        private PhraseService phraseService;
         public MainPage()
         {
+            statsContext = ServiceHelper.GetService<DbContextManager>().CurrentStatsContext;
+            dictionaryContext = ServiceHelper.GetService<DbContextManager>().CurrentDictionaryContext;
+
             InitializeComponent();
-            if (!Directory.Exists(Path.GetDirectoryName(activeContext.MyPath)))
+            if (!Directory.Exists(Path.GetDirectoryName(dictionaryContext.MyPath)))
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(activeContext.MyPath)!);
+                Directory.CreateDirectory(Path.GetDirectoryName(dictionaryContext.MyPath)!);
             }
 
-            if (!File.Exists(activeContext.MyPath))
+            if (!File.Exists(dictionaryContext.MyPath))
             {
-                var myFile = File.Create(activeContext.MyPath);
+                var myFile = File.Create(dictionaryContext.MyPath);
                 myFile.Close();
             }
 
@@ -35,7 +40,7 @@ namespace ReCallVocabulary
                 myFile.Close();
             }
 
-            activeContext.Database.EnsureCreated();
+            dictionaryContext.Database.EnsureCreated();
             statsContext.Database.EnsureCreated();
         }
         private async void Recall_Clicked(object sender, EventArgs e)
@@ -58,7 +63,7 @@ namespace ReCallVocabulary
         }
         private async void SeeDictionary_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(nameof(DictionaryViewPage));
+            await Navigation.PushAsync(new Pages.DictionaryViewPage());
         }
     }
 }

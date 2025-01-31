@@ -5,11 +5,12 @@ namespace ReCallVocabulary.Pages;
 
 public partial class SettingsPage : ContentPage, INotifyPropertyChanged
 {
+    private PhraseService _phraseService;
     public DateTime FirstStartDate { get; set; } = DateTime.Now;
 
     public DateTime? SecondStartDate { get; set; } = null;
 
-    private DateTime MinDate { get; set; } = PhraseService.GetPhraseById(PhraseService.GetMinId()).CreationDate;
+    private DateTime MinDate { get; set; }
 
     private DateTime FirstMaxDate { get; set; } = DateTime.Now;
 
@@ -17,6 +18,9 @@ public partial class SettingsPage : ContentPage, INotifyPropertyChanged
 
     public SettingsPage()
     {
+        _phraseService = ServiceHelper.GetService<PhraseService>();
+        MinDate = _phraseService.GetPhraseById(_phraseService.GetMinId()).CreationDate;
+
         InitializeComponent();
         DateTime[] dates = DateFileHandler.GetDates();
 

@@ -3,12 +3,19 @@ using ReCallVocabulary.Data_Access;
 namespace ReCallVocabulary.Pages;
 public partial class AddWordsPage : ContentPage
 {
-    private readonly DictionaryContext activeContext = (App.ActiveContext ?? throw new ArgumentNullException(nameof(activeContext)));
+    private readonly DictionaryContext dictionaryContext;
 
-    private readonly List<string> tagList = PhraseService.GetTags();
+    private StatsService _statsService;
+
+    private readonly List<string> tagList;
 
     public AddWordsPage()
     {
+
+        dictionaryContext = ServiceHelper.GetService<DbContextManager>().CurrentDictionaryContext;
+        _statsService = ServiceHelper.GetService<StatsService>();
+        tagList = ServiceHelper.GetService<PhraseService>().GetTags();
+
         InitializeComponent();
         Tags.ItemsSource = tagList;
     }
@@ -36,10 +43,10 @@ public partial class AddWordsPage : ContentPage
 
     private async void AddButton_Clicked(object sender, EventArgs e)
     {
-        activeContext.Database.EnsureCreated();
+        dictionaryContext.Database.EnsureCreated();
         if (!String.IsNullOrWhiteSpace(phraseEntry.Text) && !String.IsNullOrWhiteSpace(definitionEntry.Text))
         {
-            await activeContext.Phrases.AddAsync(new Phrase
+            await dictionaryContext.Phrases.AddAsync(new Phrase
             {
                 Term = phraseEntry.Text,
                 Definition = definitionEntry.Text,
@@ -48,11 +55,11 @@ public partial class AddWordsPage : ContentPage
             });
         }
 
-        await activeContext.SaveChangesAsync();
+        await dictionaryContext.SaveChangesAsync();
     }
 
     protected override void OnDisappearing()
     {
-        StatsService.UpdateAddedNumber();
+        _statsService.UpdateAddedNumber();
     }
 }
