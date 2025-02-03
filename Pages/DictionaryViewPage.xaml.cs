@@ -38,7 +38,7 @@ public partial class DictionaryViewPage : ContentPage
         if (e.CurrentSelection.Count > 0 && (item = e.CurrentSelection[0] as Phrase) is not null)
         {
             _phraseService.CurrentPhrase = item;
-            await Shell.Current.GoToAsync(nameof(PhraseViewPage));
+            await Navigation.PushAsync(new Pages.PhraseViewPage());
             DictView.SelectedItem = null;
         }
     }

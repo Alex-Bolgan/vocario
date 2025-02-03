@@ -23,8 +23,6 @@ namespace ReCallVocabulary
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-            builder.Services.AddTransient<MainPage>();
-            builder.Services.AddSingleton<AppShell>();
 
             builder.Services.AddSingleton<DbContextManager>();
             builder.Services.AddSingleton<PhraseService>();
