@@ -8,7 +8,6 @@ public partial class RecallGamePage : ContentPage, INotifyPropertyChanged
 
     private StatsService _statsService;
 
-
     private List<int> phraseNumberList = new();
 
     private string term = string.Empty;

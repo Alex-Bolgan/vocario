@@ -2,6 +2,7 @@
 using Microcharts.Maui;
 using Microsoft.Extensions.Logging;
 using ReCallVocabulary.Data_Access;
+using ReCallVocabulary.Pages;
 
 namespace ReCallVocabulary
 {
@@ -23,8 +24,12 @@ namespace ReCallVocabulary
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+
             builder.Services.AddTransient<MainPage>();
-            builder.Services.AddSingleton<AppShell>();
+            builder.Services.AddTransient<DictionaryViewPage>();
+            builder.Services.AddTransient<DictionaryOptionsPage>();
+            builder.Services.AddTransient<StatsPage>();
+            builder.Services.AddTransient<SettingsPage>();
 
             builder.Services.AddSingleton<DbContextManager>();
             builder.Services.AddSingleton<PhraseService>();

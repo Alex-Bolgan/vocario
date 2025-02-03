@@ -45,7 +45,7 @@ namespace ReCallVocabulary.Data_Access
         public int GetMaxIdWithDate(DateTime date)
         {
             Phrase? result = dictionaryContext.Phrases
-                .Where(x => x.CreationDate <= date)
+                .Where(x => x.CreationDate < date.AddDays(1))
                 .OrderBy(p => p.Id)
                 .LastOrDefault();
 
